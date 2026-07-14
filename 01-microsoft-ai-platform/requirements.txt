@@ -1,0 +1,11 @@
+openai
+azure-identity
+azure-ai-projects
+azure-ai-agents
+azure-ai-inference
+agent-framework
+msal
+requests
+python-dotenv
+jupyter
+ipykernel
