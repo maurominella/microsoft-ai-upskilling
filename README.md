@@ -62,16 +62,13 @@ Each session folder is self-describing; the two upcoming sessions will follow th
 
 ## License & disclaimer
 
-Released under the [MIT License](LICENSE) — you are free to use, copy, modify and redistribute this material, with attribution.
+Released under the [MIT License](LICENSE) — you are free to use, copy, modify and redistribute this material, with attribution. It is provided **"as is", without warranty or support**.
 
 > [!IMPORTANT]
-> This material is provided **"as is", without warranty and without support**. It is intended for **learning and comprehension** and is **not officially maintained over time**. Some of the technologies covered are in **preview/Beta** and change frequently, so **no guarantees** are given that the samples keep working as-is. The MIT License above disclaims warranty and liability accordingly.
+> **Please read the full [Disclaimer](disclaimer.md) before using these materials.** In brief: this is a **personal, unofficial** repository (**not** an official Microsoft product); it is a **work in progress**; it is provided for **learning only** and is **not a substitute for official Microsoft documentation**; and it is **not maintained over time** — some technologies are in **Preview** and change frequently, so no guarantees are given.
 >
-> The **authoritative, maintained** repository of samples remains Microsoft's official one: **https://github.com/microsoft-foundry/foundry-samples/**
-
-> [!NOTE]
-> This is a **personal, unofficial** repository prepared for a specific training engagement. It is **not an official Microsoft product** and does not represent Microsoft.
+> The **authoritative, maintained** samples remain Microsoft's official repository: **https://github.com/microsoft-foundry/foundry-samples/**
 
 ---
 
-*Prepared by Mauro Minella — Senior Cloud Solution Architect, Microsoft.*
+*Prepared by Mauro Minella — Cloud Solution Architect, Cloud AI and Apps, Microsoft.*
