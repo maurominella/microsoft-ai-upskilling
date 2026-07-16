@@ -2,9 +2,11 @@
 
 ### A hands‑on lab for the *Microsoft Agentic Platform* upskilling — the four IQs · **Ground with Foundry IQ**
 
-> **What this lab is.** You will turn a pile of scattered Zava documents — equipment manuals, operating policies, and a known‑software‑issues file — into a single **retrieval agent** in **Azure AI Search**, surface it through **Foundry IQ**, and plug it into a Foundry agent as an **MCP tool**. By the end, an agent will answer a real field question the way a senior technician would: grounded, cited, and *policy‑aware*.
+> **What this lab is.** You will turn a pile of scattered Zava documents — equipment manuals, operating policies, and a known‑software‑issues file — into a single **knowledge base** in **Azure AI Search**, expose it through **Foundry IQ**, and attach it to a Foundry agent (as **Knowledge**; MCP is the transport under the hood). By the end, an agent will answer a real field question the way a senior technician would: grounded, cited, and *policy‑aware*.
 >
 > **Time:** ~60–75 min · **Level:** Intermediate · **Language:** English · **Format:** follow top‑to‑bottom.
+>
+> **📌 Updated (portal‑accurate).** An earlier draft of this lab told you to *copy an MCP endpoint URL from a “Use in agent” pane* and add a *“Foundry IQ” MCP server*. That was based on an older preview. In the current portal, a Foundry IQ **knowledge base** is attached to an agent through **Knowledge** (via **Use in an agent**) — there is no URL to copy and no “Foundry IQ” entry in the MCP‑servers list. MCP is still used *under the hood*, and you can wire it explicitly **in code** (Step 6). Endpoints and API versions below use the current **`2026-05-01-preview`** (agentic retrieval is GA in **`2026-04-01`**).
 
 ---
 
@@ -15,17 +17,17 @@ In the session we framed grounding for agents as **four IQs**. This lab is entir
 | IQ | Grounds the agent in… | In this lab |
 |----|-----------------------|-------------|
 | **Work IQ** | The user's M365 work context (mail, chats, files) | — |
-| **Foundry IQ** ⭐ | **Your enterprise knowledge — documents, policies, data — via a retrieval layer** | **This is what we build** |
+| **Foundry IQ** ⭐ | **Your enterprise knowledge — documents, policies, data — via a knowledge base** | **This is what we build** |
 | **Web IQ** | Fresh public web knowledge | Mentioned as a contrast |
 | **Fabric IQ** | Business entities & semantics from Microsoft Fabric | Covered in its own deep‑dive |
 
-**Foundry IQ** is the knowledge layer of Microsoft Foundry: you define **knowledge sources** (a search index, a blob container, a website…), group them into a **knowledge base / retrieval agent**, and any agent can call it to get grounded answers *with citations*. Under the hood it runs **Azure AI Search agentic retrieval** — it plans, decomposes the question into sub‑queries, searches in parallel, ranks, and returns a synthesized, sourced answer.
+**Foundry IQ** is the knowledge layer of Microsoft Foundry: you define **knowledge sources** (a blob container, a search index, a website, SharePoint…), group them into a **knowledge base**, and any agent can consume that knowledge base to get grounded answers *with citations*. Under the hood it runs **Azure AI Search agentic retrieval** — it plans, decomposes the question into sub‑queries, searches in parallel, ranks, and returns a synthesized, sourced answer.
 
 ---
 
 ## 1 · The story (start here — this is the "why")
 
-> 🧭 **Journey** · **1 ▶ Story** · 2 Data · 3 Stage · 4 Build the retrieval agent · 5 Foundry IQ · 6 Attach via MCP · 7 Run the demo · 8 Debrief
+> 🧭 **Journey** · **1 ▶ Story** · 2 Data · 3 Stage · 4 Build the knowledge base · 5 Foundry IQ · 6 Attach to agent · 7 Run the demo · 8 Debrief
 
 Meet **Zava** — a company that builds and services advanced manufacturing equipment (robotic 3D circuit‑board printers, edge control nodes, graphene reclaim tanks, garment cut‑sew systems). When something goes wrong on a customer site, a **field technician** shows up with a tablet and a problem.
 
@@ -53,14 +55,14 @@ One question, three documents, the *right* action — with citations. That's Fou
 
 ## 2 · The knowledge you'll ground on (the Zava corpus)
 
-> 🧭 **Journey** · 1 Story · **2 ▶ Data** · 3 Stage · 4 Build the retrieval agent · 5 Foundry IQ · 6 Attach via MCP · 7 Run the demo · 8 Debrief
+> 🧭 **Journey** · 1 Story · **2 ▶ Data** · 3 Stage · 4 Build the knowledge base · 5 Foundry IQ · 6 Attach to agent · 7 Run the demo · 8 Debrief
 
 Your source content lives in **four folders** (this is the *"documents present"* asset you were given). Take two minutes to look at them — knowing the shape of the data makes every later step obvious.
 
 | Folder | What's inside | Why it matters for the demo |
 |--------|---------------|-----------------------------|
 | **`manuals`** | 9 Markdown product manuals (Edge Control Node P4311/P4324, Delta Nano Circuit‑Board 3D Printer, Graphene Vapor Reclaim Tank, IoT Edge Control Node, garment cut‑sew system…) | The *"what the indicator/part means"* knowledge |
-| **`manualsvisuals`** | Same manuals **plus images** (`etcher.png`, `reclaimtank.png`, `printinglacingstand.png`) | Lets us show **multimodal grounding** — the retrieval layer can *verbalize* images so the agent can reason over diagrams |
+| **`manualsvisuals`** | Same manuals **plus images** (`etcher.png`, `reclaimtank.png`, `printinglacingstand.png`) | Lets us show **multimodal grounding** — the knowledge base can *verbalize* images so the agent can reason over diagrams |
 | **`policy`** | 11 Markdown policies (Safety, **Repair vs Replace**, **Edge Equipment Guidelines** incl. **On‑Site Movement** & **Power Adapter Replacement**, Copilot‑for‑diagnostics, Compliance…) | The *"what the technician is allowed to do"* knowledge — the part a naive search misses |
 | **`softwareissues`** | `zava_software_issues.json` — a structured file of known software issues | The *"is this a known bug?"* knowledge |
 
@@ -72,23 +74,24 @@ Your source content lives in **four folders** (this is the *"documents present"*
 
 ## 3 · Prerequisites & the assets you already have
 
-> 🧭 **Journey** · 1 Story · 2 Data · **3 ▶ Stage** · 4 Build the retrieval agent · 5 Foundry IQ · 6 Attach via MCP · 7 Run the demo · 8 Debrief
+> 🧭 **Journey** · 1 Story · 2 Data · **3 ▶ Stage** · 4 Build the knowledge base · 5 Foundry IQ · 6 Attach to agent · 7 Run the demo · 8 Debrief
 
 **Given (assume these exist — do not build them in this lab):**
 
-- ✅ **A Microsoft Foundry project** (`zava-foundry`) with a deployed chat model (e.g. `gpt-4.1`) and an embedding model (`text-embedding-3-large`).
+- ✅ **A Microsoft Foundry project** (`zava-foundry`) with a deployed chat model (e.g. `gpt-4.1`), a small planner model (`gpt-4.1-mini`), and an embedding model (`text-embedding-3-large`).
 - ✅ **An Azure AI Search service** (`zava-search`, Basic tier or higher, with **semantic ranker** enabled).
 - ✅ **The Zava documents** (the four folders above).
 
 **You will need:**
 
 - The **Azure AI Foundry** portal and the **Azure** portal, with `Owner`/`Contributor` on the resource group.
-- A terminal with `az` CLI and Python 3.10+ (only for the optional code paths).
-- Role assignments so the services can talk to each other with **Managed Identity** (recommended over keys):
-  - Azure AI Search → **Search Index Data Contributor** + **Search Service Contributor** on itself for the caller.
+- The latest preview Python SDK (`azure-ai-projects>=2.0.0`) and `az` CLI — only for the optional code paths.
+- Role assignments so the services talk to each other with **Managed Identity** (recommended over keys):
+  - On the project's parent resource: **Foundry Project Manager** (to create the project connection for MCP) and **Foundry User** (to use the tool in agents). *(These were formerly “Azure AI Project Manager / Azure AI User”.)*
+  - The project's **system‑assigned managed identity** → **Search Index Data Reader** on `zava-search` (add **Search Index Data Contributor** only if the agent must write).
   - Azure AI Search's managed identity → **Storage Blob Data Reader** on the storage account, and **Cognitive Services OpenAI User** on the Azure OpenAI/Foundry resource (for integrated vectorization).
 
-> ⚠️ **Preview note.** Foundry IQ, Azure AI Search *knowledge sources / knowledge bases*, and *agentic retrieval over MCP* are evolving fast (this content targets the **ZavaIgnite2025** timeframe). Treat every REST `api-version`, JSON body, and MCP URL below as **representative** — copy the exact values from your portal and the current [Microsoft Learn docs](https://learn.microsoft.com/azure/search/search-agentic-retrieval-concept). The *concepts and the sequence* are stable; the exact field names may shift.
+> ⚠️ **Preview note.** Foundry IQ, Azure AI Search *knowledge bases*, and *agentic retrieval over MCP* are evolving fast. This lab targets the current **`2026-05-01-preview`** REST API (agentic retrieval is GA in **`2026-04-01`**); the project‑connection call uses the ARM **`2025-10-01-preview`**. Treat every REST body below as **representative** — confirm exact field names against the current [Microsoft Learn docs](https://learn.microsoft.com/azure/foundry/agents/how-to/foundry-iq-connect). The *concepts and the sequence* are stable.
 
 ### 3.1 Stage the documents in a blob container (verify‑or‑upload)
 
@@ -110,37 +113,39 @@ az storage blob upload-batch \
 
 ---
 
-## 4 · Build the retrieval agent in Azure AI Search
+## 4 · Build the knowledge base in Azure AI Search
 
-> 🧭 **Journey** · 1 Story · 2 Data · 3 Stage · **4 ▶ Build the retrieval agent** · 5 Foundry IQ · 6 Attach via MCP · 7 Run the demo · 8 Debrief
+> 🧭 **Journey** · 1 Story · 2 Data · 3 Stage · **4 ▶ Build the knowledge base** · 5 Foundry IQ · 6 Attach to agent · 7 Run the demo · 8 Debrief
 >
-> **This is the heart of the lab.** A *retrieval agent* = an index that understands the Zava content + a knowledge agent that plans and searches over it. We'll build it the fast way (a **knowledge source** that auto‑indexes), then peek under the hood.
+> **This is the heart of the lab.** A **knowledge base** = one or more **knowledge sources** (which ingest + vectorize the Zava content) plus the **agentic‑retrieval brain** that plans, searches, ranks, and cites over them. We'll build it the fast way (the Blob wizard auto‑indexes), then peek under the hood.
 
-Think of three objects:
+Think of the objects:
 
 ```mermaid
 flowchart LR
-    A["📁 Blob container<br/>zava-knowledge"] --> B["🧩 Knowledge source<br/>zava-knowledge-source<br/><i>chunk + vectorize + index</i>"]
-    B --> C["🤖 Knowledge agent (retrieval agent)<br/>zava-retrieval-agent<br/><i>plan · sub-queries · rank · cite</i>"]
-    C --> D["💬 /retrieve<br/>grounded answer + references + activity"]
+    A["📁 Blob container<br/>zava-knowledge"] --> B["🧩 Knowledge source<br/><i>chunk + vectorize + index</i>"]
+    B --> C["🧠 Knowledge base<br/>zava-knowledge-source<br/><i>plan · sub-queries · rank · cite</i>"]
+    C --> D["💬 /retrieve  ·  /mcp<br/>grounded answer + references + activity"]
 ```
 
-### 4a · Create the knowledge source (ingest + chunk + vectorize)
+> 🏷️ **About the name.** The Blob wizard creates the knowledge source **and** a knowledge base, and it commonly names the base after the container/source. In this walkthrough (and likely in your tenant) the knowledge base shows up under project **Knowledge** as **`zava-knowledge-source`** — that single object is what you attach to agents. Use whatever name you see; it's the same thing.
 
-A **knowledge source** of kind `azureBlob` points Azure AI Search at your container and **auto‑builds a vector index** with *integrated vectorization* (it chunks each document and embeds the chunks with your Azure OpenAI embedding deployment). Because the `manualsvisuals` folder has images, we also attach a chat model so the pipeline can **verbalize images** (turn diagrams into searchable text).
+### 4a · Create the knowledge base from the blob container (ingest + chunk + vectorize)
+
+The **Azure Blob** knowledge base wizard points Azure AI Search at your container and **auto‑builds a vector index** with *integrated vectorization* (it chunks each document and embeds the chunks with your Azure OpenAI embedding deployment). Because the `manualsvisuals` folder has images, we also attach a chat model so the pipeline can **verbalize images** (turn diagrams into searchable text).
 
 **Portal path (recommended for the demo):**
-`Azure portal → your Search service → Knowledge sources → + Add → Azure Blob` → pick the `zava-knowledge` container → set the embedding deployment `text-embedding-3-large` → (optional) set an image‑verbalization chat model `gpt-4.1-mini` → **Create**. The wizard creates and runs the indexer for you.
+`Azure portal → your Search service → Knowledge bases → + Create → Azure Blob` → pick the `zava-knowledge` container → set the embedding deployment `text-embedding-3-large` → (optional) set an image‑verbalization chat model `gpt-4.1-mini` → **Create**. The wizard creates the knowledge source, the index + indexer, and the knowledge base (named e.g. `zava-knowledge-source`) for you.
 
-**REST (power path):**
+**REST (power path — representative; confirm the schema in current docs):**
 
 ```http
-PUT https://zava-search.search.windows.net/knowledgeSources/zava-knowledge-source?api-version=2025-08-01-preview
+PUT https://zava-search.search.windows.net/knowledgeSources/zava-knowledge-source-blob?api-version=2026-05-01-preview
 Content-Type: application/json
 Authorization: Bearer <aad-token>
 
 {
-  "name": "zava-knowledge-source",
+  "name": "zava-knowledge-source-blob",
   "kind": "azureBlob",
   "description": "Zava manuals, visuals, policies and known software issues",
   "azureBlobParameters": {
@@ -166,37 +171,32 @@ Authorization: Bearer <aad-token>
 }
 ```
 
-> 🔍 **What just happened:** Azure AI Search created an index (chunks + vector embeddings + a semantic configuration) and an indexer that keeps it in sync with the blob container. You did **not** have to design the schema by hand — that's the point of a knowledge source.
+> 🔍 **What just happened:** Azure AI Search created an index (chunks + vector embeddings + a semantic configuration) and an indexer that keeps it in sync with the blob container — no hand‑designed schema. In the next sub‑step this knowledge source is wrapped by a **knowledge base**.
 
 ✅ **Checkpoint 4a:** the knowledge source shows **succeeded** and its backing index has documents (rows) > 0.
 
-<details>
-<summary><b>Under the hood — the "explicit" pipeline (optional, for the production‑minded)</b></summary>
+### 4b · Configure the knowledge base (planner model + citations)
 
-If you'd rather build the pieces yourself (more control, what runs in production), create four classic objects instead of the knowledge source:
+The **knowledge base** is the brain: given a conversation, it uses a small, fast chat model to **plan** (decompose the question into focused sub‑queries), runs them **in parallel** against its knowledge source(s), **semantically ranks** the hits, and returns a **synthesized answer with references and an activity trace**. The Blob wizard already created the base; here you confirm/adjust its planner model and that it returns references.
 
-1. **Index** `zava-knowledge-index` — fields `id`, `parent_id`, `folder`, `title`, `chunk` (searchable), `chunk_vector` (`Collection(Edm.Single)`, HNSW), a **vectorizer** bound to `text-embedding-3-large`, and a **semantic configuration**.
-2. **Data source** `zava-blob` — connection to container `zava-knowledge`.
-3. **Skillset** `zava-skillset` — `SplitSkill` (chunking) → `AzureOpenAIEmbeddingSkill` (integrated vectorization) → *(optional)* an image‑verbalization skill for `manualsvisuals`.
-4. **Indexer** `zava-indexer` — binds data source → skillset → index; run it.
-
-Then in Step 4b reference this index with a `searchIndex` knowledge source instead of `azureBlob`. Same result, more knobs.
-</details>
-
-### 4b · Create the knowledge agent (the "retrieval agent")
-
-The **knowledge agent** is the brain: given a conversation, it uses a small, fast chat model to **plan** (decompose the question into focused sub‑queries), runs them **in parallel** against the knowledge source, **semantically ranks** the hits, and returns a **synthesized answer with references and an activity trace**.
-
-**REST:**
+**REST (representative — the portal wizard sets sensible defaults):**
 
 ```http
-PUT https://zava-search.search.windows.net/agents/zava-retrieval-agent?api-version=2025-08-01-preview
+PUT https://zava-search.search.windows.net/knowledgeBases/zava-knowledge-source?api-version=2026-05-01-preview
 Content-Type: application/json
 Authorization: Bearer <aad-token>
 
 {
-  "name": "zava-retrieval-agent",
+  "name": "zava-knowledge-source",
   "description": "Zava field-support knowledge: manuals, policies, known issues",
+  "knowledgeSources": [
+    {
+      "name": "zava-knowledge-source-blob",
+      "includeReferences": true,
+      "includeReferenceSourceData": true,
+      "rerankerThreshold": 2.0
+    }
+  ],
   "models": [
     {
       "kind": "azureOpenAI",
@@ -207,33 +207,22 @@ Authorization: Bearer <aad-token>
       }
     }
   ],
-  "knowledgeSources": [
-    {
-      "name": "zava-knowledge-source",
-      "includeReferences": true,
-      "includeReferenceSourceData": true,
-      "rerankerThreshold": 2.0
-    }
-  ],
-  "outputConfiguration": {
-    "modality": "answerSynthesis",
-    "includeActivity": true
-  }
+  "outputConfiguration": { "modality": "answerSynthesis", "includeActivity": true }
 }
 ```
 
-> 🧠 **Why a planner model?** The magic of *agentic* retrieval is that the agent rewrites and splits the question. *"Red CTL11 light — should I move it?"* becomes sub‑queries like *"CTL11 red indicator meaning P4311"*, *"firmware 1.12 CTL11 false positive"*, and *"policy relocating edge node intermittent fault"* — then it fuses the results. A plain search box can't do that.
+> 🧠 **Why a planner model?** The magic of *agentic* retrieval is that the base rewrites and splits the question. *"Red CTL11 light — should I move it?"* becomes sub‑queries like *"CTL11 red indicator meaning P4311"*, *"firmware 1.12 CTL11 false positive"*, and *"policy relocating edge node intermittent fault"* — then it fuses the results. A plain search box can't do that.
 
-✅ **Checkpoint 4b:** `GET /agents/zava-retrieval-agent` returns your agent.
+✅ **Checkpoint 4b:** the knowledge base **`zava-knowledge-source`** exists and lists your blob knowledge source.
 
 ### 4c · Test retrieval (see the plan + the citations)
 
-Before touching Foundry, prove the retrieval agent works on its own.
+Before touching Foundry, prove the knowledge base works on its own by calling its **`/retrieve`** action directly.
 
 **REST:**
 
 ```http
-POST https://zava-search.search.windows.net/agents/zava-retrieval-agent/retrieve?api-version=2025-08-01-preview
+POST https://zava-search.search.windows.net/knowledgeBases/zava-knowledge-source/retrieve?api-version=2026-05-01-preview
 Content-Type: application/json
 Authorization: Bearer <aad-token>
 
@@ -245,9 +234,6 @@ Authorization: Bearer <aad-token>
         { "type": "text", "text": "A P4311 edge node keeps showing an intermittent red CTL11 light. Should I move it to a better spot in the plant?" }
       ]
     }
-  ],
-  "knowledgeSourceParams": [
-    { "knowledgeSourceName": "zava-knowledge-source", "kind": "searchIndex" }
   ]
 }
 ```
@@ -258,89 +244,52 @@ Authorization: Bearer <aad-token>
 2. **`references`** — the exact chunks it used, with source file names (`IOT Edge Control Node.md`, `11_Edge_Equipement_Guidelines.md`). **This is the trust layer.**
 3. **`activity`** — the plan: the sub‑queries it generated and how long each took. **This is the "agentic" proof.**
 
-<details>
-<summary><b>Same test in Python</b></summary>
+> 🐍 **Prefer code?** The end‑to‑end Python sample [`agentic-retrieval-pipeline-example`](https://github.com/Azure-Samples/azure-search-python-samples) shows the same `/retrieve` call with the current SDK. (Class names in the preview SDK move around — take them from that sample rather than hard‑coding.)
 
-```python
-from azure.search.documents.agent import KnowledgeAgentRetrievalClient
-from azure.search.documents.agent.models import (
-    KnowledgeAgentRetrievalRequest, KnowledgeAgentMessage, KnowledgeAgentMessageTextContent,
-)
-from azure.identity import DefaultAzureCredential
-
-client = KnowledgeAgentRetrievalClient(
-    endpoint="https://zava-search.search.windows.net",
-    agent_name="zava-retrieval-agent",
-    credential=DefaultAzureCredential(),
-)
-
-result = client.retrieve(
-    retrieval_request=KnowledgeAgentRetrievalRequest(
-        messages=[KnowledgeAgentMessage(
-            role="user",
-            content=[KnowledgeAgentMessageTextContent(
-                text="A P4311 edge node keeps showing an intermittent red CTL11 light. Should I move it?"
-            )],
-        )],
-    )
-)
-print(result.response[0].content[0].text)   # grounded answer
-print(result.activity)                       # the query plan
-print(result.references)                     # the citations
-```
-</details>
-
-✅ **Checkpoint 4c — the retrieval agent is DONE.** It answers grounded questions with citations and a visible plan. Everything after this is *wiring it into an agent*.
+✅ **Checkpoint 4c — the knowledge base is DONE.** It answers grounded questions with citations and a visible plan. Everything after this is *wiring it into an agent*.
 
 ---
 
-## 5 · Surface the retrieval agent through Foundry IQ
+## 5 · Surface the knowledge base through Foundry IQ
 
-> 🧭 **Journey** · 1 Story · 2 Data · 3 Stage · 4 Build the retrieval agent · **5 ▶ Foundry IQ** · 6 Attach via MCP · 7 Run the demo · 8 Debrief
+> 🧭 **Journey** · 1 Story · 2 Data · 3 Stage · 4 Build the knowledge base · **5 ▶ Foundry IQ** · 6 Attach to agent · 7 Run the demo · 8 Debrief
 
-The retrieval agent you built *is* a Foundry IQ **knowledge base** — Foundry IQ is the layer that makes it consumable by *any* agent, with governance, per‑source security trimming, and a single **MCP endpoint**.
+The knowledge base you built **is** Foundry IQ — Foundry IQ is the project‑level layer that makes it consumable by *any* agent, with governance and per‑source security trimming.
 
 1. Open the **Azure AI Foundry** portal → your **`zava-foundry`** project.
-2. Go to **Foundry IQ → Knowledge bases** (a.k.a. *Knowledge*).
-3. **Connect** the Azure AI Search knowledge base **`zava-retrieval-agent`** (select your `zava-search` service → the agent/knowledge source).
-4. Open its **"Use in agent"** pane and **copy the MCP endpoint URL** — you'll paste it in Step 6. It looks like:
+2. Go to **Knowledge** (project level, *not* inside an agent). Your knowledge base appears here — in this walkthrough it shows as **`zava-knowledge-source`**.
+3. Open the knowledge base → **Use in an agent** → **choose your agent** (e.g. `zava-field-support-agent`). Foundry adds the knowledge base to that agent's **Knowledge** section and wires the connection for you. That's it — it works immediately.
 
-   ```
-   https://zava-search.search.windows.net/agents/zava-retrieval-agent/mcp?api-version=2025-08-01-preview
-   ```
+> ⚠️ **This corrects an earlier version of this lab.** The portal does **not** give you an MCP URL to copy, and there is **no “Foundry IQ” entry** in the agent's **Tools → MCP servers** list. A Foundry IQ knowledge base is consumed as **Knowledge**; **MCP is only the transport used behind the scenes** (the base exposes a `knowledge_base_retrieve` tool). The connectors you *do* see under Tools — **Azure AI search**, **Work IQ**, **Fabric IQ (OneLake Catalog)**, Grounding with Bing, SharePoint — are *separate* grounding sources for other scenarios.
+>
+> 👉 The one that looks closest, **“Azure AI search”**, attaches a *plain index* directly (classic vector/keyword search, **no** agentic planning). Use the **knowledge base** (this step) when you want the agentic retrieval + citations we built in Step 4; use the *Azure AI search* tool only for a simple single‑index lookup.
 
-> 🧩 **Why MCP?** The **Model Context Protocol** is the standard "USB‑C for tools." Exposing Foundry IQ as an MCP server means *any* MCP‑aware agent — your Foundry agent today, a different agent tomorrow, even a non‑Microsoft client — can consume Zava's knowledge through the *same* endpoint, with one `retrieve` tool. You build the knowledge once; every agent reuses it.
+🧩 **Why MCP still matters:** behind the Knowledge attach, the agent reaches the knowledge base over the **Model Context Protocol** with a single `knowledge_base_retrieve` tool. That's why the *same* knowledge base can be reused by a different agent tomorrow — or wired explicitly in code (Step 6, code path). You build the knowledge once; every agent reuses it.
 
-✅ **Checkpoint 5:** you have the **MCP endpoint URL** for the Zava knowledge base on your clipboard.
+✅ **Checkpoint 5:** your knowledge base **`zava-knowledge-source`** appears inside the agent's **Knowledge** section.
 
 ---
 
-## 6 · Attach Foundry IQ to your agent as an MCP tool
+## 6 · Attach the knowledge base to your agent
 
-> 🧭 **Journey** · 1 Story · 2 Data · 3 Stage · 4 Build the retrieval agent · 5 Foundry IQ · **6 ▶ Attach via MCP** · 7 Run the demo · 8 Debrief
+> 🧭 **Journey** · 1 Story · 2 Data · 3 Stage · 4 Build the knowledge base · 5 Foundry IQ · **6 ▶ Attach to agent** · 7 Run the demo · 8 Debrief
 >
-> This is the second explicit ask: **hook the retrieval agent into the agent as a Foundry IQ MCP tool.**
+> Two ways to finish the wiring — the **portal** (Knowledge; recommended, and what you already started in Step 5) and **code** (an explicit MCP tool, for the “attach it as an MCP tool” ask). Both end with the agent calling the knowledge base's `knowledge_base_retrieve` tool over MCP.
 
-### Portal path (recommended)
+### Portal path (recommended — no code)
 
-1. In your `zava-foundry` project → **Agents → + New agent** → name it **`zava-field-support-agent`**, model **`gpt-4.1`**.
-2. Paste the **instructions** below.
-3. **Tools → + Add tool → MCP server (custom)**:
-   - **Server label:** `foundry_iq_zava`
-   - **Server URL:** *(the MCP endpoint from Step 5)*
-   - **Authentication:** Managed Identity (or API key for a quick demo)
-   - **Allowed tools:** `knowledge_base_retrieve` *(the retrieve tool the knowledge base exposes)*
-   - **Approval:** set to **"never"** for a smooth live demo (so it doesn't pause for tool‑approval each turn)
-4. **Save.**
+1. In your `zava-foundry` project → **Agents** → open (or create) **`zava-field-support-agent`**, model **`gpt-4.1`**.
+2. Confirm the knowledge base **`zava-knowledge-source`** is listed under the agent's **Knowledge** (from Step 5). If not, add it via **Knowledge → + Add → your knowledge base**.
+3. Paste the **instructions** below and **Save**.
 
 **Agent instructions (paste this):**
 
 ```text
 You are Zava's field-support expert for on-site technicians.
 For ANY question about Zava equipment, indicators, parts, repairs, or on-site
-procedures, you MUST call the `foundry_iq_zava` knowledge tool to retrieve
-grounded information before answering. Never answer equipment or policy
-questions from memory.
+procedures, you MUST use the Zava knowledge base to retrieve grounded
+information before answering. Never answer equipment or policy questions from
+memory.
 
 Rules:
 - Base every factual claim on retrieved Zava content and cite the source
@@ -355,51 +304,86 @@ Rules:
   reason, then the citation.
 ```
 
-### Code path (Foundry Agent Service SDK)
+### Code path (explicit MCP tool — the "attach as an MCP tool" route)
+
+This is the route that literally adds the knowledge base as an **MCP tool**. It's **two objects** (per Microsoft's [current how‑to](https://learn.microsoft.com/azure/foundry/agents/how-to/foundry-iq-connect)):
+
+**① Create a project connection** (`RemoteTool` + `ProjectManagedIdentity`) that targets the knowledge base's MCP endpoint. The endpoint shape is `…/knowledgebases/{name}/mcp` — **not** `/agents/…/mcp`.
+
+```python
+import requests
+from azure.identity import DefaultAzureCredential, get_bearer_token_provider
+
+credential = DefaultAzureCredential()
+project_resource_id = "{project_resource_id}"          # /subscriptions/.../projects/zava-foundry
+project_connection_name = "zava-kb-mcp-connection"
+mcp_endpoint = "https://zava-search.search.windows.net/knowledgebases/zava-knowledge-source/mcp?api-version=2026-05-01-preview"
+
+arm_token = get_bearer_token_provider(credential, "https://management.azure.com/.default")
+requests.put(
+    f"https://management.azure.com{project_resource_id}/connections/{project_connection_name}?api-version=2025-10-01-preview",
+    headers={"Authorization": f"Bearer {arm_token()}"},
+    json={
+        "name": project_connection_name,
+        "type": "Microsoft.MachineLearningServices/workspaces/connections",
+        "properties": {
+            "authType": "ProjectManagedIdentity",
+            "category": "RemoteTool",
+            "target": mcp_endpoint,
+            "isSharedToAll": True,
+            "audience": "https://search.azure.com/",
+            "metadata": {"ApiType": "Azure"}
+        }
+    },
+).raise_for_status()
+```
+
+**② Create the agent with an `MCPTool`** that references that connection. The knowledge base exposes exactly one tool: **`knowledge_base_retrieve`** (the only tool currently supported by Foundry Agent Service).
 
 ```python
 from azure.ai.projects import AIProjectClient
-from azure.ai.agents.models import McpTool
-from azure.identity import DefaultAzureCredential
+from azure.ai.projects.models import PromptAgentDefinition, MCPTool
 
 project = AIProjectClient(
     endpoint="https://<your-foundry>.services.ai.azure.com/api/projects/zava-foundry",
-    credential=DefaultAzureCredential(),
+    credential=credential,
 )
 
-# Foundry IQ knowledge base, exposed as an MCP tool
-foundry_iq = McpTool(
-    server_label="foundry_iq_zava",
-    server_url="https://zava-search.search.windows.net/agents/zava-retrieval-agent/mcp?api-version=2025-08-01-preview",
+mcp_kb_tool = MCPTool(
+    server_label="knowledge-base",
+    server_url=mcp_endpoint,                      # the /knowledgebases/.../mcp endpoint from ①
+    require_approval="never",                     # frictionless live demo
     allowed_tools=["knowledge_base_retrieve"],
+    project_connection_id=project_connection_name,
 )
-foundry_iq.set_approval_mode("never")   # frictionless live demo
 
-agent = project.agents.create_agent(
-    model="gpt-4.1",
-    name="zava-field-support-agent",
-    instructions=open("agent-instructions.txt").read(),
-    tools=foundry_iq.definitions,
+agent = project.agents.create_version(
+    agent_name="zava-field-support-agent",
+    definition=PromptAgentDefinition(
+        model="gpt-4.1",
+        instructions=open("agent-instructions.txt").read(),
+        tools=[mcp_kb_tool],
+    ),
 )
-print("Agent ready:", agent.id)
+print("Agent ready:", agent.name)
 ```
 
-> 🪝 **What you just wired:** the agent now has one tool — `foundry_iq_zava` — that reaches the Zava knowledge base over MCP. When the agent decides it needs facts, it calls that tool, Foundry IQ runs agentic retrieval in Azure AI Search, and the grounded, cited result flows back into the agent's answer.
+> 🪝 **What you just wired:** the agent now has one MCP tool — `knowledge_base_retrieve`, reached through the `zava-kb-mcp-connection` project connection. When the agent needs facts it calls that tool, the knowledge base runs agentic retrieval in Azure AI Search, and the grounded, cited result flows back into the answer. (The **portal path** above does the same thing without you writing this — the Knowledge attach creates the equivalent connection for you.)
 
-✅ **Checkpoint 6:** the agent lists **one MCP tool** (`foundry_iq_zava`) and saves without error.
+✅ **Checkpoint 6:** in the playground, the agent answers a Zava question and — in the tool‑call trace — you can see it invoked **`knowledge_base_retrieve`**, with the retrieved sources.
 
 ---
 
 ## 7 · Run the end‑to‑end demo
 
-> 🧭 **Journey** · 1 Story · 2 Data · 3 Stage · 4 Build the retrieval agent · 5 Foundry IQ · 6 Attach via MCP · **7 ▶ Run the demo** · 8 Debrief
+> 🧭 **Journey** · 1 Story · 2 Data · 3 Stage · 4 Build the knowledge base · 5 Foundry IQ · 6 Attach to agent · **7 ▶ Run the demo** · 8 Debrief
 
 Open the agent's **playground** (or call it from the SDK) and run these in order. Each is chosen to show a different Foundry IQ strength. *(Full expected answers are in [`sample-questions.md`](./sample-questions.md).)*
 
 1. **The star — multi‑document + a policy "stop":**
    > *"A P4311 edge node keeps showing an intermittent red CTL11 light. Should I move it to a better spot in the plant?"*
 
-   👉 Expect **"No, don't move it"** + firmware‑1.12 known anomaly + capture `diag ctl11 snapshot` + citation to the **manual** *and* the **movement policy**. **Open the tool‑call / activity view** and show the room the sub‑queries and the cited chunks.
+   👉 Expect **"No, don't move it"** + firmware‑1.12 known anomaly + capture `diag ctl11 snapshot` + citation to the **manual** *and* the **movement policy**. **Open the tool‑call / activity view** and show the room the `knowledge_base_retrieve` call, the sub‑queries, and the cited chunks.
 
 2. **A crisp policy threshold (repair vs replace):**
    > *"The graphene vapor reclaim tank's filter efficiency dropped to 82%. Do I repair or replace it?"*
@@ -427,12 +411,12 @@ Open the agent's **playground** (or call it from the SDK) and run these in order
 
 ## 8 · Debrief — what the students should take away
 
-> 🧭 **Journey** · 1 Story · 2 Data · 3 Stage · 4 Build the retrieval agent · 5 Foundry IQ · 6 Attach via MCP · 7 Run the demo · **8 ▶ Debrief**
+> 🧭 **Journey** · 1 Story · 2 Data · 3 Stage · 4 Build the knowledge base · 5 Foundry IQ · 6 Attach to agent · 7 Run the demo · **8 ▶ Debrief**
 
-- **Foundry IQ = grounding as a reusable layer.** We built the retrieval agent **once** and any agent can consume it over one MCP endpoint. The knowledge is decoupled from the agent.
+- **Foundry IQ = grounding as a reusable layer.** We built the knowledge base **once** and attached it to the agent as **Knowledge**; any other agent can reuse the same base. The knowledge is decoupled from the agent.
 - **Agentic retrieval ≠ search box.** It *planned*, split the question, searched in parallel, ranked, and synthesized — that's why one question could span a manual, a policy, and an issues file.
 - **Citations are the product.** The `references` and `activity` are what make the answer trustworthy enough to act on in the field.
-- **MCP is the connector.** Foundry IQ speaks MCP, so grounding is portable across agents and platforms.
+- **MCP is the transport, not a checkbox.** You attach the base as **Knowledge** (portal) — MCP runs underneath (`knowledge_base_retrieve`). If you need it as an explicit tool, wire it in **code** via a project connection. There is no “Foundry IQ” MCP server to pick from a list.
 - **Map back to the four IQs:** we grounded on *documents you own* (Foundry IQ). Swap the knowledge source for a website (**Web IQ**), M365 (**Work IQ**), or a Fabric semantic model (**Fabric IQ**) and the *same pattern* applies.
 
 **One‑line summary to close on:** *We didn't teach the model about Zava — we gave the agent a way to look Zava up, and to show its work.*
@@ -444,26 +428,30 @@ Open the agent's **playground** (or call it from the SDK) and run these in order
 | Symptom | Likely cause | Fix |
 |---------|--------------|-----|
 | Knowledge source stuck / 0 documents | Search identity lacks blob access | Grant **Storage Blob Data Reader** to the Search managed identity |
-| Retrieval returns empty | Embedding deployment wrong/quota | Confirm `text-embedding-3-large` deployment name & quota; re‑run indexer |
-| `retrieve` returns text but **no references** | `includeReferences` off | Set `includeReferences: true` on the knowledge source in the agent |
-| Agent never calls the tool | Instructions too soft | Strengthen "you MUST call `foundry_iq_zava`"; verify the tool is attached |
-| Live demo pauses for approval each turn | MCP approval mode | Set tool approval to **never** |
+| Retrieval returns empty | Embedding deployment wrong/quota | Confirm `text-embedding-3-large` deployment name & quota; re‑run the indexer |
+| `/retrieve` returns text but **no references** | `includeReferences` off | Set `includeReferences: true` on the knowledge source in the knowledge base |
+| "I don't see a **Foundry IQ** MCP server" | Expected — there isn't one | Attach the knowledge base via **Knowledge → Use in an agent**, not as a custom MCP server. MCP is under the hood. |
+| "**Use in an agent** shows no MCP URL to copy" | Expected — the portal wires it for you | Just pick the agent; the base lands in its **Knowledge**. For an explicit MCP tool, use the Step 6 **code path**. |
+| Agent never uses the knowledge base | Instructions too soft | Strengthen "you MUST use the Zava knowledge base"; confirm it's in the agent's **Knowledge** |
+| Code path: 401/403 from the MCP tool | Project managed identity missing search role | Grant the project MI **Search Index Data Reader** on `zava-search`; connection `audience` = `https://search.azure.com/` |
+| Live demo pauses for approval each turn | MCP approval mode | Set `require_approval="never"` (code) / tool approval **never** (portal) |
 | Multimodal question ignores the diagram | Image verbalization not configured | Add a `chatCompletionModel` to the knowledge source (Step 4a) |
 
 ## Appendix B · Cleanup
 
 ```bash
-# Remove the agent, knowledge agent, knowledge source, and (optionally) the container
-# Portal: delete the Foundry agent, then in Search delete /agents and /knowledgeSources objects.
+# Portal: delete the Foundry agent; if you used the code path, also delete the project connection.
+# In Azure AI Search, delete the knowledge base + knowledge source objects.
+# Deleting the agent/connection does NOT delete the knowledge base — remove it separately.
 az storage container delete --account-name zavastorage --name zava-knowledge --auth-mode login
 ```
 
-## Appendix C · References (verify against current docs)
+## Appendix C · References (current docs)
 
-- Azure AI Search — **Agentic retrieval** concepts & how‑to: <https://learn.microsoft.com/azure/search/search-agentic-retrieval-concept>
-- Azure AI Search — **Knowledge sources / knowledge bases**: <https://learn.microsoft.com/azure/search/>
+- **Connect a Foundry IQ knowledge base to Foundry Agent Service** (the authoritative how‑to for Steps 5–6): <https://learn.microsoft.com/azure/foundry/agents/how-to/foundry-iq-connect>
+- **Connect agents to MCP servers** (the MCP tool): <https://learn.microsoft.com/azure/foundry/agents/how-to/tools/model-context-protocol>
+- Azure AI Search — **Agentic retrieval** concepts: <https://learn.microsoft.com/azure/search/search-agentic-retrieval-concept>
 - **Microsoft Foundry (Azure AI Foundry)** docs: <https://learn.microsoft.com/azure/ai-foundry/>
-- **Foundry Agent Service** — tools & MCP: <https://learn.microsoft.com/azure/ai-foundry/agents/>
 - **Model Context Protocol (MCP)**: <https://modelcontextprotocol.io/>
 
 ---
