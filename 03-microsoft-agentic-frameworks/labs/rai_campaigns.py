@@ -1,62 +1,62 @@
 """
-Dati sintetici di campagne pubblicitarie — RAI Pubblicità (uso didattico).
-Nessun dato reale: serve solo come base comune per tutte le esercitazioni
-della Giornata 2. Importa questo modulo dagli esercizi 1, 3 e 4.
+Synthetic advertising-campaign data — RAI Pubblicita (training only).
+No real data: this is just a shared base used by all Day 2 exercises.
+Import this module from exercises 1, 3 and 4.
 
-Metriche per campagna:
-- budget_eur   : investimento speso
-- impressions  : impression erogate
-- clicks       : click totali
-- conversioni  : conversioni attribuite
-- revenue_eur  : ricavi attribuiti alla campagna
+Per-campaign metrics:
+- budget_eur   : money spent
+- impressions  : delivered impressions
+- clicks       : total clicks
+- conversions  : attributed conversions
+- revenue_eur  : revenue attributed to the campaign
 """
 
-CAMPAGNE = [
-    {"id": "CMP-001", "cliente": "AutoMilano", "settore": "Automotive",
+CAMPAIGNS = [
+    {"id": "CMP-001", "client": "AutoMilano", "sector": "Automotive",
      "budget_eur": 120000, "impressions": 8_400_000, "clicks": 42_000,
-     "conversioni": 1_260, "revenue_eur": 210000, "canale": "TV+Digital",
-     "inizio": "2026-01-07", "fine": "2026-02-04"},
-    {"id": "CMP-002", "cliente": "BancaVerde", "settore": "Finance",
+     "conversions": 1_260, "revenue_eur": 210000, "channel": "TV+Digital",
+     "start": "2026-01-07", "end": "2026-02-04"},
+    {"id": "CMP-002", "client": "BancaVerde", "sector": "Finance",
      "budget_eur": 90000, "impressions": 5_100_000, "clicks": 20_400,
-     "conversioni": 612, "revenue_eur": 132000, "canale": "Digital",
-     "inizio": "2026-01-14", "fine": "2026-02-11"},
-    {"id": "CMP-003", "cliente": "FreschErba", "settore": "FMCG",
+     "conversions": 612, "revenue_eur": 132000, "channel": "Digital",
+     "start": "2026-01-14", "end": "2026-02-11"},
+    {"id": "CMP-003", "client": "FreschErba", "sector": "FMCG",
      "budget_eur": 60000, "impressions": 6_800_000, "clicks": 34_000,
-     "conversioni": 1_700, "revenue_eur": 96000, "canale": "TV",
-     "inizio": "2026-02-01", "fine": "2026-02-28"},
-    {"id": "CMP-004", "cliente": "VoloBlu", "settore": "Travel",
+     "conversions": 1_700, "revenue_eur": 96000, "channel": "TV",
+     "start": "2026-02-01", "end": "2026-02-28"},
+    {"id": "CMP-004", "client": "VoloBlu", "sector": "Travel",
      "budget_eur": 150000, "impressions": 9_200_000, "clicks": 55_200,
-     "conversioni": 2_208, "revenue_eur": 351000, "canale": "TV+Digital",
-     "inizio": "2026-02-10", "fine": "2026-03-10"},
-    {"id": "CMP-005", "cliente": "TeleCasa", "settore": "Telco",
+     "conversions": 2_208, "revenue_eur": 351000, "channel": "TV+Digital",
+     "start": "2026-02-10", "end": "2026-03-10"},
+    {"id": "CMP-005", "client": "TeleCasa", "sector": "Telco",
      "budget_eur": 80000, "impressions": 4_300_000, "clicks": 12_900,
-     "conversioni": 387, "revenue_eur": 72000, "canale": "Digital",
-     "inizio": "2026-02-18", "fine": "2026-03-18"},
+     "conversions": 387, "revenue_eur": 72000, "channel": "Digital",
+     "start": "2026-02-18", "end": "2026-03-18"},
 ]
 
-# Benchmark di ROI medio per settore (sintetico), usato in alcuni esercizi
-ROI_MEDIO_SETTORE = {
+# Synthetic average ROI benchmark per sector, used by some exercises
+SECTOR_AVG_ROI = {
     "Automotive": 55.0, "Finance": 40.0, "FMCG": 50.0, "Travel": 90.0, "Telco": 20.0
 }
 
 
-def elenco_campagne():
-    """Elenco sintetico (id, cliente, settore) di tutte le campagne."""
-    return [{"id": c["id"], "cliente": c["cliente"], "settore": c["settore"]}
-            for c in CAMPAGNE]
+def list_campaigns():
+    """Short list (id, client, sector) of all campaigns."""
+    return [{"id": c["id"], "client": c["client"], "sector": c["sector"]}
+            for c in CAMPAIGNS]
 
 
-def dettaglio_campagna(campaign_id: str):
-    """Dizionario completo della campagna con l'id indicato, oppure None."""
-    for c in CAMPAGNE:
+def get_campaign(campaign_id: str):
+    """Full dict of the campaign with the given id, or None."""
+    for c in CAMPAIGNS:
         if c["id"].lower() == campaign_id.lower():
             return c
     return None
 
 
 def roi(campaign_id: str):
-    """ROI percentuale = (revenue - budget) / budget * 100, arrotondato a 1 decimale."""
-    c = dettaglio_campagna(campaign_id)
+    """ROI percent = (revenue - budget) / budget * 100, rounded to 1 decimal."""
+    c = get_campaign(campaign_id)
     if not c:
         return None
     return round((c["revenue_eur"] - c["budget_eur"]) / c["budget_eur"] * 100, 1)
@@ -64,13 +64,13 @@ def roi(campaign_id: str):
 
 def cpm(campaign_id: str):
     """CPM in euro = budget / impressions * 1000."""
-    c = dettaglio_campagna(campaign_id)
+    c = get_campaign(campaign_id)
     if not c:
         return None
     return round(c["budget_eur"] / c["impressions"] * 1000, 2)
 
 
 if __name__ == "__main__":
-    # Sanity check: stampa un riepilogo ROI/CPM
-    for c in CAMPAGNE:
-        print(f"{c['id']} {c['cliente']:<12} ROI {roi(c['id']):>6.1f}%  CPM {cpm(c['id']):>6.2f} EUR")
+    # Sanity check: print a ROI/CPM summary
+    for c in CAMPAIGNS:
+        print(f"{c['id']} {c['client']:<12} ROI {roi(c['id']):>6.1f}%  CPM {cpm(c['id']):>6.2f} EUR")
