@@ -1,28 +1,28 @@
 # =====================================================================
-# RAI Pubblicità — Upskilling Giornata 2 · Esercitazioni
-# requirements.txt UNICO, valido per tutti e quattro gli esercizi.
-# (La creazione/attivazione dell'ambiente è già stata spiegata: qui si
-#  installano solo i pacchetti.)
+# RAI Pubblicita - Upskilling Day 2 - Exercises
+# SINGLE requirements.txt, valid for all four exercises.
+# (Creating/activating the environment was already covered: this only
+#  installs the packages.)
 # =====================================================================
 
-# --- Esercizio 1: Microsoft Agent Framework ---
+# --- Exercise 1: Microsoft Agent Framework ---
 agent-framework
 
-# --- Esercizio 2: Microsoft Foundry (Responses API / Hosted Agents) ---
+# --- Exercise 2: Microsoft Foundry (Responses API / Hosted Agents) ---
 azure-ai-projects>=2.3.0
 azure-identity
 aiohttp
 openai
 
-# --- Esercizio 3: Model Context Protocol (MCP) ---
+# --- Exercise 3: Model Context Protocol (MCP) ---
 fastmcp
 mcp
 
-# --- Esercizio 4: Agent-to-Agent (A2A) ---
+# --- Exercise 4: Agent-to-Agent (A2A) ---
 a2a-sdk
 uvicorn
 httpx
 
-# --- Utility comuni (dati campagne, output leggibile, variabili .env) ---
+# --- Common utilities (campaign data, readable output, .env variables) ---
 python-dotenv
 rich
