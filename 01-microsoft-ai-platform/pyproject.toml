@@ -1,0 +1,19 @@
+[project]
+name = "01-microsoft-ai-platform"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "agent-framework>=1.13.0",
+    "azure-ai-agents>=1.2.0b6",
+    "azure-ai-inference>=1.0.0b9",
+    "azure-ai-projects>=2.4.0",
+    "azure-identity>=1.26.0b2",
+    "ipykernel>=7.3.0",
+    "jupyter>=1.1.1",
+    "msal>=1.38.0rc2",
+    "openai>=2.51.0",
+    "python-dotenv>=1.2.2",
+    "requests>=2.34.2",
+]

@@ -35,6 +35,29 @@ You need both **local** tooling and **cloud** access.
 > **Foundry account vs project** — the *account* is the top-level Azure resource; the *project* inside it is the container for your models, tools, connections and agent identities. Exercises operate at the **project** level.
 
 ---
+### 2.1 Create an Microsoft Foundry Resource + Project
+First, create a Microsoft Foundry Resource and Project. The following example shows how to do it on the Foundry Portal  https://ai.azure.com/allResources, but there are multiple ways to do it, including through Azure:
+![Microsoft Foundry Provisioning](image-1.png)
+
+After the provisioning, collect the following to pieces of information:
+![Foundry Provisioning Data](image.png)
+
+, and store them into a the .env file as follows:
+```
+FOUNDRY_PROJECT_ENDPOINT=https://<FOUNDRY-RESOURCE-NAME>.services.ai.azure.com/api/projects/<PROJECT-NAME>
+AZURE_OPENAI_ENDPOINT=https://<FOUNDRY-RESOURCE-NAME>.openai.azure.com/
+```
+---
+### 2.2 Create a Deployment
+From within the Foundry Project created in the previous step, choose `Build`/`Deployments`/`Deploy a Base Model   ` and create a new deployment, for example `gpt-5.4-mini`:
+![deployment gpt-5.4-mini](image-2.png)
+
+Add the deployment name to the same .env file created in the previous step:
+```
+AZURE_OPENAI_CHAT_DEPLOYMENT_NAME=<CHAT-DEPLOYMENT-NAME>
+```
+
+---
 
 ## 3. Development machine
 
@@ -97,7 +120,7 @@ uv venv
 
 # 4. Activate it
 source .venv/bin/activate        # Linux / macOS
-# .\.venv\Scripts\Activate.ps1   # Windows (PowerShell)
+.\.venv\Scripts\Activate.ps1   # Windows (PowerShell)
 
 # 5. Install the dependencies (note --active + --prerelease=allow)
 uv add --active -r requirements.txt --prerelease=allow

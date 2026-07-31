@@ -15,7 +15,7 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from pydantic import Field
 from dotenv import load_dotenv
-from agent_framework.azure import AzureOpenAIChatClient
+from agent_framework.openai import OpenAIChatClient
 from azure.identity import AzureCliCredential
 from rai_campaigns import get_campaign, list_campaigns
 
@@ -52,7 +52,10 @@ def all_campaigns() -> list:
 
 # ---- Demo -------------------------------------------------------------------
 async def main():
-    agent = AzureOpenAIChatClient(credential=AzureCliCredential()).create_agent(
+    agent = OpenAIChatClient(
+        model=os.environ["AZURE_OPENAI_CHAT_DEPLOYMENT_NAME"],
+        credential=AzureCliCredential(),
+    ).as_agent(
         name="CampaignAnalyst",
         instructions=(
             "You are an analyst at RAI Pubblicita. Answer in English, concisely. "
@@ -73,9 +76,9 @@ async def main():
     )).text)
 
     print("\n=== Bonus) Whole-portfolio question (multi-turn thread) ===")
-    thread = agent.get_new_thread()
-    print((await agent.run("Which campaign has the highest ROI in the portfolio?", thread=thread)).text)
-    print((await agent.run("And which one is losing money?", thread=thread)).text)
+    session = agent.create_session()
+    print((await agent.run("Which campaign has the highest ROI in the portfolio?", session=session)).text)
+    print((await agent.run("And which one is losing money?", session=session)).text)
 
 
 if __name__ == "__main__":
