@@ -35,21 +35,32 @@ The core of the Agent Framework: model + instructions. Still **without tools**.
 
 ```python
 import asyncio
-from agent_framework.azure import AzureOpenAIChatClient
+import os
+from dotenv import load_dotenv
 from azure.identity import AzureCliCredential
+from agent_framework import Agent
+from agent_framework.openai import OpenAIChatClient
+
+load_dotenv()
 
 async def main():
-    agent = AzureOpenAIChatClient(credential=AzureCliCredential()).create_agent(
+    client = OpenAIChatClient(
+        model=os.environ["AZURE_OPENAI_CHAT_DEPLOYMENT_NAME"],
+        credential=AzureCliCredential(),
+    )
+    agent = Agent(
+        client=client,
         name="CampaignAnalyst",
         instructions=(
             "You are an analyst at RAI Pubblicita. Always answer in English, "
             "concisely and professionally."
-        ),
+        )
     )
     answer = await agent.run("Introduce yourself in one sentence and tell me how you can help.")
     print(answer.text)
 
-asyncio.run(main())
+if __name__ == "__main__":
+    asyncio.run(main())
 ```
 
 **What you should see:** a short self-introduction. So far it's just a conversational
@@ -59,9 +70,7 @@ assistant: it understands and replies, but does not *do* anything.
 
 ## Part B - Add a function tool (~20 min)
 
-Let's give the agent a **tool**: a plain Python function. The Agent Framework generates the
-tool schema from the *type hints* and *docstring*; with `Annotated` + `Field` we describe the
-parameters to the model.
+Let's give the agent a **tool**: a plain Python function. The Agent Framework generates the tool schema from the *type hints* and *docstring*; with `Annotated` + `Field` we describe the parameters to the model.
 
 ```python
 from typing import Annotated
@@ -85,16 +94,22 @@ def campaign_metrics(
 Register the tool on the agent and ask a question that **forces** its use:
 
 ```python
-agent = AzureOpenAIChatClient(credential=AzureCliCredential()).create_agent(
-    name="CampaignAnalyst",
-    instructions=(
-        "You are an analyst at RAI Pubblicita. Answer in English. "
-        "Use the tools to fetch data: never invent numbers."
-    ),
-    tools=[campaign_metrics],
-)
-answer = await agent.run("Give me the key metrics of campaign CMP-004.")
-print(answer.text)
+async def main():
+    client = OpenAIChatClient(
+        model=os.environ["AZURE_OPENAI_CHAT_DEPLOYMENT_NAME"],
+        credential=AzureCliCredential(),
+    )
+    agent = Agent(
+        client=client,
+        name="CampaignAnalyst",
+        instructions=(
+            "You are an analyst at RAI Pubblicita. Always answer in English, "
+            "concisely and professionally."
+        ),
+        tools=[campaign_metrics],
+    )
+    answer = await agent.run("Give me the key metrics of campaign CMP-004.")
+    print(answer.text)
 ```
 
 **What you should see:** the answer reports VoloBlu's **real** numbers taken from the tool
@@ -116,23 +131,27 @@ def compute_roi(
     value = (revenue_eur - budget_eur) / budget_eur * 100
     return f"ROI = {value:.1f}%"
 
-agent = AzureOpenAIChatClient(credential=AzureCliCredential()).create_agent(
-    name="CampaignAnalyst",
-    instructions=(
-        "You are an analyst at RAI Pubblicita. Answer in English. Use the tools: "
-        "fetch data with 'campaign_metrics' and compute with 'compute_roi'."
-    ),
-    tools=[campaign_metrics, compute_roi],
-)
-answer = await agent.run(
-    "Between campaigns CMP-004 and CMP-005, which has the better ROI and by how much? Show the values."
-)
-print(answer.text)
+async def main():
+    client = OpenAIChatClient(
+        model=os.environ["AZURE_OPENAI_CHAT_DEPLOYMENT_NAME"],
+        credential=AzureCliCredential(),
+    )
+    agent = Agent(
+        client=client,
+        name="CampaignAnalyst",
+        instructions=(
+            "You are an analyst at RAI Pubblicita. Always answer in English, "
+            "concisely and professionally."
+        ),
+        tools=[campaign_metrics, compute_roi],
+    )
+    answer = await agent.run(
+        "Between campaigns CMP-004 and CMP-005, which has the better ROI and by how much? Show the values."
+    )
+    print(answer.text)
 ```
 
-**What you should see:** the agent concludes that **CMP-004 (VoloBlu, ROI 134.0%)** beats
-**CMP-005 (TeleCasa, ROI -10.0%)**. Note that to get there it called the tools multiple
-times: the **agentic loop** in action.
+**What you should see:** the agent concludes that **CMP-004 (VoloBlu, ROI 134.0%)** beats**CMP-005  (TeleCasa, ROI -10.0%)**. Note that to get there it called the tools multiple times: the **agentic loop** in action.
 
 > Checkpoint: you have an agent that reasons and uses tools to answer a real business
 > question. If you stop here, you're perfectly on track.
@@ -145,9 +164,11 @@ times: the **agentic loop** in action.
 follow-up questions:
 
 ```python
-thread = agent.get_new_thread()
-print((await agent.run("What is the ROI of CMP-001?", thread=thread)).text)
-print((await agent.run("And compared to CMP-003, which is better?", thread=thread)).text)
+from requests import session
+
+session = agent.create_session()
+print((await agent.run("What is the ROI of CMP-001?", session=session)).text)
+print((await agent.run("And compared to CMP-003, which is better?", session=session)).text)
 ```
 Notice how in the second question the agent "remembers" CMP-001 without repeating it.
 
@@ -159,16 +180,14 @@ def all_campaigns() -> list:
     """List (id, client, sector) of every campaign in the portfolio."""
     return list_campaigns()
 ```
-Then ask: *"Which campaign has the highest ROI in the portfolio?"* and watch the agent
-iterate (list -> fetch -> compute) until the answer (**CMP-004**).
+Then ask: *"Which campaign has the highest ROI in the portfolio?"* and watch the agent iterate (list -> fetch -> compute) until the answer (**CMP-004**).
 
-**B3 - Inspect the tool calls (observability).** After a `run`, print the produced messages
-to see the *function calls* and their results:
+**B3 - Inspect the tool calls (observability).** After a `run`, print the produced messages to see the *function calls* and their results:
 
 ```python
 resp = await agent.run("What is the ROI of CMP-002?")
 for m in resp.messages:
-    print(m)   # look for function_call / function_result content
+    print(m)   # look for function_call / function_result / m.role, m.author_name, m.contents[0].arguments,m.contents[0].call_id, m.text
 ```
 This is the "in-code" equivalent of the *trace* panel from the slides.
 
