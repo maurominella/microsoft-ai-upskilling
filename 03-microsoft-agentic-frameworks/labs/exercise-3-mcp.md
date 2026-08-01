@@ -79,7 +79,8 @@ Start the server (**first terminal**):
 python mcp_server.py
 ```
 
-**What you should see:** a log saying the MCP server is listening on `127.0.0.1:8000`.
+**What you should see:** a log saying the MCP server is listening on `127.0.0.1:8000`:
+![MCP Server Running](image-1.png)
 Leave it running.
 
 ---
@@ -129,11 +130,12 @@ python mcp_client.py
 You already defined the `evaluate_campaign` prompt. List it and fetch it from the client:
 
 ```python
+# 4. get a prompt and render it
 async with Client("http://127.0.0.1:8000/mcp") as client:
     prompts = await client.list_prompts()
     print("Available prompts:", [p.name for p in prompts])
     rendered = await client.get_prompt("evaluate_campaign", {"campaign_id": "CMP-005"})
-    print(rendered)
+    print(rendered.messages[0].content.text)
 ```
 
 **What you should see:** the `evaluate_campaign` prompt and the text rendered for **CMP-005**.
@@ -146,21 +148,9 @@ Prompts capture "the right way to ask for something", reusable by anyone.
 
 ## Optional (bonus, ~15 min)
 
-**B1 - A new comparison tool.** Add to the server:
-
-```python
-from rai_campaigns import roi
-@mcp.tool
-def compare_campaigns(id_a: str, id_b: str) -> dict:
-    """Compare the ROI of two campaigns and say which performs better."""
-    ra, rb = roi(id_a), roi(id_b)
-    better = id_a if (ra or -1e9) >= (rb or -1e9) else id_b
-    return {"roi": {id_a: ra, id_b: rb}, "better": better}
-```
-Restart the server and call the tool from the client with `CMP-004` and `CMP-005`.
-
-**B2 - Proper logging for MCP.** In an MCP server do **not** `print` to stdout (it would break
+**B1 - Proper logging for MCP.** In an MCP server do **not** `print` to stdout (it would break
 the JSON-RPC messages in stdio mode): use the `logging` module, which writes to *stderr*.
+**IMPORTANT NOTE**: when we call logger.info within a server tool, then the stderr is the **SERVER** stderr, so if you are also debugging the client, you must switch to the server debug window.
 
 ```python
 import logging
@@ -168,14 +158,157 @@ logger = logging.getLogger(__name__)
 # inside a tool:  logger.info("Top ROI requested, n=%s", n)
 ```
 
-**B3 - [Advanced] Let a model pick the tools.** Connect this server to an LLM so the model
-decides which tool to use. Two paths:
-- **Client-side (local, reaches 127.0.0.1):** use the Agent Framework's MCP integration to pass
-  the server as a tool to an agent (see Agent Framework docs -> *MCP*).
-- **Via Foundry:** use the Responses API `mcp` tool (Exercise 2 bonus), remembering the server
-  must be publicly reachable.
+**B2 - A new comparison tool.** Add to the server:
+```python
+from rai_campaigns import roi
+@mcp.tool
+def compare_campaigns(id_a: str, id_b: str) -> dict:
+    """Compare the ROI of two campaigns and say which performs better."""
+    logger.info("Evaluate campaign prompt requested for %s", campaign_id)
+    ra, rb = roi(id_a), roi(id_b)
+    better = id_a if (ra or -1e9) >= (rb or -1e9) else id_b
+    return {"roi": {id_a: ra, id_b: rb}, "better": better}
+```
+Restart the server and call the tool from the client with `CMP-004` and `CMP-005`, for example:
+```python
+# 5. call the compare_campaigns tool
+comparison = await client.call_tool("compare_campaigns", {"id_a": "CMP-005", "id_b": "CMP-004"})
+print("Comparison of CMP-005 and CMP-004:", getattr(comparison, "data", None) or comparison.content)
+```
 
-Ask: *"Which campaign has the highest ROI and what would you recommend for the worst one?"*
+**B3 - [Advanced] Let a model pick the tools.** Connect the local MCP server to an Agent
+Framework agent so the model decides which campaign tool to call.
+
+Keep `exercise-3-mcp_server.py` running in the first terminal. In the client, import
+`MCPStreamableHTTPTool` and add this function:
+
+```python
+async def client_side_llm(query: str):
+    import os
+    from azure.identity import AzureCliCredential
+    from agent_framework import Agent, MCPStreamableHTTPTool
+    from agent_framework.openai import OpenAIChatClient
+    from dotenv import load_dotenv
+
+    load_dotenv()
+
+    client = OpenAIChatClient(
+        model=os.environ["AZURE_OPENAI_CHAT_DEPLOYMENT_NAME"],
+        credential=AzureCliCredential(),
+    )
+
+    mcp_tool = MCPStreamableHTTPTool(
+        name="rai_campaigns",
+        url="http://127.0.0.1:8000/mcp",
+        approval_mode="never_require",
+        load_prompts=False,
+    )
+
+    agent = Agent(
+        client=client,
+        name="CampaignAnalyst",
+        instructions="Always answer in English, concisely and professionally.",
+        tools=[mcp_tool],
+    )
+
+    async with agent:
+        answer = await agent.run(query)
+    return answer.text
+```
+
+Call it from `main`, after the direct FastMCP client context has closed:
+
+```python
+llm_answer = await client_side_llm(
+    "Which campaign is better and why, CMP-004 or CMP-005?"
+)
+print(f"LLM answer: {llm_answer}")
+```
+
+`MCPStreamableHTTPTool` is the important part of this example. Agent Framework connects to
+`127.0.0.1` from the local Python process, discovers the MCP tools, sends their schemas to the
+model and executes locally whichever tool the model selects. The model can still run in Azure;
+only the MCP connection and tool execution are local.
+
+The following options are intentional:
+
+- `load_prompts=False` exposes only MCP tools to the agent. With Agent Framework 1.13.0,
+  loading the `evaluate_campaign` prompt as a function can produce an invalid schema when an
+  MCP prompt argument has no description.
+- `async with agent` closes the MCP HTTP session and its asynchronous task group cleanly.
+  Omitting it can produce an error while the program is shutting down.
+
+### Invoke the local MCP server through Foundry Responses
+
+To let Foundry Responses invoke the MCP server running locally, first create an HTTPS tunnel
+to `http://127.0.0.1:8000` and copy its public URL. 
+- install DevTunnel: `curl -sL https://aka.ms/DevTunnelCliInstall | bash`
+- run 
+```bash
+devtunnel host -p 8000 --allow-anonymous
+echo 'export PATH="$HOME/bin:$PATH"' >> ~/.bashrc
+source ~/.bashrc
+```
+- run the MCP server, which is likely listening at http://127.0.0.1:8000/mcp
+- run 
+```bash
+devtunnel user login --entra
+devtunnel user show
+devtunnel create mylocalmcpserver # una tantum
+devtunnel port create mylocalmcpserver -p 8000 # una tantum
+devtunnel host mylocalmcpserver --allow-anonymous # everny time
+```
+![mcptunnel](image-2.png)
+
+Then add this function to the client,
+replacing `https://<public-tunnel-host>/mcp` with the tunnel endpoint:
+
+```python
+async def foundry_side_llm(query: str | list[str]):
+    import os
+    from azure.identity import AzureCliCredential
+    from agent_framework import Agent
+    from agent_framework.openai import OpenAIChatClient
+    from dotenv import load_dotenv
+
+    load_dotenv()
+
+    client = OpenAIChatClient(
+        model=os.environ["AZURE_OPENAI_CHAT_DEPLOYMENT_NAME"],
+        credential=AzureCliCredential(),
+    )
+
+    agent = Agent(
+        client=client,
+        name="CampaignAnalyst",
+        instructions=(
+            "You are an analyst at RAI Pubblicita. Always answer in English, "
+            "concisely and professionally."
+        ),
+        tools=[{
+            "type": "mcp",
+            "server_label": "rai_campaigns",
+            "server_url": "https://5ndxcpg3-8000.eun1.devtunnels.ms/mcp",
+            "require_approval": "never",
+        }],
+    )
+
+    async with agent:
+        answer = await agent.run(query)
+    return answer.text
+```
+
+Invoke it from `main`:
+
+```python
+llm_answer = await foundry_side_llm(
+    "Which campaign has the highest ROI and what would you recommend for the worst one?"
+)
+print(f"Foundry answer: {llm_answer}")
+```
+
+In this version, the MCP declaration is sent to the Foundry Responses API, which discovers and
+invokes the campaign tools through the public tunnel.
 
 ---
 
