@@ -115,7 +115,7 @@ Verify: `uv --version`. (uv also installs and manages Python for you — you do 
 
 ## 5. Create your project workspace
 
-Run these once per exercise folder, where you find the `requirements.txt` file. from the session you are working on (for example [`01-microsoft-ai-platform/requirements.txt`](01-microsoft-ai-platform/requirements.txt)).
+Run these once per exercise folder, where you find the `requirements.txt` file (like [`01-microsoft-ai-platform/requirements.txt`](01-microsoft-ai-platform/requirements.txt)).
 
 ```bash
 # 1. Create the project folder and enter it
