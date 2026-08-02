@@ -195,7 +195,7 @@ endpoint = os.environ["FOUNDRY_PROJECT_ENDPOINT"]
 ```
 
 > [!WARNING]
-> **Never commit secrets.** `.env` and `.venv/` are already listed in this repo's [`.gitignore`](.gitignore). Prefer `DefaultAzureCredential` (from `az login`) over storing secrets whenever the exercise allows it.
+> **Never commit secrets.** `.env` and `.venv/` are already listed in this repo's [`.gitignore`](.gitignore), so they won't be synchronized into the GitHub repo. However, prefer `DefaultAzureCredential` (from `az login`) over storing secrets whenever the exercise allows it.
 
 ---
 
