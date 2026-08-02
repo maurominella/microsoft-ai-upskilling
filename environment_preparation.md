@@ -36,12 +36,15 @@ You need both **local** tooling and **cloud** access.
 
 ---
 ### 2.1 Create an Microsoft Foundry Resource + Project
-<br/>
-First, create a Microsoft Foundry Resource and Project. The following example shows how to do it on the Foundry Portal  https://ai.azure.com/allResources, but there are multiple ways to do it, including through Azure:
+
+First, create a Microsoft Foundry Resource and Project. The following example shows how to do it on the [Foundry Portal]( https://ai.azure.com/allResources), but there are multiple ways to do it, including through Azure:
 ![Microsoft Foundry Provisioning](image-1.png)
+
 ---
+
 After the provisioning, collect the following to pieces of information:
 ![Foundry Provisioning Data](image.png)
+
 ---
 
 , and finally store 
