@@ -37,6 +37,7 @@ This repository collects, for each session, the **slides** (PDF), the **hands-on
 microsoft-ai-upskilling/
 ├── README.md                              ← you are here
 ├── environment_preparation.md             ← shared, one-time lab setup (do this first)
+├── .env.example                           ← template for the real .env file
 ├── .gitignore
 ├── 01-microsoft-ai-platform/              ← Session 1 (complete)
 │   ├── README.md
