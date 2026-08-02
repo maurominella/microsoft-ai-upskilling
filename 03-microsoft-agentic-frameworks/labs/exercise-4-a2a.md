@@ -305,7 +305,7 @@ asyncio.run(main())
 
 ## Instructor demo script (solution walkthrough)
 
-> Full runnable solution: [`solutions/exercise-4-a2a_pricing_server`](./solutions/exercise-4-a2a_pricing_server)
+> Full runnable solution: [`solutions/exercise-4-a2a_pricing_server.py`](./solutions/exercise-4-a2a_pricing_server.py)
 > [`solutions/exercise-4-a2a_media_server.py`](./solutions/exercise-4-a2a_media_server.py).
 > [`solutions/exercise-4-a2a_sales_client_a2a.py`](./solutions/exercise-4-a2a_sales_client_a2a.py) and (bonus)
 > [`solutions/exercise-4-a2a_sales_client_maf.py`](./solutions/exercise-4-a2a_sales_client_maf.py) and (bonus)
