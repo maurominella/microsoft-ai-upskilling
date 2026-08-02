@@ -175,7 +175,7 @@ In VS Code, open the notebook → **Select Kernel** → choose **"AI Labs (uv)"*
 
 Keep endpoints and IDs out of your code. Create a `.env` file in the exercise folder and fill in the values your instructor / the Foundry portal give you. Add or remove keys per exercise — this is the reusable baseline:
 
-```dotenv
+```bash
 # Entra ID (app-only / "without OBO" exercises only)
 AZURE_TENANT_ID=<tenant-id>
 AZURE_CLIENT_ID=<app-client-id>
@@ -187,7 +187,6 @@ FOUNDRY_MODEL_NAME=<your-model-deployment-name>
 ```
 
 Load it in Python with `python-dotenv`:
-
 ```python
 from dotenv import load_dotenv
 import os
