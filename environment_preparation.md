@@ -109,13 +109,13 @@ Install [VS Code](https://code.visualstudio.com/) and these extensions:
   powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"
   ```
 
-Verify: `uv --version`. (uv also installs and manages Python for you — you do **not** need a separate Python install.)
+Verify: `uv --version`. (uv also installs and manages Python for you — you do **not** need a separate Python install).
 
 ---
 
 ## 5. Create your project workspace
 
-Run these once per exercise folder. Grab the `requirements.txt` from the session you are working on (for example [`01-microsoft-ai-platform/requirements.txt`](01-microsoft-ai-platform/requirements.txt)) and copy it into your working folder first.
+Run these once per exercise folder, where you find the `requirements.txt` file. from the session you are working on (for example [`01-microsoft-ai-platform/requirements.txt`](01-microsoft-ai-platform/requirements.txt)).
 
 ```bash
 # 1. Create the project folder and enter it
