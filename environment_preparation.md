@@ -42,7 +42,7 @@ First, create a Microsoft Foundry Resource and Project. The following example sh
 
 ---
 
-After the provisioning, collect the following to pieces of information:
+After the provisioning, collect the following two pieces of information:
 ![Foundry Provisioning Data](image.png)
 
 ---
@@ -53,14 +53,12 @@ AZURE_OPENAI_CHAT_DEPLOYMENT_NAME=<CHAT-DEPLOYMENT-NAME>
 FOUNDRY_MODEL_NAME=<CHAT-DEPLOYMENT-NAME>
 ```
 
-<br/>
-
 into a the .env file described at [Configure secrets & settings](#7-configure-secrets--settings-env): (link to point 7. Configure secrets & settings (.env))
-<br/>
+
 ---
-<br/>
+
 ### 2.2 Create a Deployment
-<br/>
+
 From within the Foundry Project created in the previous step, choose `Build`/`Deployments`/`Deploy a Base Model   ` and create a new deployment, for example `gpt-5.4-mini`:
 ![deployment gpt-5.4-mini](image-2.png)
 
