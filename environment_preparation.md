@@ -42,11 +42,12 @@ First, create a Microsoft Foundry Resource and Project. The following example sh
 After the provisioning, collect the following to pieces of information:
 ![Foundry Provisioning Data](image.png)
 
-, and store them into a the .env file as follows:
+, and store 
 ```
-FOUNDRY_PROJECT_ENDPOINT=https://<FOUNDRY-RESOURCE-NAME>.services.ai.azure.com/api/projects/<PROJECT-NAME>
-AZURE_OPENAI_ENDPOINT=https://<FOUNDRY-RESOURCE-NAME>.openai.azure.com/
+AZURE_OPENAI_CHAT_DEPLOYMENT_NAME=<CHAT-DEPLOYMENT-NAME>
+FOUNDRY_MODEL_NAME=<CHAT-DEPLOYMENT-NAME>
 ```
+ into a the .env file described at [Configure secrets & settings](#7-configure-secrets--settings-env): (link to point 7. Configure secrets & settings (.env))
 ---
 ### 2.2 Create a Deployment
 From within the Foundry Project created in the previous step, choose `Build`/`Deployments`/`Deploy a Base Model   ` and create a new deployment, for example `gpt-5.4-mini`:
@@ -143,7 +144,7 @@ deactivate
 
 ---
 
-## 6. Jupyter kernel (only for notebook exercises)
+## 6. Jupyter kernel (only for notebook exercises, not included here)
 
 Some exercises are delivered as Jupyter notebooks. Register a kernel so VS Code / Jupyter can select this environment. Use a name you'll recognise (here: `ai-labs`).
 
@@ -167,14 +168,14 @@ In VS Code, open the notebook → **Select Kernel** → choose **"AI Labs (uv)"*
 Keep endpoints and IDs out of your code. Create a `.env` file in the exercise folder and fill in the values your instructor / the Foundry portal give you. Add or remove keys per exercise — this is the reusable baseline:
 
 ```dotenv
-# Foundry project
-PROJECT_ENDPOINT=<your-project-endpoint>
-MODEL_DEPLOYMENT=<your-model-deployment-name>
-
 # Entra ID (app-only / "without OBO" exercises only)
 AZURE_TENANT_ID=<tenant-id>
 AZURE_CLIENT_ID=<app-client-id>
 AZURE_CLIENT_SECRET=<app-client-secret>
+
+# Foundry project
+FOUNDRY_PROJECT_ENDPOINT=<your-project-endpoint>
+FOUNDRY_MODEL_NAME=<your-model-deployment-name>
 ```
 
 Load it in Python with `python-dotenv`:
@@ -183,7 +184,7 @@ Load it in Python with `python-dotenv`:
 from dotenv import load_dotenv
 import os
 load_dotenv()
-endpoint = os.environ["PROJECT_ENDPOINT"]
+endpoint = os.environ["FOUNDRY_PROJECT_ENDPOINT"]
 ```
 
 > [!WARNING]
