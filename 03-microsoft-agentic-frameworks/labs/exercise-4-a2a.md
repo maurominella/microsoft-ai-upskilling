@@ -223,16 +223,72 @@ async def main():
 asyncio.run(main())
 ```
 
-**B2 - Orchestrate both agents from the client.** In `sales_client.py`, after querying the
-Pricing Agent (9999), also query the Media Planning Agent (10000) and **compose** the two
-answers into a single proposal for the customer. This is the "sales assistant coordinating
-several specialists" pattern from the slides.
+**B2 - Invoke the agents via A2A Client SDK.** In `exercise-4-a2a_sales_client_a2a.py`, the clients query both the Pricing Agent (9999) and the Media Planning Agent (10000):
+```python
+import asyncio
+from a2a.client import create_client
+from a2a.helpers import new_text_message
+from a2a.types import Role, SendMessageRequest
 
-**B3 - [Advanced] Make the Pricing Agent 'smart'.** Replace the deterministic logic with a call
-to a model (Agent Framework, Ex. 1, or the Responses API, Ex. 2) inside `execute()`, so the
-quote also accounts for seasonality and sector in natural language. The Agent Card and protocol
-stay identical: you only change *how* the agent produces its answer.
+async def main():
 
+    for url in ["http://localhost:9999", "http://localhost:10000"]:
+        try:
+            client = await create_client(url)
+            async with client:
+                request = SendMessageRequest(
+                    message=new_text_message(
+                        "sector=Travel; impressions=9200000",
+                        role=Role.ROLE_USER,
+                    )
+                )
+
+                async for response in client.send_message(request):
+                    print(response.message.parts)
+            
+        except Exception as e:
+            print(f"Failed to connect to {url}: {e}")
+
+
+asyncio.run(main())
+```
+
+**B3 - Invoke the agents via A2A Client SDK.** In `exercise-4-a2a_sales_client_maf.py`, the clients query are implemented using Microsoft Agent Framework (MAF) SDK which creates *two local MAF agents*. After that, the client add the two MAF agents to a **MAF sequential workflow** so that a single call invokes both the Pricing Agent (9999) and the Media Planning Agent (10000):
+```python
+import asyncio
+from agent_framework.a2a import A2AAgent
+from agent_framework.orchestrations import SequentialBuilder
+
+CAMPAIGN_BRIEF = "sector=Travel; impressions=9200000"
+
+async def main():
+    pricing_agent = A2AAgent(
+        name="PricingAgent",
+        description="Computes an advertising campaign quote.",
+        url="http://localhost:9999",
+    )
+    media_agent = A2AAgent(
+        name="MediaAgent",
+        description="Finds available media inventory for a campaign.",
+        url="http://localhost:10000",
+    )
+
+    workflow = SequentialBuilder(
+        participants=[pricing_agent, media_agent],
+        intermediate_output_from=[pricing_agent], # makes pricing_agent answer  visibile as intermediate output within the workflow
+    ).build()
+
+    async with pricing_agent, media_agent:
+        result = await workflow.run(CAMPAIGN_BRIEF)
+
+    for response in result.get_intermediate_outputs():
+        print(f"Pricing: {response.text}")
+    for response in result.get_outputs():
+        print(f"Media planning: {response.text}")
+
+
+asyncio.run(main())
+```
 ---
 
 ## Instructor demo script (solution walkthrough)
