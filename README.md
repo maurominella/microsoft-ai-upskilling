@@ -49,10 +49,10 @@ microsoft-ai-upskilling/
 │   ├── slides/   (Day-1 deck PDF is here)
 │   └── labs/     → lab-1 … lab-4
 └── 03-ai-innovations/                     ← Session 3 (placeholder)
-│   ├── README.md
-│   ├── requirements.txt
-│   ├── slides/   (Day-1 deck PDF is here)
-│   └── labs/     → lab-1 … lab-4
+    ├── README.md
+    ├── requirements.txt
+    ├── slides/   (Day-1 deck PDF is here)
+    └── labs/     → lab-1 … lab-4
 ```
 
 Each session folder is self-describing; the two upcoming sessions will follow the same layout (`slides/` + `labs/`).
