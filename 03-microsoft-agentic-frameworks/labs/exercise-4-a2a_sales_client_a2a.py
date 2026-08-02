@@ -1,10 +1,7 @@
 import asyncio
-
 from a2a.client import create_client
 from a2a.helpers import new_text_message
 from a2a.types import Role, SendMessageRequest
-from google.protobuf.json_format import MessageToDict
-
 
 async def main():
 
@@ -20,7 +17,7 @@ async def main():
                 )
 
                 async for response in client.send_message(request):
-                    print(MessageToDict(response))
+                    print(response.message.parts)
             
         except Exception as e:
             print(f"Failed to connect to {url}: {e}")

@@ -1,4 +1,5 @@
 import uvicorn
+import re
 from a2a.server.routes import create_agent_card_routes, create_jsonrpc_routes
 from a2a.helpers import new_text_message
 from a2a.server.request_handlers import DefaultRequestHandler
@@ -13,14 +14,10 @@ from a2a.types import (
 )
 from starlette.applications import Starlette
 
-# --- Deterministic pricing logic: base CPM per sector ---
-CPM_BASE = {"Automotive": 18.0, "Finance": 22.0, "FMCG": 12.0,
-            "Travel": 16.0, "Telco": 14.0, "default": 15.0}
-
 
 def availability(brief: str) -> str:
-    parts = dict(p.split("=") for p in brief.replace(" ", "").split(";") if "=" in p)
-    sector = parts.get("sector", "n/a")
+    match = re.search(r"sector(?:=|\s+)([^:;\s]+)", brief, re.IGNORECASE)
+    sector = match.group(1) if match else "n/a"
     return f"Media planning - sector {sector}: 3 prime-time TV slots and 5 digital packages available in March."
 
 
