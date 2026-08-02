@@ -32,7 +32,6 @@ An A2A agent publishes an **Agent Card** (a machine-readable business card) and 
 
 ```python
 import uvicorn
-from starlette.applications import Starlette
 from a2a.server.routes import create_agent_card_routes, create_jsonrpc_routes
 from a2a.helpers import new_text_message
 from a2a.server.request_handlers import DefaultRequestHandler
@@ -45,6 +44,7 @@ from a2a.types import (
     AgentCapabilities,
     AgentInterface,
 )
+from starlette.applications import Starlette
 
 # --- Deterministic pricing logic: base CPM per sector ---
 CPM_BASE = {"Automotive": 18.0, "Finance": 22.0, "FMCG": 12.0,
@@ -115,7 +115,7 @@ python pricing_server.py
 ```
 
 **What you should see:** Uvicorn listening on `http://0.0.0.0:9999`. The Agent Card is
-published automatically at `http://localhost:9999/.well-known/agent-card.json`. Open it in a browser to see the "business card".
+published automatically at [`http://localhost:9999/.well-known/agent-card.json`](http://localhost:9999/.well-known/agent-card.json). Open it in a browser to see the "business card".
 
 ---
 
