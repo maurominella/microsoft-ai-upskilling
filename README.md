@@ -41,12 +41,18 @@ microsoft-ai-upskilling/
 ├── 01-microsoft-ai-platform/              ← Session 1 (complete)
 │   ├── README.md
 │   ├── requirements.txt
-│   ├── slides/   (add your Day-1 deck PDF here)
+│   ├── slides/   (Day-1 deck PDF is here)
 │   └── labs/     → lab-1 … lab-4
 ├── 02-development-supervision/            ← Session 2 (placeholder)
-│   └── README.md
+│   ├── README.md
+│   ├── requirements.txt
+│   ├── slides/   (Day-1 deck PDF is here)
+│   └── labs/     → lab-1 … lab-4
 └── 03-ai-innovations/                     ← Session 3 (placeholder)
-    └── README.md
+│   ├── README.md
+│   ├── requirements.txt
+│   ├── slides/   (Day-1 deck PDF is here)
+│   └── labs/     → lab-1 … lab-4
 ```
 
 Each session folder is self-describing; the two upcoming sessions will follow the same layout (`slides/` + `labs/`).
