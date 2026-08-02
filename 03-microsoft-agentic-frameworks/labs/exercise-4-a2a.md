@@ -111,7 +111,7 @@ if __name__ == "__main__":
 Start the server (**first terminal**):
 
 ```bash
-python pricing_server.py
+python exercise-4-a2a_pricing_server.py
 ```
 
 **What you should see:** Uvicorn listening on `http://0.0.0.0:9999`. The Agent Card is
@@ -122,35 +122,31 @@ published automatically at [`http://localhost:9999/.well-known/agent-card.json`]
 ## Part B - The client: Sales Assistant that delegates (~20 min)
 
 The client **discovers** the remote agent from its Agent Card and **delegates** the task.
-Create `sales_client.py`:
+Create `exercise-4-a2a_sales_client.py`:
 
 ```python
 import asyncio
-from uuid import uuid4
-import httpx
-from a2a.client import A2AClient
-from a2a.types import SendMessageRequest, MessageSendParams
+
+from a2a.client import create_client
+from a2a.helpers import new_text_message
+from a2a.types import Role, SendMessageRequest
+from google.protobuf.json_format import MessageToDict
+
 
 async def main():
-    async with httpx.AsyncClient() as http:
-        # 1. discovery via the Agent Card (reads /.well-known/agent-card.json)
-        client = await A2AClient.get_client_from_agent_card_url(
-            http, "http://localhost:9999"
+    client = await create_client("http://localhost:9999")
+
+    async with client:
+        request = SendMessageRequest(
+            message=new_text_message(
+                "sector=Travel; impressions=9200000",
+                role=Role.ROLE_USER,
+            )
         )
 
-        # 2. delegate the task to the remote agent
-        payload = {
-            "message": {
-                "role": "user",
-                "parts": [{"type": "text", "text": "sector=Travel; impressions=9200000"}],
-                "messageId": uuid4().hex,
-            }
-        }
-        req = SendMessageRequest(params=MessageSendParams(**payload))
-        resp = await client.send_message(req)
+        async for response in client.send_message(request):
+            print(MessageToDict(response))
 
-        # 3. the Sales Assistant uses the received answer
-        print(resp.model_dump(mode="json", exclude_none=True))
 
 asyncio.run(main())
 ```

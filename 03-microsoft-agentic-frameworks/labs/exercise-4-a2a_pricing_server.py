@@ -30,7 +30,7 @@ def quote(brief: str) -> str:
 class PricingAgentExecutor(AgentExecutor):
     async def execute(self, context: RequestContext, event_queue: EventQueue) -> None:
         request = context.get_user_input()  # text sent by the client
-        event_queue.enqueue_event(new_text_message(quote(request)))
+        await event_queue.enqueue_event(new_text_message(quote(request)))
     async def cancel(self, context: RequestContext, event_queue: EventQueue) -> None:
         raise Exception("cancel not supported")
 
