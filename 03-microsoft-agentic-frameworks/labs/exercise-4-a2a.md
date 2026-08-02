@@ -308,8 +308,8 @@ asyncio.run(main())
 > Full runnable solution: 
 - [`solutions/exercise-4-a2a_pricing_server.py`](./solutions/exercise-4-a2a_pricing_server.py)
 - [`solutions/exercise-4-a2a_media_server.py`](./solutions/exercise-4-a2a_media_server.py).
-- [`solutions/exercise-4-a2a_sales_client_a2a.py`](./solutions/exercise-4-a2a_sales_client_a2a.py) and (bonus)
-- [`solutions/exercise-4-a2a_sales_client_maf.py`](./solutions/exercise-4-a2a_sales_client_maf.py) and (bonus)
+- [`solutions/exercise-4-a2a_sales_client_a2a.py`](./solutions/exercise-4-a2a_sales_client_a2a.py) (bonus)
+- [`solutions/exercise-4-a2a_sales_client_maf.py`](./solutions/exercise-4-a2a_sales_client_maf.py) (bonus)
 > Terminal 1: `python solutions/ex4_pricing_server.py` - Terminal 2: `python solutions/ex4_sales_client.py`.
 
 1. **Set the scene.** "So far our agents used *tools*. Now an agent will call *another agent*.
