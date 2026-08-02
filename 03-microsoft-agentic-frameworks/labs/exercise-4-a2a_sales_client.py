@@ -7,18 +7,23 @@ from google.protobuf.json_format import MessageToDict
 
 
 async def main():
-    client = await create_client("http://localhost:9999")
 
-    async with client:
-        request = SendMessageRequest(
-            message=new_text_message(
-                "sector=Travel; impressions=9200000",
-                role=Role.ROLE_USER,
-            )
-        )
+    for url in ["http://localhost:9999", "http://localhost:10000"]:
+        try:
+            client = await create_client(url)
+            async with client:
+                request = SendMessageRequest(
+                    message=new_text_message(
+                        "sector=Travel; impressions=9200000",
+                        role=Role.ROLE_USER,
+                    )
+                )
 
-        async for response in client.send_message(request):
-            print(MessageToDict(response))
+                async for response in client.send_message(request):
+                    print(MessageToDict(response))
+            
+        except Exception as e:
+            print(f"Failed to connect to {url}: {e}")
 
 
 asyncio.run(main())
