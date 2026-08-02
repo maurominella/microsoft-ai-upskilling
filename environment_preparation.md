@@ -37,7 +37,7 @@ You need both **local** tooling and **cloud** access.
 ---
 ### 2.1 Create an Microsoft Foundry Resource + Project
 
-First, create a Microsoft Foundry Resource and Project. The following example shows how to do it on the [Foundry Portal]( https://ai.azure.com/allResources), but there are multiple ways to do it, including through Azure:
+First, create a Microsoft Foundry Resource and Project. There are multiple ways to do it -including through Azure-, however the  following example shows how to do it on the [Foundry Portal]( https://ai.azure.com/allResources):
 ![Microsoft Foundry Provisioning](image-1.png)
 
 ---
@@ -47,13 +47,12 @@ After the provisioning, collect the following two pieces of information:
 
 ---
 
-, and finally store 
+, and finally store them as
 ```bash
 AZURE_OPENAI_CHAT_DEPLOYMENT_NAME=<CHAT-DEPLOYMENT-NAME>
 FOUNDRY_MODEL_NAME=<CHAT-DEPLOYMENT-NAME>
 ```
-
-into a the .env file described at [Configure secrets & settings](#7-configure-secrets--settings-env): (link to point 7. Configure secrets & settings (.env))
+into a the .env file described at [Configure secrets & settings](#7-configure-secrets--settings-env)
 
 ---
 
