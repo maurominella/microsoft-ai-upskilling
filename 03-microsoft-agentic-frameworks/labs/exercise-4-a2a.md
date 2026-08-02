@@ -32,13 +32,19 @@ An A2A agent publishes an **Agent Card** (a machine-readable business card) and 
 
 ```python
 import uvicorn
-from a2a.server.apps import A2AStarletteApplication
+from starlette.applications import Starlette
+from a2a.server.routes import create_agent_card_routes, create_jsonrpc_routes
+from a2a.helpers import new_text_message
 from a2a.server.request_handlers import DefaultRequestHandler
 from a2a.server.tasks import InMemoryTaskStore
 from a2a.server.agent_execution import AgentExecutor, RequestContext
 from a2a.server.events import EventQueue
-from a2a.utils import new_agent_text_message
-from a2a.types import AgentCard, AgentSkill, AgentCapabilities
+from a2a.types import (
+    AgentCard,
+    AgentSkill,
+    AgentCapabilities,
+    AgentInterface,
+)
 
 # --- Deterministic pricing logic: base CPM per sector ---
 CPM_BASE = {"Automotive": 18.0, "Finance": 22.0, "FMCG": 12.0,
@@ -56,8 +62,8 @@ def quote(brief: str) -> str:
 
 class PricingAgentExecutor(AgentExecutor):
     async def execute(self, context: RequestContext, event_queue: EventQueue) -> None:
-        request = context.get_user_input()          # text sent by the client
-        event_queue.enqueue_event(new_agent_text_message(quote(request)))
+        request = context.get_user_input()  # text sent by the client
+        event_queue.enqueue_event(new_text_message(quote(request)))
     async def cancel(self, context: RequestContext, event_queue: EventQueue) -> None:
         raise Exception("cancel not supported")
 
@@ -72,21 +78,34 @@ skill = AgentSkill(
 agent_card = AgentCard(
     name="RAI Pricing Agent",
     description="Campaign pricing agent for RAI Pubblicita.",
-    url="http://localhost:9999/",
     version="1.0.0",
     default_input_modes=["text"],
     default_output_modes=["text"],
     capabilities=AgentCapabilities(),
     skills=[skill],
+    supported_interfaces=[
+        AgentInterface(
+            url="http://localhost:9999/",
+            protocol_binding="JSONRPC",
+        )
+    ],
 )
 
 if __name__ == "__main__":
     handler = DefaultRequestHandler(
         agent_executor=PricingAgentExecutor(),
         task_store=InMemoryTaskStore(),
+        agent_card=agent_card,
     )
-    app = A2AStarletteApplication(agent_card=agent_card, http_handler=handler)
-    uvicorn.run(app.build(), host="0.0.0.0", port=9999)
+
+    app = Starlette(
+        routes=[
+            *create_agent_card_routes(agent_card),
+            *create_jsonrpc_routes(handler, rpc_url="/"),
+        ]
+    )
+
+    uvicorn.run(app, host="0.0.0.0", port=9999)
 ```
 
 Start the server (**first terminal**):
@@ -96,8 +115,7 @@ python pricing_server.py
 ```
 
 **What you should see:** Uvicorn listening on `http://0.0.0.0:9999`. The Agent Card is
-published automatically at `http://localhost:9999/.well-known/agent-card.json`
-(on some versions: `.../agent.json`). Open it in a browser to see the "business card".
+published automatically at `http://localhost:9999/.well-known/agent-card.json`. Open it in a browser to see the "business card".
 
 ---
 
