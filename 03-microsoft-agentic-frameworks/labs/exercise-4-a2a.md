@@ -27,8 +27,14 @@ it answers), delegating a task between agents, the client <-> remote-agent loop,
 
 ## Part A - The remote agent: Pricing Agent (~25 min)
 
-An A2A agent publishes an **Agent Card** (a machine-readable business card) and implements an
-**AgentExecutor** with its logic. Create `pricing_server.py`:
+In this first step, you will expose a small deterministic Python function as a remote A2A agent.
+This keeps the business logic intentionally simple, so you can focus on the A2A building blocks
+introduced in the slides: the agent's identity and capabilities, its protocol endpoint, and the
+executor that handles incoming requests.
+
+The agent publishes an **Agent Card** (a machine-readable business card) and implements an
+**AgentExecutor** containing its logic. The SDK routes the incoming A2A message to the executor
+and returns its response through the event queue. Create `pricing_server.py`:
 
 ```python
 import uvicorn
@@ -121,7 +127,13 @@ published automatically at [`http://localhost:9999/.well-known/agent-card.json`]
 
 ## Part B - The client: Sales Assistant that delegates (~20 min)
 
-The client **discovers** the remote agent from its Agent Card and **delegates** the task.
+Now you will build the other side of the interaction. The Sales Assistant does not import or
+reimplement the pricing logic: it only knows the remote agent's base URL. The A2A client uses the
+Agent Card to discover how to communicate with the agent, sends a structured message, and receives
+the remote response.
+
+This is the key distinction from a normal local function call: the client **discovers** an
+independently running agent and **delegates** the task through the A2A protocol.
 Create `exercise-4-a2a_sales_client.py`:
 
 ```python
@@ -176,7 +188,7 @@ python sales_client.py
 
 ---
 
-## Optional (bonus, ~15 min)
+## Optional (bonus, ~25 min)
 
 **B1 - A second remote agent: Media Planning.** Copy `pricing_server.py` into
 `media_server.py`: change the port (`10000`), the Agent Card (`name="RAI Media Planning Agent"`,
@@ -253,7 +265,7 @@ async def main():
 asyncio.run(main())
 ```
 
-**B3 - Invoke the agents via A2A Client SDK.** In `exercise-4-a2a_sales_client_maf.py`, the clients query are implemented using Microsoft Agent Framework (MAF) SDK which creates *two local MAF agents*. After that, the client add the two MAF agents to a **MAF sequential workflow** so that a single call invokes both the Pricing Agent (9999) and the Media Planning Agent (10000):
+**B3 - Invoke the agents via Microsoft Agent Framework.** In `exercise-4-a2a_sales_client_maf.py`, the remote agents are represented as *two local MAF agents* using the A2A integration. The client then adds them to a **MAF sequential workflow**, so that a single workflow call invokes both the Pricing Agent (9999) and the Media Planning Agent (10000):
 ```python
 import asyncio
 from agent_framework.a2a import A2AAgent
