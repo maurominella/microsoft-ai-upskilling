@@ -1,6 +1,21 @@
 # Microsoft AI Upskilling
 
-Throughout this workshop, all examples, exercises, simulations, and presentation materials use **AdvertSphere Broadcasting**, a wholly fictional company created exclusively for this training. AdvertSphere Broadcasting is presented as the official advertising concessionaire of the fictional AdvertSphere Group, managing commercial inventory across the group’s television, radio, streaming, digital, and social channels and providing unified access to its total video and total audio advertising portfolio. As the commercial gateway to the AdvertSphere media ecosystem, it coordinates advertising formats and strategy across linear and digital environments, drives sales and commercial innovation, and supports selected third-party publishers through extended radio and digital partnerships. Its role remains distinct from that of AdvertSphere Media, which retains full responsibility for editorial decisions, while advertising strategy, sales, and commercial innovation are centralized within AdvertSphere Broadcasting.
+## Workshop scenario: AdvertSphere Broadcasting
+
+<p align="center">
+    <img src="AdvertSphere%20Broadcasting.jpg" alt="AdvertSphere Broadcasting" width="720">
+</p>
+
+> [!NOTE]
+> **AdvertSphere Broadcasting is a fictional company created exclusively for this workshop.** It is used consistently throughout the examples, exercises, simulations, and presentation materials to provide a realistic and coherent business context.
+
+AdvertSphere Broadcasting is the advertising concessionaire of the fictional AdvertSphere Group. It manages commercial inventory across the group’s television, radio, streaming, digital, and social channels, providing advertisers with unified access to its total video and total audio media portfolio.
+
+As the commercial gateway to the AdvertSphere media ecosystem, the company coordinates advertising formats and strategy across linear and digital environments, drives sales and commercial innovation, and supports selected third-party publishers through radio and digital partnerships. Editorial responsibility remains with AdvertSphere Media, while advertising strategy, sales, and commercial innovation are centralized within AdvertSphere Broadcasting.
+
+---
+
+## Workshop overview
 
 A hands-on training programme on **Microsoft Foundry** and the Microsoft AI platform, delivered as **three onsite sessions** of **8 hours each** (every session split into **two 4-hour days**: Day 1 vision & architecture, Day 2 hands-on labs).
 
