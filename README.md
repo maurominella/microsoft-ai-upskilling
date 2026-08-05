@@ -1,5 +1,7 @@
 # Microsoft AI Upskilling
 
+Throughout this workshop, all examples, exercises, simulations, and presentation materials use **AdvertSphere Broadcasting**, a wholly fictional company created exclusively for this training. AdvertSphere Broadcasting is presented as the official advertising concessionaire of the fictional AdvertSphere Group, managing commercial inventory across the group’s television, radio, streaming, digital, and social channels and providing unified access to its total video and total audio advertising portfolio. As the commercial gateway to the AdvertSphere media ecosystem, it coordinates advertising formats and strategy across linear and digital environments, drives sales and commercial innovation, and supports selected third-party publishers through extended radio and digital partnerships. Its role remains distinct from that of AdvertSphere Media, which retains full responsibility for editorial decisions, while advertising strategy, sales, and commercial innovation are centralized within AdvertSphere Broadcasting.
+
 A hands-on training programme on **Microsoft Foundry** and the Microsoft AI platform, delivered as **three onsite sessions** of **8 hours each** (every session split into **two 4-hour days**: Day 1 vision & architecture, Day 2 hands-on labs).
 
 This repository collects, for each session, the **slides** (PDF), the **hands-on exercises**, and a shared **lab environment setup**.

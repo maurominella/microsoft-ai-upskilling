@@ -33,7 +33,7 @@
 
 ## Step 1 — Open your project and the Agents area
 
-Sign in to the Microsoft Foundry portal and open (or create) your project. In the left navigation, select **Agents**. This is where prompt-based and hosted agents live for the project.
+Sign in to the [Microsoft Foundry portal](https://ai.azure.com/) and open (or create) your project. In the left navigation, select **Agents**. This is where prompt-based and hosted agents live for the project.
 
 > [!NOTE]
 > **Concept** — A *prompt-based* agent is model + instructions + tools declared in the service, with no code to deploy. It is the fastest way to a working agent; you move to a *hosted* agent only when you need to bring your own code.
