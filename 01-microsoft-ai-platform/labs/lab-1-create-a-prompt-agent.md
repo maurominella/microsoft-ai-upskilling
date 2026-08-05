@@ -15,7 +15,7 @@
 
 ---
 
-## Prerequisites
+## Prerequisites, as described at [environment_preparation](./../../environment_preparation.md)
 
 - An Azure subscription and access to the Microsoft Foundry portal (`ai.azure.com`).
 - A Foundry `project` (create one if needed — it is the container for models, tools, connections and identity).
