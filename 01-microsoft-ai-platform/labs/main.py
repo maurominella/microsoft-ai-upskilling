@@ -1,5 +1,5 @@
 def main():
-    print("Hello from 01-microsoft-ai-platform!")
+    print("Hello from labs!")
 
 
 if __name__ == "__main__":

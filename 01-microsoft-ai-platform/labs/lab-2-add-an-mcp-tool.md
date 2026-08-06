@@ -43,105 +43,145 @@
 > [!NOTE]
 > **Concept** — MCP (Model Context Protocol) is an open standard that lets a server expose tools and context to any MCP-compatible client — and Foundry Agent Service is such a client. This is what keeps your integrations vendor-neutral.
 
-## Step 2 — Create the MCP tool via a new Azure Logic App
-### 2.1 Choose **Multitenant** consumption plan
-![logic app creation](image.png)
-### 2.2 Name it *asb_helloworld_logicapp*
-### 2.3 Go to **Logic App Designer** and create an hhtp trigger
-![When an HTTP request is received](image-1.png)
-### 2.4 Add a *Javascript Code* action 
-![javascript action](image-3.png)
-, and enter the following Javascript code:
-```javascript
-// MCP server minimale dentro Logic App
-// Tool: echo
+## Step 2 — Create the MCP tool in Python
 
-function handleMcpRequest(body) {
-    if (!body || !body.method) {
-        return {
-            jsonrpc: "2.0",
-            error: { code: -32600, message: "Invalid MCP request" }
-        };
-    }
+In this step, we create a small MCP server, run it on your machine, and expose it through an anonymous HTTPS Dev Tunnel so that Foundry Agent Service can reach it.
 
-    // Tool invocation
-    if (body.method === "tools/echo") {
-        const text = body.params?.text || "";
-        return {
-            jsonrpc: "2.0",
-            result: { text }
-        };
-    }
+### 2.1 Create the MCP server
 
-    // Manifest request
-    if (body.method === "manifest/get") {
-        return {
-            jsonrpc: "2.0",
-            result: {
-                name: "logicapp-echo-mcp",
-                version: "1.0.0",
-                tools: [
-                    {
-                        name: "echo",
-                        description: "Returns the same text provided as input",
-                        inputSchema: {
-                            type: "object",
-                            properties: { text: { type: "string" } },
-                            required: ["text"]
-                        },
-                        outputSchema: {
-                            type: "object",
-                            properties: { text: { type: "string" } }
-                        }
-                    }
-                ]
-            }
-        };
-    }
+In the `01-microsoft-ai-platform/labs` folder, create a file named `lab-2-echo_mcp_server.py` with the following content:
 
-    return {
-        jsonrpc: "2.0",
-        error: { code: -32601, message: "Unknown MCP method" }
-    };
-}
+```python
+from fastmcp import FastMCP
 
-return handleMcpRequest(context.request.body);
+mcp = FastMCP("ASB Campaigns MCP")
+
+
+@mcp.tool
+def echo(original_string: str) -> str:
+    """Returns the same text provided as input."""
+    return f"Echo: {original_string}"
+
+
+if __name__ == "__main__":
+    mcp.run(
+        transport="http",
+        host="127.0.0.1",
+        port=8000,
+        json_response=True,
+        stateless_http=True,
+    )
 ```
-### 2.5 Add a Response as the final action
-![response](image-4.png)
-, where we return the JavaScript Code as JSON body:
-![json output](image-2.png)
 
+The `@mcp.tool` decorator exposes the Python function as an MCP tool. The type hints and docstring become part of the tool schema that Foundry reads during tool discovery.
 
-### 2.6 Save the App and note the 
-## Step 2 — Add the MCP tool in the portal
+The server uses the Streamable HTTP transport and exposes its MCP endpoint at `http://127.0.0.1:8000/mcp`. The `json_response` and `stateless_http` options make the endpoint suitable for a managed remote client such as Foundry Agent Service.
 
-- Open your agent → **Tools** → **Add a tool** 
-- For the purpose of this exercise, please choose → **Catalog** → **Work IQ Word**.
-- More in general, to add a full MCP Server, please choose:   
+### 2.2 Start the local server
+
+Open a terminal in the `01-microsoft-ai-platform/labs` folder, activate the virtual environment, and run the server, either in debug mode or from the command line:
+
+```bash
+python lab-2-echo_mcp_server.py
+```
+
+Keep this execution running. FastMCP should report an address similar to:
+
+```text
+Starting MCP server 'ASB Campaigns MCP' with transport 'http' (stateless) on
+http://127.0.0.1:8000/mcp
+```
+
+> [!IMPORTANT]
+> Only one process can listen on port `8000`. If you receive `Address already in use`, stop the previous server instance with `Ctrl+C` before starting it again.
+
+### 2.3 Expose port 8000 through Dev Tunnels
+
+Open a **second terminal**. If you completed the permanent Dev Tunnel setup in [Environment Preparation](../../environment_preparation.md#7-configure-devtunnel), host the existing tunnel:
+
+```bash
+devtunnel host mylocalmcpserver --allow-anonymous
+```
+
+For a temporary tunnel instead, run:
+
+```bash
+devtunnel host -p 8000 --allow-anonymous
+```
+
+The temporary URL changes when the tunnel is recreated. A hosted tunnel reports URLs similar to:
+
+```text
+Hosting port: 8000
+Connect via browser: https://<tunnel-id>-8000.<region>.devtunnels.ms
+Ready to accept connections for tunnel: mylocalmcpserver.<region>
+```
+
+Keep this second terminal running as well. Build the public MCP endpoint by appending `/mcp` to the port-specific HTTPS URL:
+
+```text
+https://<tunnel-id>-8000.<region>.devtunnels.ms/mcp
+```
+
+For example:
+
+```text
+https://5ndxcpg3-8000.eun1.devtunnels.ms/mcp
+```
+
+Do not use the site root: `/` returns `404 Not Found` because FastMCP exposes the protocol endpoint specifically at `/mcp`.
+
+### 2.4 Verify the public MCP endpoint
+
+From another terminal, send an MCP `tools/list` request through the tunnel:
+
+```bash
+curl -sS -X POST "https://<tunnel-id>-8000.<region>.devtunnels.ms/mcp" \
+  -H "Content-Type: application/json" \
+  -H "Accept: application/json" \
+  --data '{"jsonrpc":"2.0","id":1,"method":"tools/list","params":{}}'
+```
+
+The response should contain a tool named `echo`. You can also invoke it directly:
+
+```bash
+curl -sS -X POST "https://<tunnel-id>-8000.<region>.devtunnels.ms/mcp" \
+  -H "Content-Type: application/json" \
+  -H "Accept: application/json" \
+  --data '{"jsonrpc":"2.0","id":2,"method":"tools/call","params":{"name":"echo","arguments":{"original_string":"Foundry test"}}}'
+```
+
+The result should include `Echo: Foundry test`.
+
+> ✅ **Checkpoint** — The Python server and Dev Tunnel terminals are both running, and the public `/mcp` endpoint returns the `echo` tool.
+
+## Step 3 — Add the MCP tool in the portal
+
+- Open your agent → **Tools** → **Add a tool**, then choose:
   - → **Model Context Protocol (MCP)**.
-  - **Server label:** a short name, e.g. `asb-tools`.
-  - **Server URL:** your MCP endpoint, e.g. `https://<your-mcp-server>/sse`.
+  - **Server label:** a short name, e.g. `echo-mcp-tool-01`.
+  - **Server URL:** the public endpoint from Step 2, e.g. `https://<tunnel-id>-8000.<region>.devtunnels.ms/mcp`.
+  - **Authentication:** none. The lab tunnel was started with `--allow-anonymous`.
   - Optionally scope which of the server's tools the agent may use (*allowed tools*).
 
-## Step 3 — Authenticate via a project connection (if needed)
+## Step 4 — Authenticate via a project connection (if needed)
 
 If the server is protected, attach a **project connection** that holds the credential (API key or OAuth). Configure it once here — never hard-code secrets in the agent or client code. Public sample servers can be added without a connection.
 
 > [!WARNING]
 > **Private endpoints** — If your MCP server is on a private network, ensure the project's networking (VNet / private endpoint) can reach it, otherwise the tool call will time out.
 
-## Step 4 — Set the approval policy
+## Step 5 — Set the approval policy
 
 Choose how tool calls are approved. For a first test set `require_approval: always` so you can see and approve each call; switch to `never` for trusted, unattended tools.
 
-## Step 5 — Test the tool from the playground
+## Step 6 — Test the tool from the playground
 
 Ask a question that forces the agent to use the MCP tool, for example "Produce e quite extensive presentation of yourself and save it into a professional Word document". In the run detail you will see: the model deciding to call the tool → (if approval is on) an approval prompt → the tool result returning → the final answer grounded in that result.
 
 > ✅ **Checkpoint** — You can see a tool invocation to your MCP server and a result flowing back into the answer. The agent used the tool rather than guessing.
 
-## Step 6 — The same tool from code (will be done in the third section  of this workshop)
+## Step 7 — The same tool from code (will be done in the third section  of this workshop)
 
 The MCP tool can also be declared when you call the agent from code (see [Lab 3](lab-3-call-via-responses-api.md)). Representative shape of the tool declaration:
 
@@ -149,7 +189,7 @@ The MCP tool can also be declared when you call the agent from code (see [Lab 3]
 tools = [{
     "type": "mcp",
     "server_label": "contoso-tools",
-    "server_url": "https://<your-mcp-server>/sse",
+  "server_url": "https://<your-mcp-server>/mcp",
     "require_approval": "never"
 }]
 # pass tools=tools to the Responses API call (Lab 3)
@@ -169,7 +209,7 @@ tools = [{
 |---------|--------------------|
 | Tool never gets called | The question didn't require the tool, or the instruction didn't encourage tool use — ask something only the tool can answer. |
 | 401 / 403 from the server | Missing or wrong project connection — re-check the credential in Step 3. |
-| Call times out | Server unreachable (private network) or wrong URL — verify connectivity and the endpoint path (often ends in `/sse`). |
+| Call times out | Server or Dev Tunnel is not running, the endpoint is unreachable, or the URL is wrong — verify both terminals and ensure the endpoint ends in `/mcp`. |
 | Stuck on approval | `require_approval` is set to `always` — approve the call, or set it to `never` for trusted tools. |
 
 ## What you learned
