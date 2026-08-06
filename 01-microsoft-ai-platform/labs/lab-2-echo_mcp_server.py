@@ -11,4 +11,10 @@ def echo(original_string: str) -> str:
 
 if __name__ == "__main__":
     # HTTP transport: the server listens on http://127.0.0.1:8000/mcp
-    mcp.run(transport="http", host="127.0.0.1", port=8000)
+    mcp.run(
+        transport="http",
+        host="127.0.0.1",
+        port=8000,
+        json_response=True,
+        stateless_http=True,
+    )

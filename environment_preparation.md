@@ -189,13 +189,13 @@ echo 'export PATH="$HOME/bin:$PATH"' >> ~/.bashrc
 source ~/.bashrc
 ```
 
-### Configure DevTunnel with a permanent (permanent URL - **suggested**)
+### Configure DevTunnel with a permanent (permanent URL - ***recommended***)
 ```bash
 devtunnel user login --entra
 devtunnel user show
 devtunnel create mylocalmcpserver # una tantum
 devtunnel port create mylocalmcpserver -p 8000 # una tantum
-devtunnel host mylocalmcpserver --allow-anonymous # everny time
+devtunnel host mylocalmcpserver --allow-anonymous # every time
 ```
 ### As a result...
 ![mcptunnel](devtunnel.png)
