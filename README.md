@@ -7,7 +7,7 @@
 </p>
 
 > [!NOTE]
-> **AdvertSphere Broadcasting is a fictional company created exclusively for this workshop.** It is used consistently throughout the examples, exercises, simulations, and presentation materials to provide a realistic and coherent business context.
+> **AdvertSphere Broadcasting (in short: ***ASB***) is a fictional company created exclusively for this workshop.** It is used consistently throughout the examples, exercises, simulations, and presentation materials to provide a realistic and coherent business context.
 
 AdvertSphere Broadcasting is the advertising concessionaire of the fictional AdvertSphere Group. It manages commercial inventory across the group’s television, radio, streaming, digital, and social channels, providing advertisers with unified access to its total video and total audio media portfolio.
 

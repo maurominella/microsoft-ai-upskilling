@@ -42,7 +42,7 @@ Sign in to the [Microsoft Foundry portal](https://ai.azure.com/) and open (or cr
 
 - Select **New agent**.
 - **Model:** choose a deployed reasoning model from the catalog.
-- **Name:** e.g. `rai-assistant`.
+- **Name:** e.g. `asb-assistant`.
 
 You now have an empty agent. The next step — instructions — is the most important.
 
@@ -51,7 +51,7 @@ You now have an empty agent. The next step — instructions — is the most impo
 Instructions are the system prompt: they set the agent's role, goals and guardrails. Paste a clear, bounded instruction such as:
 
 ```text
-You are an assistant for the RAI Pubblicità team.
+You are an assistant for the AdverSphere Broadcasting team.
 - Answer in Italian, concisely and professionally.
 - If you are unsure or lack the information, say so — do not invent.
 - When you perform a calculation, use the code tool rather than guessing.
@@ -62,14 +62,14 @@ You are an assistant for the RAI Pubblicità team.
 
 ## Step 4 — Add a built-in tool
 
-Open the agent's **Tools** section and add a built-in tool. For this lab add `Code Interpreter` so the agent can run calculations reliably. **Save** the agent.
+Open the agent's **Tools** section and add a built-in tool. For this lab add/enable `Code Interpreter` so the agent can run calculations reliably. **Save** the agent, which will show "**Version: 2**" on top of it.
 
 ## Step 5 — Test in the playground
 
 Open the playground for the agent and try two prompts:
 
-- A conversational one: `Presentati in una frase.` — check it answers in Italian and briefly.
-- A calculation: `Se un budget di 250.000€ cresce del 12%, quanto diventa?` — confirm it invokes the code tool instead of guessing.
+- A conversational one: `Introduce yourself in a single sentence.` — check it answers in Italian and briefly.
+- A calculation: `If a budget of 250K€ grows by 12%, how much it becomes?` — confirm it invokes the code tool instead of guessing.
 
 > ✅ **Checkpoint** — The agent replies in Italian, stays concise, and for the second prompt you can see a tool call in the run detail. If so, Step 5 is complete.
 
@@ -78,10 +78,10 @@ Open the playground for the agent and try two prompts:
 Open the agent's details. Note the **agent ID** (you will reuse it in Labs 3 and 4). Many views also expose a declarative representation of the agent — a YAML/JSON definition that captures the same configuration as config-as-code. Conceptually it looks like:
 
 ```yaml
-name: rai-assistant
+name: asb-assistant
 model: <your-model-deployment>
 instructions: |
-  You are an assistant for the RAI Pubblicità team.
+  You are an assistant for the AdverSphere Broadcasting team.
   Answer in Italian, concisely; if unsure, say so.
 tools:
   - type: code_interpreter
