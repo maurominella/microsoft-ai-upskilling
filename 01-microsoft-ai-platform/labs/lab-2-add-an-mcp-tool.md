@@ -18,8 +18,49 @@
 ## Prerequisites
 
 - The agent from [Lab 1](lab-1-create-a-prompt-agent.md) (or any prompt-based agent in your project).
-- A reachable MCP server endpoint (a public sample MCP server, an internal one, or a `Foundry Toolbox` exposed as an MCP endpoint).
+- A reachable MCP server endpoint (a public sample MCP server like the ***Work IQ Word*** MCP Tool, an internal one, or a `Foundry Toolbox` exposed as an MCP endpoint).
 - If the MCP server requires auth: permission to create a **project connection** to hold the credential.
+
+### `Work IQ Word` or `Work IQ Word MCP`?
+
+#### Short answer
+
+**Work IQ Word** is a native Agent Service tool. It is not a true MCP server, but an internal capability already hosted by Microsoft.
+
+**Work IQ Word MCP**, by contrast, is an external MCP tool template. You must host it yourself using a Logic App, Azure Function, container, or another runtime because it is not a native Agent Service tool.
+
+#### Clear, pragmatic explanation
+
+##### Work IQ Word
+
+- It is a built-in Azure AI Agent Service tool.
+- It requires no infrastructure from you.
+- It is not a standalone MCP server. It is an internal tool that exposes Word operations through Work IQ.
+- You add it in the playground and can use it immediately.
+- It is intended for low-code scenarios such as rapid prototyping, simple agents, and demos.
+
+In practice, it is already running inside Agent Service, so you do not need to host anything.
+
+##### Work IQ Word MCP
+
+- It is an external MCP tool backed by an MCP server that you must host.
+- MCP requires a publicly reachable HTTP endpoint.
+- You are responsible for running the server.
+- Agent Service calls your server through the MCP protocol.
+
+This is why the playground asks for a Logic App. In practice, you must provide the MCP server with a runtime such as a Logic App, Azure Function, container, or virtual machine.
+
+#### Why do both exist?
+
+They serve different purposes:
+
+**Work IQ Word (native)** is best suited to prototypes. It requires no infrastructure and provides standard Word functionality, such as creating documents and adding text, tables, and images.
+
+**Work IQ Word MCP (self-hosted)** is intended for enterprise scenarios that require deep customization, integration with internal systems, custom logic, or company-specific compliance controls. You can modify the MCP server code and add Word operations that the native tool does not provide.
+
+> [!IMPORTANT]
+> Although **Work IQ Word** appears in the same playground section as MCP tools, it is not itself an MCP tool. It is an internal Work IQ wrapper that uses the Work IQ semantic engine to orchestrate Word operations. **Work IQ Word MCP** is a true MCP server, with a manifest, endpoint, and runtime.
+
 
 ## Learning objectives
 
@@ -38,7 +79,7 @@
 ## Step 2 — Add the MCP tool in the portal
 
 - Open your agent → **Tools** → **Add a tool** → **Model Context Protocol (MCP)**.
-- **Server label:** a short name, e.g. `contoso-tools`.
+- **Server label:** a short name, e.g. `asb-tools`.
 - **Server URL:** your MCP endpoint, e.g. `https://<your-mcp-server>/sse`.
 - Optionally scope which of the server's tools the agent may use (*allowed tools*).
 
