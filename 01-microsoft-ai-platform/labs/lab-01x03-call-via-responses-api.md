@@ -17,7 +17,7 @@
 
 ## Prerequisites
 
-- The agent from [Lab 1](lab-1-create-a-prompt-agent.md)/[Lab 2](lab-2-add-an-mcp-tool.md) and its **agent ID**.
+- The agent from [Lab 1](lab-01x01-create-a-prompt-agent.md)/[Lab 2](lab-01x02-add-an-mcp-tool.md) and its **agent ID**.
 - Python 3.10+ locally, and the ability to install packages in a virtual environment: `pip install openai azure-identity` (or use the shared [environment setup](../../environment_preparation.md)).
 - Authentication: **Microsoft Entra ID** (recommended) via `az login`, or an API key.
 
@@ -116,7 +116,7 @@ curl "$ENDPOINT/v1/responses" \
 
 ## Try it yourself (extension)
 
-- Add the MCP tool from [Lab 2](lab-2-add-an-mcp-tool.md) to the call via the `tools` parameter and watch a tool-augmented response.
+- Add the MCP tool from [Lab 2](./lab-01x02-add-an-mcp-tool.md) to the call via the `tools` parameter and watch a tool-augmented response.
 - Wrap the streaming call in a tiny CLI loop to chat with the agent from your terminal.
 - Switch auth from Entra ID to an API key and note when each is appropriate.
 
@@ -135,4 +135,4 @@ You took the agent out of the portal and into code via the Responses API, using 
 
 ---
 
-[← Lab 2](lab-2-add-an-mcp-tool.md) · [Session index](../README.md) · **Next:** [Lab 4 — Publish to Agent 365 (without OBO) →](lab-4-publish-to-agent365-no-obo.md)
+[← Lab 2](./lab-01x02-add-an-mcp-tool.md) · [Session index](../README.md) · **Next:** [Lab 4 — Publish to Agent 365 (without OBO)](./lab-01x04-publish-to-agent365-no-obo.md)

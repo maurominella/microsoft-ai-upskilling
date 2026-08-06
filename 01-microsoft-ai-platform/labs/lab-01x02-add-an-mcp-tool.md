@@ -56,12 +56,10 @@ from fastmcp import FastMCP
 
 mcp = FastMCP("ASB Campaigns MCP")
 
-
 @mcp.tool
 def echo(original_string: str) -> str:
     """Returns the same text provided as input."""
     return f"Echo: {original_string}"
-
 
 if __name__ == "__main__":
     mcp.run(
@@ -158,7 +156,7 @@ The result should include `Echo: Foundry test`.
 ## Step 3 — Add the MCP tool in the portal
 
 - Open your agent → **Tools** → **Add a tool**, then choose:
-  - → **Model Context Protocol (MCP)**.
+  - **Model Context Protocol (MCP)**.
   - **Server label:** a short name, e.g. `echo-mcp-tool-01`.
   - **Server URL:** the public endpoint from Step 2, e.g. `https://<tunnel-id>-8000.<region>.devtunnels.ms/mcp`.
   - **Authentication:** none. The lab tunnel was started with `--allow-anonymous`.
