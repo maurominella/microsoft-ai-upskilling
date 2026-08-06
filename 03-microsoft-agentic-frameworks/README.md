@@ -2,7 +2,7 @@
 
 > The latest in Microsoft's agent ecosystem: from Semantic Kernel to the Agent Framework, open protocols (MCP, A2A), and fleet governance with Agent 365.
 
-[← All sessions](../README.md) · **Status:** 🚧 Content coming soon — not yet produced.
+[← All sessions](../README.md) · **Status:** ✅ Complete.
 
 An 8-hour session delivered over **two 4-hour days** (Day 1 vision & architecture, Day 2 hands-on labs), following the same structure as Session 1.
 

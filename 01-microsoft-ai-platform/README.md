@@ -69,7 +69,7 @@ Short version:
 01-microsoft-ai-platform/
 ├── README.md                              ← you are here
 ├── requirements.txt                       ← Python dependencies (installed with uv)
-├── slides/                                ← put your Day-1 deck PDF here
+├── slides/                                ← your Day-1 deck PDF is here
 └── labs/
     ├── lab-1-create-a-prompt-agent.md
     ├── lab-2-add-an-mcp-tool.md
