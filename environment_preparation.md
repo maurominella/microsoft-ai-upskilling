@@ -176,7 +176,11 @@ In VS Code, open the notebook → **Select Kernel** → choose **"AI Labs (uv)"*
 For example, it might be listening at http://127.0.0.1:8000/mcp
 
 ### Install DevTunnel
-In Linux, run the following: `curl -sL https://aka.ms/DevTunnelCliInstall | bash`
+Run the following: 
+- Linux: `curl -sL https://aka.ms/DevTunnelCliInstall | bash` which updates it if already present.
+- Windows: `winget install Microsoft.DevTunnel` or `winget upgrade Microsoft.DevTunnel` to just update.
+- MAC: `brew install devtunnel` or `brew upgrade devtunnel` to just update.
+
 
 ### Configure DevTunnel for a single run (quicker but the URL changes everytime the tunnel is restarted)
 - run 
@@ -196,6 +200,9 @@ devtunnel host mylocalmcpserver --allow-anonymous # everny time
 ```
 ### As a result...
 ![mcptunnel](devtunnel.png)
+
+### Verify DevTunnel installation
+`devtunnel --version`
 
 ---
 
