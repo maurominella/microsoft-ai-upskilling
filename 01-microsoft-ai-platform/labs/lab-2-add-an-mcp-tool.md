@@ -43,14 +43,85 @@
 > [!NOTE]
 > **Concept** — MCP (Model Context Protocol) is an open standard that lets a server expose tools and context to any MCP-compatible client — and Foundry Agent Service is such a client. This is what keeps your integrations vendor-neutral.
 
+## Step 2 — Create the MCP tool via a new Azure Logic App
+2.1 Choose **Multitenant** consumption plan
+![logic app creation](image.png)
+2.2 Name it *asb_helloworld_logicapp*
+2.3 Go to **Logic App Designer** and creare an hhtp trigger
+![http trigger](image-1.png)
+2.4 Add a *Javascript Code* action 
+![javascript action](image-3.png)
+2.5 Enter the following Javascript code:
+```javascript
+// MCP server minimale dentro Logic App
+// Tool: echo
+
+function handleMcpRequest(body) {
+    if (!body || !body.method) {
+        return {
+            jsonrpc: "2.0",
+            error: { code: -32600, message: "Invalid MCP request" }
+        };
+    }
+
+    // Tool invocation
+    if (body.method === "tools/echo") {
+        const text = body.params?.text || "";
+        return {
+            jsonrpc: "2.0",
+            result: { text }
+        };
+    }
+
+    // Manifest request
+    if (body.method === "manifest/get") {
+        return {
+            jsonrpc: "2.0",
+            result: {
+                name: "logicapp-echo-mcp",
+                version: "1.0.0",
+                tools: [
+                    {
+                        name: "echo",
+                        description: "Returns the same text provided as input",
+                        inputSchema: {
+                            type: "object",
+                            properties: { text: { type: "string" } },
+                            required: ["text"]
+                        },
+                        outputSchema: {
+                            type: "object",
+                            properties: { text: { type: "string" } }
+                        }
+                    }
+                ]
+            }
+        };
+    }
+
+    return {
+        jsonrpc: "2.0",
+        error: { code: -32601, message: "Unknown MCP method" }
+    };
+}
+
+return handleMcpRequest(context.request.body);
+```
+2.6 Add a Response as an action
+![response](image-4.png)
+
+
 ## Step 2 — Add the MCP tool in the portal
 
-- Open your agent → **Tools** → **Add a tool** → **Model Context Protocol (MCP)**.
-- **Server label:** a short name, e.g. `asb-tools`.
-- **Server URL:** your MCP endpoint, e.g. `https://<your-mcp-server>/sse`.
-- Optionally scope which of the server's tools the agent may use (*allowed tools*).
+- Open your agent → **Tools** → **Add a tool** 
+- For the purpose of this exercise, please choose → **Catalog** → **Work IQ Word**.
+- More in general, to add a full MCP Server, please choose:   
+  - → **Model Context Protocol (MCP)**.
+  - **Server label:** a short name, e.g. `asb-tools`.
+  - **Server URL:** your MCP endpoint, e.g. `https://<your-mcp-server>/sse`.
+  - Optionally scope which of the server's tools the agent may use (*allowed tools*).
 
-## Step 3 — Authenticate via a project connection
+## Step 3 — Authenticate via a project connection (if needed)
 
 If the server is protected, attach a **project connection** that holds the credential (API key or OAuth). Configure it once here — never hard-code secrets in the agent or client code. Public sample servers can be added without a connection.
 
@@ -63,11 +134,11 @@ Choose how tool calls are approved. For a first test set `require_approval: alwa
 
 ## Step 5 — Test the tool from the playground
 
-Ask a question that forces the agent to use the MCP tool. In the run detail you will see: the model deciding to call the tool → (if approval is on) an approval prompt → the tool result returning → the final answer grounded in that result.
+Ask a question that forces the agent to use the MCP tool, for example "Produce e quite extensive presentation of yourself and save it into a professional Word document". In the run detail you will see: the model deciding to call the tool → (if approval is on) an approval prompt → the tool result returning → the final answer grounded in that result.
 
 > ✅ **Checkpoint** — You can see a tool invocation to your MCP server and a result flowing back into the answer. The agent used the tool rather than guessing.
 
-## Step 6 — The same tool from code (optional)
+## Step 6 — The same tool from code (will be done in the third section  of this workshop)
 
 The MCP tool can also be declared when you call the agent from code (see [Lab 3](lab-3-call-via-responses-api.md)). Representative shape of the tool declaration:
 
