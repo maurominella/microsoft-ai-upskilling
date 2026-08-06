@@ -18,15 +18,15 @@
 ## Prerequisites
 
 - The agent from [Lab 1](lab-1-create-a-prompt-agent.md) (or any prompt-based agent in your project).
-- A reachable MCP server endpoint (a public sample MCP server like the ***Work IQ Word MCP*** Tool, an internal one, or a `Foundry Toolbox` exposed as an MCP endpoint). For practical reasons, in this exercise we will leverage the ***Work IQ Word*** (not MCP) tool, that would require the creation of an Azure Logic App. 
+- A reachable MCP server endpoint (a public sample MCP server like the ***Work IQ Word MCP*** Tool, an internal one, or a `Foundry Toolbox` exposed as an MCP endpoint). For practical reasons, in this exercise we will leverage the ***Work IQ Word*** (not MCP) tool, that would require the creation of an Azure Logic App.
+---
 ### `Work IQ Word` or `Work IQ Word MCP`?
 - **Work IQ Word** is a native Agent Service tool. It is not a true MCP server, but an internal capability already hosted by Microsoft.
 - **Work IQ Word MCP**, by contrast, is an external MCP tool template. You must host it yourself using a Logic App, Azure Function, container, or another runtime because it is not a native Agent Service tool.
-### Why do both exist?
-They serve different purposes:
+### Why do both exist? They serve different purposes:
 - **Work IQ Word (native)** is best suited to prototypes. It requires no infrastructure and provides standard Word functionality, such as creating documents and adding text, tables, and images.
 - **Work IQ Word MCP (self-hosted)** is intended for enterprise scenarios that require deep customization, integration with internal systems, custom logic, or company-specific compliance controls. You can modify the MCP server code and add Word operations that the native tool does not provide.
-
+---
 - ***If*** the MCP server requires auth: permission to create a **project connection** to hold the credential.
 
 ## Learning objectives
