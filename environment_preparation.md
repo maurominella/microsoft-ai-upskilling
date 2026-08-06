@@ -183,7 +183,6 @@ Run the following:
 
 
 ### Configure DevTunnel for a single run (quicker but the URL changes everytime the tunnel is restarted)
-- run 
 ```bash
 devtunnel host -p 8000 --allow-anonymous
 echo 'export PATH="$HOME/bin:$PATH"' >> ~/.bashrc
