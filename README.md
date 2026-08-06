@@ -31,7 +31,7 @@ This repository collects, for each session, the **slides** (PDF), the **hands-on
 | 2 | [Development-phase supervision](02-development-supervision/) | Evaluation, custom evaluators, synthetic data, red teaming | 🚧 Work in progress |
 | 3 | [**AI Innovations & Recent Announcements**](03-ai-innovations/) | Agent Framework, MCP, A2A, Agent 365 governance | ✅ **Complete** |
 
-### 1 · Microsoft AI Platform  ✅
+### 1 · Microsoft AI Platform  🚧
 *Mix of overview, architecture, demos and specific use cases.*
 - AI Foundry Vision and Architecture · AI Services in AI Foundry · AI Agent Service
 - **Audience:** IT / Cloud Architect · Data Platform / AI Platform Owner · IT Governance / IT Strategy · Innovation Manager / Digital Transformation · business application leads (high-level)
@@ -41,7 +41,7 @@ This repository collects, for each session, the **slides** (PDF), the **hands-on
 - Key concepts and tools in AI Foundry · Manual vs cloud evaluation · Synthetic & simulated automatic data generation · Custom evaluators · Red-teaming attacks in action
 - **Audience:** AI / ML Engineers · Software Developers (backend / integration) · Data Engineers · AI Solution Architects · Application Quality / Testing leads · Security Engineering (red teaming)
 
-### 3 · AI Innovations & Recent Announcements  🚧
+### 3 · AI Innovations & Recent Announcements  ✅
 *Mix of overview, architecture, demos and specific use cases.*
 - From Microsoft Semantic Kernel to Agent Framework · Model Context Protocol (MCP) · A2A (Agent-to-Agent) Protocol · Agent 365 for agents governance
 - **Audience:** AI / Solution Engineers · Software Developers (backend / integration) · IT Architecture · AI Solution Architects · IT Governance / IT Strategy
