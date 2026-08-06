@@ -44,14 +44,14 @@
 > **Concept** — MCP (Model Context Protocol) is an open standard that lets a server expose tools and context to any MCP-compatible client — and Foundry Agent Service is such a client. This is what keeps your integrations vendor-neutral.
 
 ## Step 2 — Create the MCP tool via a new Azure Logic App
-2.1 Choose **Multitenant** consumption plan
+### 2.1 Choose **Multitenant** consumption plan
 ![logic app creation](image.png)
-2.2 Name it *asb_helloworld_logicapp*
-2.3 Go to **Logic App Designer** and creare an hhtp trigger
+### 2.2 Name it *asb_helloworld_logicapp*
+### 2.3 Go to **Logic App Designer** and creare an hhtp trigger
 ![http trigger](image-1.png)
-2.4 Add a *Javascript Code* action 
+### 2.4 Add a *Javascript Code* action 
 ![javascript action](image-3.png)
-2.5 Enter the following Javascript code:
+### 2.5 Enter the following Javascript code:
 ```javascript
 // MCP server minimale dentro Logic App
 // Tool: echo
@@ -107,7 +107,7 @@ function handleMcpRequest(body) {
 
 return handleMcpRequest(context.request.body);
 ```
-2.6 Add a Response as an action
+### 2.6 Add a Response as an action
 ![response](image-4.png)
 
 
