@@ -216,4 +216,4 @@ You extended the agent with an external capability over an open protocol, authen
 
 ---
 
-[← Lab 1](lab-1-create-a-prompt-agent.md) · [Session index](../README.md) · **Next:** [Lab 3 — Call via the Responses API →](lab-3-call-via-responses-api.md)
+[← Lab 1](./lab-01x01-create-a-prompt-agent.md) · [Session index](../README.md) · **Next:** [Lab 3 — Call via the Responses API →](./lab-01x03-call-via-responses-api.md)

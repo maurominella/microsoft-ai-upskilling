@@ -112,4 +112,4 @@ You created a governed, tool-using agent with no infrastructure, learned the ana
 
 ---
 
-[← Back to session index](../README.md) · **Next:** [Lab 2 — Add an MCP tool →](lab-2-add-an-mcp-tool.md)
+[← Back to session index](../README.md) · **Next:** [Lab 2 — Add an MCP tool →](./lab-01x02-add-an-mcp-tool.md)
