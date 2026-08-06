@@ -41,10 +41,10 @@ The Day-2 labs build on one another and map onto the platform's planes — **bui
 
 | # | Lab | What you build | Time | Level |
 |---|-----|----------------|------|-------|
-| 1 | [Create a prompt-based agent](labs/lab-1-create-a-prompt-agent.md) | A named agent with instructions + a built-in tool, tested in the playground | 45–60 min | Foundational |
-| 2 | [Add an MCP tool](labs/lab-2-add-an-mcp-tool.md) | An agent connected to a remote MCP server, with approval control | 45–60 min | Intermediate |
-| 3 | [Call via the Responses API](labs/lab-3-call-via-responses-api.md) | A script that invokes the agent from code and streams the result | 45–60 min | Intermediate |
-| 4 | [Publish to Agent 365 (without OBO)](labs/lab-4-publish-to-agent365-no-obo.md) | A published, governed agent invoked with its own identity (app-only) | 45–60 min | Advanced |
+| 1 | [Create a prompt-based agent](./labs/lab-01x01-create-a-prompt-agent.md) | A named agent with instructions + a built-in tool, tested in the playground | 45–60 min | Foundational |
+| 2 | [Add an MCP tool](./labs/lab-01x02-add-an-mcp-tool.md) | An agent connected to a remote MCP server, with approval control | 45–60 min | Intermediate |
+| 3 | [Call via the Responses API](./labs/lab-01x03-call-via-responses-api.md) | A script that invokes the agent from code and streams the result | 45–60 min | Intermediate |
+| 4 | [Publish to Agent 365 (without OBO)](./labs/lab-01x04-publish-to-agent365-no-obo.md) | A published, governed agent invoked with its own identity (app-only) | 45–60 min | Advanced |
 
 ---
 
@@ -71,10 +71,10 @@ Short version:
 ├── requirements.txt                       ← Python dependencies (installed with uv)
 ├── slides/                                ← your Day-1 deck PDF is here
 └── labs/
-    ├── lab-1-create-a-prompt-agent.md
-    ├── lab-2-add-an-mcp-tool.md
-    ├── lab-3-call-via-responses-api.md
-    └── lab-4-publish-to-agent365-no-obo.md
+    ├── lab-01x01-create-a-prompt-agent.md
+    ├── lab-01x02-add-an-mcp-tool.md
+    ├── lab-01x03-call-via-responses-api.md
+    └── lab-01x04-publish-to-agent365-no-obo.md
 ```
 
 ---
