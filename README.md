@@ -1,6 +1,6 @@
 # Microsoft AI Upskilling
 
-## Workshop scenario: AdvertSphere Broadcasting
+## Workshop scenario: AdvertSphere Broadcasting (***ASB***)
 
 <p align="center">
     <img src="AdvertSphere%20Broadcasting.jpg" alt="AdvertSphere Broadcasting" width="720">
