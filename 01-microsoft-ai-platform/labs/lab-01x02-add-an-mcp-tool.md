@@ -17,16 +17,9 @@
 
 ## Prerequisites
 
-- The agent from [Lab 1](lab-1-create-a-prompt-agent.md) (or any prompt-based agent in your project).
-- A reachable MCP server endpoint (a public sample MCP server like the ***Work IQ Word MCP*** Tool, an internal one, or a `Foundry Toolbox` exposed as an MCP endpoint). For practical reasons, in this exercise we will leverage the ***Work IQ Word*** (not MCP) tool, that would require the creation of an Azure Logic App.
----
-### `Work IQ Word` or `Work IQ Word MCP`?
-- **Work IQ Word** is a native Agent Service tool. It is not a true MCP server, but an internal capability already hosted by Microsoft.
-- **Work IQ Word MCP**, by contrast, is an external MCP tool template. You must host it yourself using a Logic App, Azure Function, container, or another runtime because it is not a native Agent Service tool.
-### Why do both exist? They serve different purposes:
-- **Work IQ Word (native)** is best suited to prototypes. It requires no infrastructure and provides standard Word functionality, such as creating documents and adding text, tables, and images.
-- **Work IQ Word MCP (self-hosted)** is intended for enterprise scenarios that require deep customization, integration with internal systems, custom logic, or company-specific compliance controls. You can modify the MCP server code and add Word operations that the native tool does not provide.
----
+- The agent from [Lab 1](./lab-01x01-create-a-prompt-agent.md) (or any prompt-based agent in your project).
+- A reachable MCP server endpoint (a public sample MCP server like the ***Work IQ Word MCP*** Tool, an internal one, or a `Foundry Toolbox` exposed as an MCP endpoint). In this exercise we will create a brand (new MCP Tool in Python)[### 2.1 Create the MCP server]
+
 - ***If*** the MCP server requires auth: permission to create a **project connection** to hold the credential.
 
 ## Learning objectives
@@ -175,18 +168,17 @@ Choose how tool calls are approved. For a first test set `require_approval: alwa
 
 ## Step 6 — Test the tool from the playground
 Ask a generic MCP question, for example ***Show me the available MCP tools for this agent***. You should get an answer similar to the following one:
-![show available mcp tools](image-1.png)
+![show available mcp tools](image-1.png)<br/>
 
 Ask a question that forces the agent to use the MCP tool, for example ***invoke the "echo" tool and pass it the string "hello"***. You should get an approval request:
-![approve the echo tool](image-2.png)
+![approve the echo tool](image-2.png)<br/>
 
 After the request is approved, you should get the final answer:
-![echo agent answer](image-3.png)
-
+![echo agent answer](image-3.png)<br/>
 
 ## Step 7 — The same tool from code (will be done in the third section  of this workshop)
 
-The MCP tool can also be declared when you call the agent from code (see [Lab 3](lab-3-call-via-responses-api.md)). Representative shape of the tool declaration:
+The MCP tool can also be declared when you call the agent from code (see [Lab 3](./lab-01x03-call-via-responses-api.md). Representative shape of the tool declaration:
 
 ```python
 tools = [{
