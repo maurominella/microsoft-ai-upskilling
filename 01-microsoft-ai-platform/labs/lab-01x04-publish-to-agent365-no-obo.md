@@ -124,4 +124,4 @@ You closed the full lifecycle: an agent **built** in Foundry (Lab 1), **extended
 
 ---
 
-[← Lab 3](lab-3-call-via-responses-api.md) · [Session index](../README.md)
+[← Lab 3](./lab-01x03-call-via-responses-api.md) · [Session index](../README.md)
