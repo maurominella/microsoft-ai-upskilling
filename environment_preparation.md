@@ -171,7 +171,35 @@ In VS Code, open the notebook → **Select Kernel** → choose **"AI Labs (uv)"*
 
 ---
 
-## 7. Configure secrets & settings (`.env`)
+## 7. Configure DevTunnel
+### First, run the HTTP server
+For example, it might be listening at http://127.0.0.1:8000/mcp
+
+### Install DevTunnel
+In Linux, run the following: `curl -sL https://aka.ms/DevTunnelCliInstall | bash`
+
+### Configure DevTunnel for a single run (quicker but the URL changes everytime the tunnel is restarted)
+- run 
+```bash
+devtunnel host -p 8000 --allow-anonymous
+echo 'export PATH="$HOME/bin:$PATH"' >> ~/.bashrc
+source ~/.bashrc
+```
+
+### Configure DevTunnel with a permanent (permanent URL - **suggested**)
+```bash
+devtunnel user login --entra
+devtunnel user show
+devtunnel create mylocalmcpserver # una tantum
+devtunnel port create mylocalmcpserver -p 8000 # una tantum
+devtunnel host mylocalmcpserver --allow-anonymous # everny time
+```
+### As a result...
+![mcptunnel](devtunnel.png)
+
+---
+
+## 8. Configure secrets & settings (`.env`)
 
 Keep endpoints and IDs out of your code. Create a `.env` file in the exercise folder and fill in the values your instructor / the Foundry portal give you. Add or remove keys per exercise — this is the reusable baseline:
 
@@ -199,7 +227,7 @@ endpoint = os.environ["FOUNDRY_PROJECT_ENDPOINT"]
 
 ---
 
-## 8. Verify your setup
+## 9. Verify your setup
 
 ```bash
 az account show                                  # correct subscription?

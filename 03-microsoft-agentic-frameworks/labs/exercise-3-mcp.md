@@ -1,7 +1,7 @@
 # Exercise 3 - Expose the campaigns as an MCP server
 ### Topic: Model Context Protocol (MCP) - Core duration: ~70 min
 
-> **Goal:** build an **MCP server** that exposes RAI Pubblicita campaign data as **tools**,
+> **Goal:** build an **MCP server** that exposes AdvertSphere Broadcasting campaign data as **tools**,
 > **resources** and **prompts**, then consume it with an **MCP client**. You'll see the
 > "**build once, reuse everywhere**" principle in practice: the same server can later be used
 > by any compliant agent (Agent Framework, Foundry, ...).
@@ -17,7 +17,7 @@
 
 ## Prerequisites
 - Packages from `requirements.txt` (`fastmcp`, `mcp`).
-- The `rai_campaigns.py` file in the same folder.
+- The `asb_campaigns.py` file in the same folder.
 - Two terminals (one for the server, one for the client).
 
 ---
@@ -29,9 +29,9 @@ and *docstrings* automatically generate the MCP schema.
 
 ```python
 from fastmcp import FastMCP
-from rai_campaigns import CAMPAIGNS, get_campaign, list_campaigns, roi
+from asb_campaigns import CAMPAIGNS, get_campaign, list_campaigns, roi
 
-mcp = FastMCP("RAI Campaigns MCP")
+mcp = FastMCP("ASB Campaigns MCP")
 
 # --- TOOLS: actions an agent can call ---
 @mcp.tool
@@ -160,7 +160,7 @@ logger = logging.getLogger(__name__)
 
 **B2 - A new comparison tool.** Add to the server:
 ```python
-from rai_campaigns import roi
+from asb_campaigns import roi
 @mcp.tool
 def compare_campaigns(id_a: str, id_b: str) -> dict:
     """Compare the ROI of two campaigns and say which performs better."""
@@ -198,7 +198,7 @@ async def client_side_llm(query: str):
     )
 
     mcp_tool = MCPStreamableHTTPTool(
-        name="rai_campaigns",
+        name="asb_campaigns",
         url="http://127.0.0.1:8000/mcp",
         approval_mode="never_require",
         load_prompts=False,
@@ -240,25 +240,9 @@ The following options are intentional:
 
 ### Invoke the local MCP server through Foundry Responses
 
-To let Foundry Responses invoke the MCP server running locally, first create an HTTPS tunnel
-to `http://127.0.0.1:8000` and copy its public URL. 
-- install DevTunnel: `curl -sL https://aka.ms/DevTunnelCliInstall | bash`
-- run 
-```bash
-devtunnel host -p 8000 --allow-anonymous
-echo 'export PATH="$HOME/bin:$PATH"' >> ~/.bashrc
-source ~/.bashrc
-```
-- run the MCP server, which is likely listening at http://127.0.0.1:8000/mcp
-- run 
-```bash
-devtunnel user login --entra
-devtunnel user show
-devtunnel create mylocalmcpserver # una tantum
-devtunnel port create mylocalmcpserver -p 8000 # una tantum
-devtunnel host mylocalmcpserver --allow-anonymous # everny time
-```
-![mcptunnel](image-2.png)
+To let Foundry Responses invoke the MCP server running locally, first create an HTTPS tunnel to `http://127.0.0.1:8000` and copy its public URL. 
+
+Make sure the server connection is available through a tunnel as explained in the [environment_preparation.md](./../../environment_preparation.md) file.
 
 Then add this function to the client,
 replacing `https://<public-tunnel-host>/mcp` with the tunnel endpoint:
@@ -282,12 +266,12 @@ async def foundry_side_llm(query: str | list[str]):
         client=client,
         name="CampaignAnalyst",
         instructions=(
-            "You are an analyst at RAI Pubblicita. Always answer in English, "
+            "You are an analyst at AdvertSphere Broadcasting. Always answer in English, "
             "concisely and professionally."
         ),
         tools=[{
             "type": "mcp",
-            "server_label": "rai_campaigns",
+            "server_label": "asb_campaigns",
             "server_url": "https://5ndxcpg3-8000.eun1.devtunnels.ms/mcp",
             "require_approval": "never",
         }],
