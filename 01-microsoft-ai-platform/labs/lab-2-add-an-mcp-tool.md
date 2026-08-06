@@ -47,11 +47,11 @@
 ### 2.1 Choose **Multitenant** consumption plan
 ![logic app creation](image.png)
 ### 2.2 Name it *asb_helloworld_logicapp*
-### 2.3 Go to **Logic App Designer** and creare an hhtp trigger
-![http trigger](image-1.png)
+### 2.3 Go to **Logic App Designer** and create an hhtp trigger
+![When an HTTP request is received](image-1.png)
 ### 2.4 Add a *Javascript Code* action 
 ![javascript action](image-3.png)
-### 2.5 Enter the following Javascript code:
+, and enter the following Javascript code:
 ```javascript
 // MCP server minimale dentro Logic App
 // Tool: echo
@@ -107,10 +107,13 @@ function handleMcpRequest(body) {
 
 return handleMcpRequest(context.request.body);
 ```
-### 2.6 Add a Response as an action
+### 2.5 Add a Response as the final action
 ![response](image-4.png)
+, where we return the JavaScript Code as JSON body:
+![json output](image-2.png)
 
 
+### 2.6 Save the App and note the 
 ## Step 2 — Add the MCP tool in the portal
 
 - Open your agent → **Tools** → **Add a tool** 
