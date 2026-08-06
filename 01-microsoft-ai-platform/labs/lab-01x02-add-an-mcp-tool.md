@@ -167,13 +167,13 @@ If the server is protected, attach a **project connection** that holds the crede
 Choose how tool calls are approved. For a first test set `require_approval: always` so you can see and approve each call; switch to `never` for trusted, unattended tools.
 
 ## Step 6 — Test the tool from the playground
-Ask a generic MCP question, for example ***Show me the available MCP tools for this agent***. You should get an answer similar to the following one:
+Ask a generic MCP question, for example ***Show me the available MCP tools for this agent***. You should get an answer similar to the following one:<br/>
 ![show available mcp tools](image-1.png)<br/>
 
-Ask a question that forces the agent to use the MCP tool, for example ***invoke the "echo" tool and pass it the string "hello"***. You should get an approval request:
+Ask a question that forces the agent to use the MCP tool, for example ***invoke the "echo" tool and pass it the string "hello"***. You should get an approval request:<br/>
 ![approve the echo tool](image-2.png)<br/>
 
-After the request is approved, you should get the final answer:
+After the request is approved, you should get the final answer:<br/>
 ![echo agent answer](image-3.png)<br/>
 
 ## Step 7 — The same tool from code (will be done in the third section  of this workshop)
