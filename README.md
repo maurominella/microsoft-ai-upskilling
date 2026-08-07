@@ -95,4 +95,4 @@ Released under the [MIT License](LICENSE) — you are free to use, copy, modify 
 
 ---
 
-*Prepared by Mauro Minella — Cloud Solution Architect, Cloud AI and Apps, Microsoft.*
+*Prepared by Mauro Minella — Sr. Cloud Solution Architect, Cloud AI and Apps, Microsoft.*
