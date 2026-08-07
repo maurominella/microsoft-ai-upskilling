@@ -56,17 +56,17 @@ microsoft-ai-upskilling/
 ├── environment_preparation.md             ← shared, one-time lab setup (do this first)
 ├── .env.example                           ← template for the real .env file
 ├── .gitignore
-├── 01-microsoft-ai-platform/              ← Session 1 (complete)
+├── 01-microsoft-ai-platform/              ← Session 1
 │   ├── README.md
 │   ├── requirements.txt
 │   ├── slides/   (Day-1 deck PDF is here)
 │   └── labs/     → lab-1 … lab-4
-├── 02-development-supervision/            ← Session 2 (placeholder)
+├── 02-development-supervision/            ← Session 2
 │   ├── README.md
 │   ├── requirements.txt
 │   ├── slides/   (Day-1 deck PDF is here)
 │   └── labs/     → lab-1 … lab-4
-└── 03-ai-innovations/                     ← Session 3 (placeholder)
+└── 03-ai-innovations/                     ← Session 3
     ├── README.md
     ├── requirements.txt
     ├── slides/   (Day-1 deck PDF is here)
