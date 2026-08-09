@@ -10,8 +10,9 @@
 it answers), delegating a task between agents, the client <-> remote-agent loop, MCP
 (agent<->tools) vs A2A (agent<->agent).
 
-**Docs:** A2A <https://a2a-protocol.org/> - Python SDK `a2a-sdk`
-<https://github.com/a2aproject/a2a-python>
+**Docs:**<br/>
+- A2A: <https://a2a-protocol.org/>
+- Python SDK `a2a-sdk`: <https://github.com/a2aproject/a2a-python>
 
 > Note: `a2a-sdk` moves fast: if a class/field name differs from your version, adapt using the
 > linked docs. The goal is to see **Agent Card + task delegation** in action. This exercise is
