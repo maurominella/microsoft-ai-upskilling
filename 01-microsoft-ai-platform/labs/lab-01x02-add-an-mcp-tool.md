@@ -42,19 +42,22 @@ In this step, we create a small MCP server, run it on your machine, and expose i
 
 ### 2.1 Create the MCP server
 
-In the `01-microsoft-ai-platform/labs` folder, create a file named `lab-2-echo_mcp_server.py` with the following content:
+In the `01-microsoft-ai-platform/labs` folder, create a file named [`lab-2-echo_mcp_server.py`](./lab-01x02-echo_mcp_server.py) with the following content:
 
 ```python
 from fastmcp import FastMCP
 
 mcp = FastMCP("ASB Campaigns MCP")
 
+# --- TOOLS: actions an agent can call ---
 @mcp.tool
 def echo(original_string: str) -> str:
     """Returns the same text provided as input."""
     return f"Echo: {original_string}"
 
+
 if __name__ == "__main__":
+    # HTTP transport: the server listens on http://127.0.0.1:8000/mcp
     mcp.run(
         transport="http",
         host="127.0.0.1",
@@ -88,7 +91,7 @@ http://127.0.0.1:8000/mcp
 
 ### 2.3 Expose port 8000 through Dev Tunnels
 
-Open a **second terminal**. If you completed the permanent Dev Tunnel setup in [Environment Preparation](../../environment_preparation.md#7-configure-devtunnel), host the existing tunnel:
+Open a **second terminal**. If you completed the permanent Dev Tunnel setup in [Environment Preparation](../../environment_preparation.md#7-configure-devtunnel), host the existing tunnel with:
 
 ```bash
 devtunnel host mylocalmcpserver --allow-anonymous
@@ -154,6 +157,8 @@ The result should include `Echo: Foundry test`.
   - **Server URL:** the public endpoint from Step 2, e.g. `https://<tunnel-id>-8000.<region>.devtunnels.ms/mcp`.
   - **Authentication:** none. The lab tunnel was started with `--allow-anonymous`.
   - Optionally scope which of the server's tools the agent may use (*allowed tools*).
+
+![Echo MCP Tool](./_IMAGES/echo-mco-tool-01.png)
 
 ## Step 4 — Authenticate via a project connection (if needed)
 
