@@ -198,7 +198,7 @@ devtunnel port create mylocalmcpserver -p 8000 # una tantum
 devtunnel host mylocalmcpserver --allow-anonymous # every time
 ```
 ### As a result...
-![mcptunnel](devtunnel.png)
+![mcptunnel](./_IMAGES/devtunnel.png)
 
 ### Verify DevTunnel installation
 `devtunnel --version`
