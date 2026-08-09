@@ -44,7 +44,7 @@ Open your agent in the portal and select the **Call agent** panel. Foundry gener
 > [!IMPORTANT]
 > **Copy from the portal** — Always prefer the snippet the Coding panel gives you; it is pre-filled with your endpoint and version. The code below is the representative shape so you understand each part.
 
-## Step 2 — Set up your environment
+## Step 2 — Set up your environment (or Activate it, if you already have one)
 
 ```bash
 python -m venv .venv && source .venv/bin/activate   # Windows: .venv\Scripts\activate
@@ -54,42 +54,70 @@ az login   # signs you in for Entra ID auth
 
 ## Step 3 — Call the agent (Entra ID auth)
 
-Representative Python using a bearer token from Entra ID. Replace the endpoint/model with the values from your Coding panel:
+Representative Python using a bearer token from Entra ID. Replace the endpoint/model with the values from your Coding panel in the file [`lab-01x03-call-via-responses-api_oneshot`](./lab-01x03-call-via-responses-api_oneshot.py):
 
 ```python
-import os
-from openai import OpenAI
-from azure.identity import DefaultAzureCredential, get_bearer_token_provider
+# Before running the sample:
+#    pip install azure-ai-projects>=2.1.0
 
-token_provider = get_bearer_token_provider(
-    DefaultAzureCredential(), "https://ai.azure.com/.default")
+from azure.identity import DefaultAzureCredential
+from azure.ai.projects import AIProjectClient
 
-client = OpenAI(
-    base_url="<your-project-endpoint>/v1",   # from the Coding panel
-    api_key=token_provider(),                 # bearer token, not a static key
+endpoint = "https://ai-upskilling-project-resourc.services.ai.azure.com/api/projects/ai-upskilling-project"
+
+project_client = AIProjectClient(
+    endpoint=endpoint,
+    credential=DefaultAzureCredential(),
 )
 
-resp = client.responses.create(
-    model="<your-model-or-agent>",
-    input="Introduce yourself in a single sentence.",
+my_agent = "asb-assistant-01"
+my_version = "3"
+
+openai_client = project_client.get_openai_client()
+
+# Reference the agent to get a response
+response = openai_client.responses.create(
+    input=[{"role": "user", "content": "Tell me what you can help with."}],
+    extra_body={"agent_reference": {"name": my_agent, "version": my_version, "type": "agent_reference"}},
 )
-print(resp.output_text)
+
+print(f"Response output: {response.output_text}")
 ```
 
 > ✅ **Checkpoint** — You get a one-sentence Italian reply printed to your terminal. If so, your app is now talking to the agent.
 
 ## Step 4 — Stream the response
 
-For a responsive UX, stream tokens as they are generated:
+For a responsive UX, stream tokens as they are generated. You may simply adapt the existing file [`lab-01x03-call-via-responses-api_streaming`](./lab-01x03-call-via-responses-api_streaming.py):
 
 ```python
-stream = client.responses.create(
-    model="<your-model-or-agent>",
-    input="Elenca 3 usi di un agente per RAI Pubblicità.",
+# Before running the sample:
+#    pip install azure-ai-projects>=2.1.0
+
+from azure.identity import DefaultAzureCredential
+from azure.ai.projects import AIProjectClient
+
+endpoint = "https://mm-ai-upskilling-project-resourc.services.ai.azure.com/api/projects/ai-upskilling-project"
+
+project_client = AIProjectClient(
+    endpoint=endpoint,
+    credential=DefaultAzureCredential(),
+)
+
+my_agent = "asb-assistant-01"
+my_version = "3"
+
+openai_client = project_client.get_openai_client()
+
+# Reference the agent and stream its response
+stream = openai_client.responses.create(
+    input=[{"role": "user", "content": "Tell me what you can help with."}],
+    extra_body={"agent_reference": {"name": my_agent, "version": my_version, "type": "agent_reference"}},
     stream=True,
 )
+
 for event in stream:
-    if getattr(event, "delta", None):
+    if event.type == "response.output_text.delta":
         print(event.delta, end="", flush=True)
 ```
 
@@ -98,7 +126,7 @@ for event in stream:
 The Responses API is stateful. Pass the previous response id to continue a thread without resending history:
 
 ```python
-first = client.responses.create(model="<m>", input="Il mio nome è Mauro.")
+first = client.responses.create(model="<m>", input="My name is Mauro.")
 second = client.responses.create(
     model="<m>",
     input="Come mi chiamo?",
