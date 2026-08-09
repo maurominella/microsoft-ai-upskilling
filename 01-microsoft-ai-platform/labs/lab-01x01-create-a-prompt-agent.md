@@ -42,7 +42,7 @@ Sign in to the [Microsoft Foundry portal](https://ai.azure.com/) and open (or cr
 
 - Select **New agent**.
 - **Model:** choose a deployed reasoning model from the catalog.
-- **Name:** e.g. `asb-assistant`.
+- **Name:** e.g. `asb-assistant-01`.
 
 You now have an empty agent. The next step — instructions — is the most important.
 
@@ -60,11 +60,17 @@ You are an assistant for the AdverSphere Broadcasting team.
 > [!TIP]
 > **Good practice** — Bounded instructions ("say so — do not invent") measurably reduce hallucination. Keep them short, explicit and testable.
 
-## Step 4 — Add a built-in tool
+## Step 4 — Remove (if present by default) the `Web Search` tool
+
+If added by default, remove the `Web search" tool:
+![web search tool remove](web-search-tool-remove.png.png)
+
+
+## Step 5 — Add a built-in tool
 
 Open the agent's **Tools** section and add a built-in tool. For this lab add/enable `Code Interpreter` so the agent can run calculations reliably. **Save** the agent, which will show "**Version: 2**" on top of it.
 
-## Step 5 — Test in the playground
+## Step 6 — Test in the playground
 
 Open the playground for the agent and try two prompts:
 
@@ -73,7 +79,7 @@ Open the playground for the agent and try two prompts:
 
 > ✅ **Checkpoint** — The agent replies in Italian, stays concise, and for the second prompt you can see a tool call in the run detail. If so, Step 5 is complete.
 
-## Step 6 — Inspect the definition (and the YAML view)
+## Step 7 — Inspect the definition (and the YAML view)
 
 Open the agent's details. Note the **agent ID** (you will reuse it in Labs 3 and 4). Many views also expose a declarative representation of the agent — a YAML/JSON definition that captures the same configuration as config-as-code. Conceptually it looks like:
 
