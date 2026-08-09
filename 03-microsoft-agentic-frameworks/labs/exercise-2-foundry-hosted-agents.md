@@ -10,9 +10,9 @@
 thread = conversation continuity, action tools (Code Interpreter), numeric accuracy,
 observability, and the Prompt Agent vs **Hosted Agent** distinction.
 
-**Docs:** azure-ai-projects
-<https://learn.microsoft.com/python/api/overview/azure/ai-projects-readme> -
-Hosted agents: <https://learn.microsoft.com/azure/ai-foundry/agents/> (Deploy your first hosted agent)
+**Docs:** azure-ai-projects<br/>
+- <https://learn.microsoft.com/python/api/overview/azure/ai-projects-readme>
+- Hosted agents: <https://learn.microsoft.com/azure/ai-foundry/agents/> (Deploy your first hosted agent)
 
 ---
 

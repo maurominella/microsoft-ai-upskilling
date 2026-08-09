@@ -9,8 +9,9 @@
 **Concepts you'll cement (Day 1 slides):** anatomy of an agent (model + instructions +
 tools), function tools, the agentic loop, observability of tool calls.
 
-**Docs:** <https://learn.microsoft.com/agent-framework/> -
-Function tools: <https://learn.microsoft.com/agent-framework/agents/tools/function-tools>
+**Docs:**<br/>
+- <https://learn.microsoft.com/agent-framework/>
+- Function tools: <https://learn.microsoft.com/agent-framework/agents/tools/function-tools>
 
 ---
 
