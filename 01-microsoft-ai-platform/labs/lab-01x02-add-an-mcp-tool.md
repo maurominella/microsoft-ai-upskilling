@@ -168,7 +168,7 @@ Choose how tool calls are approved. For a first test set `require_approval: alwa
 
 ## Step 6 — Test the tool from the playground
 Ask a generic MCP question, for example ***Show me the available MCP tools for this agent***. You should get an answer similar to the following one:<br/>
-![show available mcp tools](image-1.png)<br/>
+![show available mcp tools](_IMAGES/mcp_available_tools.png)<br/>
 
 Ask a question that forces the agent to use the MCP tool, for example ***invoke the "echo" tool and pass it the string "hello"***. You should get an approval request:<br/>
 ![approve the echo tool](image-2.png)<br/>

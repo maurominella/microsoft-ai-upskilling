@@ -80,7 +80,7 @@ python mcp_server.py
 ```
 
 **What you should see:** a log saying the MCP server is listening on `127.0.0.1:8000`:
-![MCP Server Running](image-1.png)
+![MCP Server Running](./_IMAGES/fastmcp_running.png)
 Leave it running.
 
 ---
