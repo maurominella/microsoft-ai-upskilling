@@ -39,7 +39,7 @@
 
 Open your agent in the portal and select the **Call agent** panel. Foundry generates a ready-to-run snippet for your exact resource: it contains the correct endpoint, API version (**v1**) and model/agent reference. Choose the **Python** language>
 
-![alt text](./_IMAGES/call-agent.png)
+![Call Agent(./_IMAGES/call-agent.png)
 
 > [!IMPORTANT]
 > **Copy from the portal** — Always prefer the snippet the Coding panel gives you; it is pre-filled with your endpoint and version. The code below is the representative shape so you understand each part.

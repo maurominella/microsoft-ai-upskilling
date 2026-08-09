@@ -8,4 +8,4 @@ This folder contains four hands-on labs that guide you from creating a prompt-ba
 
 3. **[Lab 3 - Call your agent via the Responses API](./lab-01x03-call-via-responses-api.md)**: Invoke the agent from Python with Microsoft Entra ID authentication, stream its responses, and continue a stateful conversation.
 
-4. **[Lab 4 - Publish to Agent 365 without OBO](./lab-01x04-publish-to-agent365-no-obo.md)**: Publish and govern the agent through Agent 365, understand its Entra Agent ID, and invoke it with app-only authentication instead of an on-behalf-of flow.
+4. **[Lab 4 - Publish a Foundry agent to Agent 365](./lab-01x04-publish-to-agents365.md)**: Publish the agent to Microsoft 365, approve and assign it through Agent 365, and add and test it in Microsoft 365 Copilot.

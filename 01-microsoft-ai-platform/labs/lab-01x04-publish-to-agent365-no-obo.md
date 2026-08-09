@@ -17,7 +17,7 @@
 
 ## Prerequisites
 
-- The agent from Labs [1](lab-1-create-a-prompt-agent.md)–[3](lab-3-call-via-responses-api.md) (with its agent ID).
+- The agent from Labs [1](./lab-01x01-create-a-prompt-agent.md)–[3](./lab-01x03-call-via-responses-api.md) (with its agent ID).
 - Appropriate licensing/enrolment for Agent 365 (e.g. Microsoft 365 Copilot / E7 / Frontier), and the ability to view the **Microsoft 365 admin center → Agents**.
 - Entra roles as applicable: `Agent ID Developer/Administrator` and `Agent Registry Administrator`.
 - For the code step: the agent's app (client) ID and a client secret or certificate, plus your tenant ID.
