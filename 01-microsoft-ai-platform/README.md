@@ -37,14 +37,14 @@ The Day-2 labs build on one another and map onto the platform's planes — **bui
 
 ---
 
-## Labs
+## [Labs](./labs/README.md)
 
 | # | Lab | What you build | Time | Level |
 |---|-----|----------------|------|-------|
 | 1 | [Create a prompt-based agent](./labs/lab-01x01-create-a-prompt-agent.md) | A named agent with instructions + a built-in tool, tested in the playground | 45–60 min | Foundational |
 | 2 | [Add an MCP tool](./labs/lab-01x02-add-an-mcp-tool.md) | An agent connected to a remote MCP server, with approval control | 45–60 min | Intermediate |
 | 3 | [Call via the Responses API](./labs/lab-01x03-call-via-responses-api.md) | A script that invokes the agent from code and streams the result | 45–60 min | Intermediate |
-| 4 | [Publish to Agent 365 (without OBO)](./labs/lab-01x04-publish-to-agent365-no-obo.md) | A published, governed agent invoked with its own identity (app-only) | 45–60 min | Advanced |
+| 4 | [ublish a Foundry agent to Agent 365](./labs/lab-01x04-publish-to-agents365.md) | A published, governed agent invoked with its own identity (app-only) | 20–25 min | Advanced |
 
 ---
 
