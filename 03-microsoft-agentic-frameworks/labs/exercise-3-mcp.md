@@ -10,8 +10,8 @@
 (tools / resources / prompts), the M x N -> M + N problem, tool reusability.
 
 **Docs:**<br/>
-- MCP <https://modelcontextprotocol.io/>
-- FastMCP <https://gofastmcp.com/>
+- Model Context Protocol (MCP): <https://modelcontextprotocol.io/>
+- FastMCP: <https://gofastmcp.com/>
 
 > This exercise is **fully local**: no cloud credentials are needed for parts A-C.
 
