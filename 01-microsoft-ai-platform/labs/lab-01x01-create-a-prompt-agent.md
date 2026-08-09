@@ -63,7 +63,7 @@ You are an assistant for the AdverSphere Broadcasting team.
 ## Step 4 — Remove (if present by default) the `Web Search` tool
 
 If added by default, remove the `Web search" tool:
-![web search tool remove](web-search-tool-remove.png.png)
+![web search tool remove](./web-search-tool-remove.png)
 
 
 ## Step 5 — Add a built-in tool
