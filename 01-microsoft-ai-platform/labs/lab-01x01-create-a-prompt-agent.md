@@ -73,9 +73,13 @@ Open the agent's **Tools** section and add a built-in tool. For this lab add/ena
 ![add code interpreter](./add-code-interpreter.png)
 
 
-**Save** the agent, which will show "**Version: 2**" on top of it.
+## Step 6 — Save the agent
+It will show "**Version: 2**" on top of it:
 
-## Step 6 — Test in the playground
+![alt text](./save-agent-version2.png)
+
+
+## Step 7 — Test in the playground
 
 Open the playground for the agent and try two prompts:
 
@@ -84,12 +88,12 @@ Open the playground for the agent and try two prompts:
 
 > ✅ **Checkpoint** — The agent replies in Italian, stays concise, and for the second prompt you can see a tool call in the run detail. If so, Step 5 is complete.
 
-## Step 7 — Inspect the definition (and the YAML view)
+## Step 8 — Inspect the definition (and the YAML view)
 
 Open the agent's details. Note the **agent ID** (you will reuse it in Labs 3 and 4). Many views also expose a declarative representation of the agent — a YAML/JSON definition that captures the same configuration as config-as-code. Conceptually it looks like:
 
 ```yaml
-name: asb-assistant
+name: asb-assistant-01
 model: <your-model-deployment>
 instructions: |
   You are an assistant for the AdverSphere Broadcasting team.
