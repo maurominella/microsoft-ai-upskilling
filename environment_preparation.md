@@ -38,12 +38,12 @@ You need both **local** tooling and **cloud** access.
 ### 2.1 Create an Microsoft Foundry Resource + Project
 
 First, create a Microsoft Foundry Resource and Project. There are multiple ways to do it -including through Azure-, however the  following example shows how to do it on the [Foundry Portal]( https://ai.azure.com/allResources):
-![Microsoft Foundry Provisioning](image-1.png)
+![Microsoft Foundry Provisioning](./_IMAGES/create_a_foundry_project.png)
 
 ---
 
 After the provisioning, collect the following two pieces of information:
-![Foundry Provisioning Data](image.png)
+![Foundry Provisioning Data](./_IMAGES/welcome_to_foundry.png)
 
 ---
 
@@ -59,7 +59,7 @@ into a the .env file described at [Configure secrets & settings](#7-configure-se
 ### 2.2 Create a Deployment
 
 From within the Foundry Project created in the previous step, choose `Build`/`Deployments`/`Deploy a Base Model   ` and create a new deployment, for example `gpt-5.4-mini`:
-![deployment gpt-5.4-mini](image-2.png)
+![deployment gpt-5.4-mini](./_IMAGES/choose_llm.png)
 
 Add the deployment name to the same .env file created in the previous step:
 ```
