@@ -63,27 +63,27 @@ You are an assistant for the AdverSphere Broadcasting team.
 ## Step 4 — Remove (if present by default) the `Web Search` tool
 
 If added by default, remove the `Web search" tool:
-![web search tool remove](./web-search-tool-remove.png)
+![web search tool remove](./_IMAGES/web-search-tool-remove.png)
 
 
 ## Step 5 — Add the `Code Interpreter` built-in tool
 
 Open the agent's **Tools** section and add a built-in tool. For this lab add/enable `Code Interpreter` so the agent can run calculations reliably:
 
-![add code interpreter](./add-code-interpreter.png)
+![add code interpreter](./_IMAGES/add-code-interpreter.png)
 
 
 ## Step 6 — Save the agent
 It will show "**Version: 2**" on top of it:
 
-![alt text](./save-agent-version2.png)
+![alt text](./_IMAGES/save-agent-version2.png)
 
 
 ## Step 7 — Test in the playground
 
 Open the playground for the agent and try two prompts:
 
-- A conversational one: `Introduce yourself in a single sentence.` — check it answers in Italian and briefly.
+- A conversational one: `Introduce yourself in a single sentence` — check it answers in Italian and briefly.
 - A calculation: `If a budget of 250K€ grows by 12%, how much it becomes?` — confirm it invokes the code tool instead of guessing.
 
 > ✅ **Checkpoint** — The agent replies in Italian, stays concise, and for the second prompt you can see a tool call in the run detail. If so, Step 5 is complete.
@@ -94,12 +94,21 @@ Open the agent's details. Note the **agent ID** (you will reuse it in Labs 3 and
 
 ```yaml
 name: asb-assistant-01
-model: <your-model-deployment>
-instructions: |
-  You are an assistant for the AdverSphere Broadcasting team.
-  Answer in Italian, concisely; if unsure, say so.
-tools:
-  - type: code_interpreter
+version: "2"
+definition:
+  kind: prompt
+  model: gpt-5.4-mini
+  instructions: |-
+    You are an assistant for the AdverSphere Broadcasting team.
+    - Answer in Italian, concisely and professionally.
+    - If you are unsure or lack the information, say so — do not invent.
+    - When you perform a calculation, use the code tool rather than guessing.
+  reasoning:
+    effort: low
+  tools:
+    - type: code_interpreter
+      container:
+        type: auto
 ```
 
 > [!IMPORTANT]
