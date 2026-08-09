@@ -126,25 +126,47 @@ for event in stream:
 The Responses API is stateful. Pass the previous response id to continue a thread without resending history:
 
 ```python
-first = client.responses.create(model="<m>", input="My name is Mauro.")
-second = client.responses.create(
-    model="<m>",
-    input="Come mi chiamo?",
-    previous_response_id=first.id,   # server keeps the context
+# Reference the agent to get a response
+response = openai_client.responses.create(
+    input=[{"role": "user", "content": "Tell me what you can help with."}],
+    extra_body={"agent_reference": {"name": my_agent, "version": my_version, "type": "agent_reference"}},
 )
-print(second.output_text)
+
+print(f"Response output: {response.output_text}")
+
+# Reference the agent to get a follow-up response, using the previous response's ID
+follow_up = openai_client.responses.create(
+    input=[{"role": "user", "content": "Tell me more about the last features you mentioned."}],
+    extra_body={"agent_reference": {"name": my_agent, "version": my_version, "type": "agent_reference"}},
+    previous_response_id=response.id
+)
+
+print(f"Follow-up response output: {follow_up.output_text}")
 ```
 
 ## Step 6 — REST equivalent (optional)
 
-The same call over REST, for non-Python stacks:
+The same call over REST, for non-Python stacks.
+In both cases, the invoker must have at least the "Foundry Agent Consumer" role assigned to the Foundry Agent or Project as explained [here](https://learn.microsoft.com/en-us/azure/foundry/concepts/rbac-foundry?tabs=owner%2Cfoundry#built-in-roles)
+
 
 ```bash
-curl "$ENDPOINT/v1/responses" \
-  -H "Authorization: Bearer $(az account get-access-token \
-       --resource https://ai.azure.com --query accessToken -o tsv)" \
-  -H "Content-Type: application/json" \
-  -d '{"model":"<your-model>","input":"Ciao"}'
+@foundry_project_endpoint = https://ai-upskilling-project-resourc.services.ai.azure.com/api/projects/ai-upskilling-project
+
+@agent_name = asb-assistant-01 
+
+@query = What can you do?
+
+###
+# Invoking Foundry Agent within a Foundry Project with RESPONSES APIs
+# We can use either the user token or the app token for Foundry (bearertoken_user-token_for_foundry or bearertoken_app-token_for_foundry).
+POST {{foundry_project_endpoint}}/agents/{{agent_name}}/endpoint/protocols/openai/responses?api-version={{azure_openai_responses_api_version}}
+Authorization: Bearer {{bearertoken_user-token_for_foundry}}
+Content-Type: application/json
+
+{
+    "input": "{{query}}"
+}
 ```
 
 ---

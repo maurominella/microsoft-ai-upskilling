@@ -23,3 +23,12 @@ response = openai_client.responses.create(
 )
 
 print(f"Response output: {response.output_text}")
+
+# Reference the agent to get a follow-up response, using the previous response's ID
+follow_up = openai_client.responses.create(
+    input=[{"role": "user", "content": "Tell me more about the last features you mentioned."}],
+    extra_body={"agent_reference": {"name": my_agent, "version": my_version, "type": "agent_reference"}},
+    previous_response_id=response.id
+)
+
+print(f"Follow-up response output: {follow_up.output_text}")
