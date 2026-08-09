@@ -5,7 +5,7 @@
 | | |
 |---|---|
 | **Audience** | Developers, agent owners, and Microsoft 365 administrators |
-| **Duration** | 30-45 minutes, plus any tenant propagation time |
+| **Duration** | 20-25 minutes, plus any tenant propagation time |
 | **Level** | Intermediate |
 | **You will publish** | The prompt-based agent created in the previous labs |
 | **Surfaces** | Microsoft Foundry, Agent 365, Microsoft 365 Copilot, and Teams |
