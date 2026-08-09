@@ -9,7 +9,7 @@
 **Concepts you'll cement (Day 1 slides):** MCP's client-server architecture, the *primitives*
 (tools / resources / prompts), the M x N -> M + N problem, tool reusability.
 
-**Docs:** 
+**Docs:**<br/>
 - MCP <https://modelcontextprotocol.io/>
 - FastMCP <https://gofastmcp.com/>
 
