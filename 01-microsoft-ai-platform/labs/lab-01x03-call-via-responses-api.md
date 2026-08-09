@@ -17,6 +17,10 @@
 
 ## Prerequisites
 
+- The Project Responses Endpoint, for example `https://ai-upskilling-project-resourc.services.ai.azure.com/api/projects/ai-upskilling-project/agents/asb-assistant-01/endpoint/protocols/openai/responses`, that you may retrieve from here:
+
+![project.responses-endpoint.png](./_IMAGES/project.responses-endpoint.png)
+
 - The agent from [Lab 1](lab-01x01-create-a-prompt-agent.md)/[Lab 2](lab-01x02-add-an-mcp-tool.md) and its **agent ID**, for example `3af1d206-af82-4692-94e7-db7654435e6e` that you may retrieve from:<br/>
 ![Agent ID](./_IMAGES/agent_id.png)
 - Python 3.10+ locally, and the ability to install packages in a virtual environment: `pip install openai azure-identity` (or use the shared [environment setup](../../environment_preparation.md)).
@@ -65,7 +69,7 @@ client = OpenAI(
 
 resp = client.responses.create(
     model="<your-model-or-agent>",
-    input="Presentati in una frase.",
+    input="Introduce yourself in a single sentence.",
 )
 print(resp.output_text)
 ```
