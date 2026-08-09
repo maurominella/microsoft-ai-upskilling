@@ -3,7 +3,7 @@
 ## Workshop scenario: AdvertSphere Broadcasting (***ASB***)
 
 <p align="center">
-    <img src="AdvertSphere%20Broadcasting.jpg" alt="AdvertSphere Broadcasting" width="720">
+    <img src="./_IMAGES/AdvertSphere Broadcasting.jpg" alt="AdvertSphere Broadcasting" width="720">
 </p>
 
 > [!NOTE]
