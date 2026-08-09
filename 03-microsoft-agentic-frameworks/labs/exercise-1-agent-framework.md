@@ -10,7 +10,7 @@
 tools), function tools, the agentic loop, observability of tool calls.
 
 **Docs:**<br/>
-- <https://learn.microsoft.com/agent-framework/>
+- Microsoft Agent Framework: <https://learn.microsoft.com/agent-framework/>
 - Function tools: <https://learn.microsoft.com/agent-framework/agents/tools/function-tools>
 
 ---
