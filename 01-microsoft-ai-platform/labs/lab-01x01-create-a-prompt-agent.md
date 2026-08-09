@@ -66,9 +66,14 @@ If added by default, remove the `Web search" tool:
 ![web search tool remove](./web-search-tool-remove.png)
 
 
-## Step 5 — Add a built-in tool
+## Step 5 — Add the `Code Interpreter` built-in tool
 
-Open the agent's **Tools** section and add a built-in tool. For this lab add/enable `Code Interpreter` so the agent can run calculations reliably. **Save** the agent, which will show "**Version: 2**" on top of it.
+Open the agent's **Tools** section and add a built-in tool. For this lab add/enable `Code Interpreter` so the agent can run calculations reliably:
+
+![add code interpreter](./add-code-interpreter.png)
+
+
+**Save** the agent, which will show "**Version: 2**" on top of it.
 
 ## Step 6 — Test in the playground
 
