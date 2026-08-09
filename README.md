@@ -27,11 +27,11 @@ This repository collects, for each session, the **slides** (PDF), the **hands-on
 
 | # | Session | Focus | Status |
 |---|---------|-------|--------|
-| 1 | [Microsoft AI Platform](01-microsoft-ai-platform/) | Foundry vision & architecture, agents, grounding, governance | 🚧 Work in progress |
+| 1 | [Microsoft AI Platform](01-microsoft-ai-platform/) | Foundry vision & architecture, agents, grounding, governance | ✅ **Complete** |
 | 2 | [AI Evaluation](./02-microsoft-evaluation-platform/) | Evaluation, custom evaluators, synthetic data, red teaming | 🚧 Work in progress |
 | 3 | [**AI Innovations & Recent Announcements**](./03-microsoft-agentic-frameworks/) | Agent Framework, MCP, A2A, Agent 365 governance | ✅ **Complete** |
 
-### 1 · Microsoft AI Platform  🚧
+### 1 · Microsoft AI Platform  ✅
 *Mix of overview, architecture, demos and specific use cases.*
 - AI Foundry Vision and Architecture · AI Services in AI Foundry · AI Agent Service
 - **Audience:** IT / Cloud Architect · Data Platform / AI Platform Owner · IT Governance / IT Strategy · Innovation Manager / Digital Transformation · business application leads (high-level)
