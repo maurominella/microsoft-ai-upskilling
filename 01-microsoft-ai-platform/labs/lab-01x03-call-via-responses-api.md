@@ -17,7 +17,7 @@
 
 ## Prerequisites
 
-- The agent from [Lab 1](lab-01x01-create-a-prompt-agent.md)/[Lab 2](lab-01x02-add-an-mcp-tool.md) and its **agent ID** that you may retrieve from:<br/>
+- The agent from [Lab 1](lab-01x01-create-a-prompt-agent.md)/[Lab 2](lab-01x02-add-an-mcp-tool.md) and its **agent ID**, for example `3af1d206-af82-4692-94e7-db7654435e6e` that you may retrieve from:<br/>
 ![Agent ID](./_IMAGES/agent_id.png)
 - Python 3.10+ locally, and the ability to install packages in a virtual environment: `pip install openai azure-identity` (or use the shared [environment setup](../../environment_preparation.md)).
 - Authentication: **Microsoft Entra ID** (recommended) via `az login`, or an API key.
