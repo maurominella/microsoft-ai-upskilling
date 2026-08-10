@@ -113,7 +113,7 @@ Verify: `uv --version`. (uv also installs and manages Python for you — you do 
 
 ---
 
-## 5. Create your project workspace
+## 5. Create your Python Environment
 
 Run these once per exercise folder, where you find the `requirements.txt` file (like [`01-microsoft-ai-platform/requirements.txt`](01-microsoft-ai-platform/requirements.txt)).
 
@@ -152,7 +152,7 @@ deactivate
 
 ---
 
-## 6. Jupyter kernel (only for notebook exercises, not included here)
+## 6. Jupyter kernel (only for notebook exercises)
 
 Some exercises are delivered as Jupyter notebooks. Register a kernel so VS Code / Jupyter can select this environment. Use a name you'll recognise (here: `ai-labs`).
 
