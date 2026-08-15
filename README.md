@@ -28,7 +28,7 @@ This repository collects, for each session, the **slides** (PDF), the **hands-on
 | # | Session | Focus | Status |
 |---|---------|-------|--------|
 | 1 | [Microsoft AI Platform](01-microsoft-ai-platform/) | Foundry vision & architecture, agents, grounding, governance | ✅ **Complete** |
-| 2 | [AI Evaluation](./02-microsoft-evaluation-platform/) | Evaluation, custom evaluators, synthetic data, red teaming | 🚧 Work in progress |
+| 2 | [AI Evaluation](./02-microsoft-evaluation-platform/) | Evaluation, custom evaluators, synthetic data, red teaming | ✅ **Complete** |
 | 3 | [AI Innovations & Recent Announcements](./03-microsoft-agentic-frameworks/) | Agent Framework, MCP, A2A, Agent 365 governance | ✅ **Complete** |
 
 ### 1 · Microsoft AI Platform  ✅
@@ -36,7 +36,7 @@ This repository collects, for each session, the **slides** (PDF), the **hands-on
 - AI Foundry Vision and Architecture · AI Services in AI Foundry · AI Agent Service
 - **Audience:** IT / Cloud Architect · Data Platform / AI Platform Owner · IT Governance / IT Strategy · Innovation Manager / Digital Transformation · business application leads (high-level)
 
-### 2 · Development-phase supervision  🚧
+### 2 · AI Evaluation  ✅
 *Mix of overview, architecture, demos and specific use cases.*
 - Key concepts and tools in AI Foundry · Manual vs cloud evaluation · Synthetic & simulated automatic data generation · Custom evaluators · Red-teaming attacks in action
 - **Audience:** AI / ML Engineers · Software Developers (backend / integration) · Data Engineers · AI Solution Architects · Application Quality / Testing leads · Security Engineering (red teaming)
@@ -112,7 +112,7 @@ git push
 Released under the [MIT License](LICENSE) — you are free to use, copy, modify and redistribute this material, with attribution. It is provided **"as is", without warranty or support**.
 
 > [!IMPORTANT]
-> **Please read the full [Disclaimer](disclaimer.md) before using these materials.** In brief: this is a **personal, unofficial** repository (**not** an official Microsoft product); it is a **work in progress**; it is provided for **learning only** and is **not a substitute for official Microsoft documentation**; and it is **not maintained over time** — some technologies are in **Preview** and change frequently, so no guarantees are given.
+> **Please read the full [Disclaimer](disclaimer.md) before using these materials.** In brief: this is a **personal, unofficial** repository (**not** an official Microsoft product); it is a **work in progress** 🚧; it is provided for **learning only** and is **not a substitute for official Microsoft documentation**; and it is **not maintained over time** — some technologies are in **Preview** and change frequently, so no guarantees are given.
 >
 > The **authoritative, maintained** samples remain Microsoft's official repository: **https://github.com/microsoft-foundry/foundry-samples/**
 
