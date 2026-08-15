@@ -83,7 +83,7 @@ AZURE_OPENAI_CHAT_DEPLOYMENT_NAME=<CHAT-DEPLOYMENT-NAME>
 Install the [Azure CLI](https://learn.microsoft.com/cli/azure/install-azure-cli), then sign in and select your subscription:
 
 ```bash
-az login
+az login --use-device-code
 az account set --subscription "<your-subscription-id-or-name>"
 az account show   # confirm the right subscription is active
 ```
