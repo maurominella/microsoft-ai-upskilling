@@ -1,0 +1,21 @@
+# =====================================================================
+# AdvertSphere Broadcasting - AI Upskilling - Exercises
+# SINGLE requirements.txt, valid for all four exercises.
+# (Creating/activating the environment was already covered: this only
+#  installs the packages.)
+# =====================================================================
+
+# --- Azure and Microsoft Foundry ---
+# azure-ai-projects includes the server-side project_client.beta.red_teams API.
+# Do not add azure-ai-evaluation[redteam] or pyrit for notebook 4.2.
+azure-ai-projects==2.4.0
+azure-identity==1.25.3
+
+# --- Evaluation-specific ---
+azure-ai-evaluation==1.18.3
+prompty[foundry,jinja2]==2.0.0b3
+
+# --- Common utilities (campaign data, readable output, .env variables) ---
+python-dotenv==1.2.2
+jupyter==1.1.1
+kagglehub==1.0.2
