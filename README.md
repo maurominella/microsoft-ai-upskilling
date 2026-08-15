@@ -99,7 +99,7 @@ git subtree pull --prefix=02-microsoft-evaluation-platform \
 https://github.com/maurominella/genai_evaluation.git main --squash
 ```
 
-- After that, the next commands add, commit and push the Microsoft AI Upskilling repo:
+- After that, the next commands add, commit and push the [microsoft-ai-upskilling repository](https://github.com/maurominella/microsoft-ai-upskilling):
 ```bash
 git add .
 git commit -m "Initial subtree import of genai_evaluation"
