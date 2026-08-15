@@ -1,0 +1,3 @@
+[submodule "02-microsoft-evaluation-platform/genai_evaluation"]
+	path = 02-microsoft-evaluation-platform/genai_evaluation
+	url = https://github.com/maurominella/genai_evaluation
