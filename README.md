@@ -84,6 +84,15 @@ Each session folder is self-describing; the two upcoming sessions will follow th
 
 ---
 
+## How to synch the folder "02-microsoft-evaluation-platform"
+This folder mirrors the repo https://github.com/maurominella/genai_evaluation.
+The followin command updates that folder when the source is updated:
+```bash
+git subtree pull --prefix=02-microsoft-evaluation-platform \
+https://github.com/maurominella/genai_evaluation.git main --squash
+```
+---
+
 ## License & disclaimer
 
 Released under the [MIT License](LICENSE) — you are free to use, copy, modify and redistribute this material, with attribution. It is provided **"as is", without warranty or support**.
