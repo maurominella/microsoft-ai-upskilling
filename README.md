@@ -86,10 +86,24 @@ Each session folder is self-describing; the two upcoming sessions will follow th
 
 ## How to synch the folder "02-microsoft-evaluation-platform"
 This folder mirrors the repo https://github.com/maurominella/genai_evaluation.
-The followin command updates that folder when the source is updated:
+- The following command has to be run just the first time we need to add the external repo into the local folder:
+```bash
+git subtree add --prefix=02-microsoft-evaluation-platform \
+https://github.com/maurominella/genai_evaluation.git main --squash
+
+```
+
+- The following command updates that folder when the source is updated:
 ```bash
 git subtree pull --prefix=02-microsoft-evaluation-platform \
 https://github.com/maurominella/genai_evaluation.git main --squash
+```
+
+- After that, the next commands add, commit and push the Microsoft AI Upskilling repo:
+```bash
+git add .
+git commit -m "Initial subtree import of genai_evaluation"
+git push 
 ```
 ---
 
