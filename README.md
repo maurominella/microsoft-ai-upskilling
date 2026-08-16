@@ -91,6 +91,8 @@ This folder mirrors the repo https://github.com/maurominella/genai_evaluation.
 ```bash
 rm -rf 02-microsoft-evaluation-platform
 
+git rm -r --cached 02-microsoft-evaluation-platform
+
 mkdir 02-microsoft-evaluation-platform
 
 git subtree add --prefix=02-microsoft-evaluation-platform \
