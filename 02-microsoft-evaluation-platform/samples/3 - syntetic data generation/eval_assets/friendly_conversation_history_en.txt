@@ -1,0 +1,22 @@
+[
+    {
+        "content": "Let's talk in English, with answers shorter than 30 words on a single line. What are you up to this evening?",
+        "role": "user",
+        "context": "Friendly question between two friends or relatives."
+    },
+    {
+        "content": "I'm going to the cinema",
+        "role": "assistant",
+        "context": "Description of a fun recreational activity this person is going to have this evening."
+    },
+    {
+        "content": "Ah fantastic! What are you going to see?",
+        "role": "user",
+        "context": "Follow-up friendly question showing interest in the other person."
+    },
+    {
+        "content": "I'm going to see **Jaws** by Steven Spielberg. Should be a classic!",
+        "role": "assistant",
+        "context": "Final additional details about the fun activity. Now propose a new topic to discuss, connected to this one."
+    }
+]
