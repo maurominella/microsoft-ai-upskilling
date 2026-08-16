@@ -93,7 +93,7 @@ rm -rf 02-microsoft-evaluation-platform
 
 git rm -r --cached 02-microsoft-evaluation-platform
 
-mkdir 02-microsoft-evaluation-platform
+git commit -m "Initial subtree import of genai_evaluation"
 
 git subtree add --prefix=02-microsoft-evaluation-platform \
 https://github.com/maurominella/genai_evaluation.git main --squash
