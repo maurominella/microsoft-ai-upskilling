@@ -1,0 +1,232 @@
+"Bullet Kin
+Bullet Kin are one of the most common enemies. They slowly walk towards the player, occasionally firing a single bullet. They can flip tables and use them as cover. They will also deal contact damage if the player touches them.
+
+Occasionally, Bullet Kin will have assault rifles, in which case they will rapidly fire 8 bullets towards the player before reloading. When an assault rifle wielding bullet kin appears, there will often be more in the same room.
+
+On some occasions the player will also encounter incapacitated Bullet Kin lying on the floor. These Bullet Kin are props and disintegrate upon touch. They can be found in mass quantity in Oubliette.
+
+In the Black Powder Mine, they can also ride Minecarts. In fact, if there are any unoccupied Minecarts within the room, they will take priority by walking towards them to ride in.
+
+Trivia
+Bullet Kin wield Magnums. Assault-rifle wielding Bullet Kin wield AK-47s.
+Incapacitated Bullet Kin can be found in the Oublilette and Cannon's boss room.
+In the Oubliette and the boss fight against Agunim, some room props resemble Bullet Kin poking out from inside barrels. This is likely a visual joke on a bullet inside a gun barrel.
+In the Portuguese translation of the game, they are known as ""Balùnculo"", a portmanteau of the words ""bala"" (bullet) and ""homúnculo"" (homunculus).
+Bullet Kin makes a playable appearance in the platform fighting games Indie Pogo and Indie Game Battle.
+Bullet Kin is also a crossover skin in the game Riverbond.
+Bullet Kin also has a cameo as lower and upper parts of a skin in the game Fall Guys: Ultimate Knockout.
+Veteran Bullet Kin
+Veteran Bullet Kin are similar to regular Bullet Kin, but have a higher rate of fire, higher shot speed and attempt to predict the player's movements. They also run faster than normal Bullet Kin, allowing them to catch up with the player quickly if they attempt to take cover.
+
+They fire 4 bullets in a row. If the player moves out of sight from one then the Veteran will pause his attack and then fire the remaining bullets once he has caught up.
+
+Bandana Bullet Kin
+Bandana Bullet Kin behave like regular Bullet Kin, but their fire rate is heavily increased. Bandana Bullet Kin also have a higher magazine size than Bullet Kin that wield AK-47s, making them more relentless.
+
+Trivia
+Bandana Bullet Kin wield Machine Pistols.
+
+Tanker
+Tankers behave like regular Bullet Kin, but have higher health and higher rate of fire. Tankers can be spawned by Treadnaught.
+
+Their rate of fire is slightly lower than that of Bandana Bullet Kin, but they are just as relentless.
+
+Trivia
+Tankers wield AK-47s.
+The Tanker's expression in his Ammonomicon profile resembles that of the Bullet's avatar when talking to an NPC.
+
+Minelet
+Minelets behave like regular Bullet Kin, but will occasionally hide under their hard hat, deflecting incoming projectiles. They will then pop out from underneath their hard hat, releasing a ring of bullets in all directions.
+
+Trivia
+Minelets are a possible reference to Mets from the Mega Man series because of their similar behavior. They both hide under their helmets to protect themselves and attack when they emerge.
+
+Cardinal
+Cardinals behave like regular Bullet Kin, but have 50% higher health and will occasionally pause to shoot a group of 5 bullets that will home in on players.
+
+Though a minor effect, these bullets spin around each other as they travel, similar to Apprentice Gunjurers. This occasionally allows them to slip through corners as only some of the bullets will be destroyed.
+
+Trivia
+Although normally seen in the Abbey & Hollow, a single cardinal may be seen in the first floor, tending to a small cemetery filled with gravestones. He is the only enemy in that room.
+""Of the gun"" is a play on the phrase ""of the cloth"", meaning a member of the clergy.
+
+Shroomer
+Shroomers behave like regular Bullet Kin, but have double health and fire two bullets in a V shape. Their bullets can be avoided by standing still, but this can jeopardise dodging the more accurate projectiles of any accompanying enemies. They may also spawn in Gungeon Proper, though rarely.
+
+Trivia
+Shroomers will misfire upon spawning, having to stand up after being spawned.
+
+Ashen Bullet Kin
+Ashen Bullet Kin have a higher rate of fire and higher shot speed than regular Bullet Kin. They seem to alternate between firing directly at the player and predicting their movements when shooting.
+
+In some rooms of the Forge, Ashen Bullet Kin have the ability to spawn out of ashen statues, which allows them to catch the player off guard.
+
+Trivia
+The quote ""Cinder Fella"" is a clear wordplay between ""Cinderella"", the famous fairytale, and ""Fella"" a familiar term for a friend or a person that you consider close.
+The French traduction of this quote ""Balle au bois dormant"" is also a wordplay between the fairytale ""La belle au bois dormant"" (Sleeping Beauty) and ""Balle"" (Bullet)
+Like its normal counterpart, the Ashen Bullet Kin has a cameo as lower and upper parts of a skin in the game Fall Guys: Ultimate Knockout.
+
+Mutant Bullet Kin
+Mutant Bullet Kin behave like regular Bullet Kin, but have higher health and will occasionally stop to release a cone of poison creep. They are immune to Poison effects. The cone of poison can only be released horizontally, so attacking from above or below are the safer options.
+
+Trivia
+Its subtitle references Old Faithful, a geyser in Yellowstone National Park.
+
+Fallen Bullet Kin
+Fallen Bullet Kin walk towards the player, firing spreads of 3 fire-shaped bullets. They leave behind a small patch of fire upon death. Despite this, they are not immune to fire damage.
+
+Notes
+Fallen Bullet Kin will leave their pools of fire in the area where they took the blow that killed them. It will not be spawned where their death animation ends.
+Trivia
+Fallen Bullet Kin wield Pitchforks.
+The sounds that Fallen Bullet Kin make are lower pitched versions of regular Bullet Kin.
+These enemies can also be spawned by Lament Configurum.
+A portrait of a Fallen Bullet Kin can be seen in the Abbey of the True Gun.
+In the Portuguese translation of the game, they are known as ""Ex-Balùnculo"" (Ex-Bullet Kin), so in that version of the game, it is implied that they are no longer a type of bullet kin, this transformation may have happened through their death, where they were sent to the Sixth Chamber.
+
+Keybullet Kin
+Keybullet Kin run away from the player, and drop a key upon death. However, if the player does not manage to kill them in time, they will disappear.
+
+Unlike other Bullet Kin, Keybullet Kin do not deal contact damage if they run into the player.
+
+Jammed Keybullet Kin drop 2 keys instead of 1. These Jammed variations run faster and will take less time to teleport away from the player if they are not destroyed quickly.
+
+If a Keybullet Kin is knocked into a pit, it will not drop a key.
+
+The chances for a specific number of Keybullet Kin to spawn on a floor are:
+
+0	1	2
+50%	30%	20%
+Trivia
+Keybullet Kin may appear in boss arenas during the Boss Rush.
+Keybullet Kin have a small chance to appear in elevator rooms at the start of a floor.
+Killing 15 Keybullet Kin unlocks the Springheel Boots.
+Keybullet Kin and Chance Kin's behavior is modeled after the Crystal Lizards from the Souls series and the Wandering Madness from Bloodborne. Both are harmless ""enemies"" that quickly run away from the player—often leading them directly into the path of danger—and despawn after a short time, with the promise of valuable loot if they are killed.
+
+Chance Kin
+Chance Kin run away from the player, and drop a random pickup upon death. However, if the player does not manage to kill them in time, they will disappear. Jammed Chance Kins have a chance to drop twice the loot.
+
+The chances for a specific number of Chance Kin to spawn on a floor are:
+
+0	1	2
+50%	30%	20%
+Trivia
+Chance Kin may appear in boss arenas during Boss Rush.
+Chance Kin have a small chance to appear in elevator rooms at the start of the floor.
+The Chance Kin's subtitle is a reference to the common phrase ""No Second Chances.""
+Chance Kin block player movement during their death animation.
+Chance Kin can appear in the same room as a Keybullet Kin.
+Keybullet Kin and Chance Kin's behavior is modeled after the Crystal Lizards from the Souls series and the Wandering Madness from Bloodborne. Both are harmless ""enemies"" that quickly run away from the player—often leading them directly into the path of danger—and despawn after a short time, with the promise of valuable loot if they are killed.
+
+Confirmed
+Confirmed are mysterious cloaked Bullet Kin. They stroll towards the player, occasionally stopping to fire four slithering lines of bullets at the player from under their hoods.
+
+Confirmed do not appear in specific room layouts. Instead, they have a small chance to replace an enemy in any room. Only one Confirmed can appear on each floor.
+
+Defeating ten Confirmed unlocks the Yellow Chamber.
+
+Trivia
+The splash art for Confirmed show them having dozens of red eye-like bullets residing within their cloaks. This bears resemblance to the High Priest's splash art.
+The Confirmed are referred to by numerous other names in the game's code, such as 'Kaliber Cultist', and 'Faceless Cultist'.
+
+Red-Caped Bullet Kin
+Bullet Kin with red capes will rarely appear in random rooms after at least one Past has been killed. These Bullet Kin do not attack the player, and wander aimlessly. If it is the only enemy remaining in the room and it is left alone for long enough, it will disappear. After this happens 5 times, The Bullet is unlocked, and Red-Caped Bullet Kin stop spawning.
+
+The chances that one will spawn on the six main floors are as follows:
+
+1	2	3	4	5	6
+8%	8%	12%	16%	20%	25%
+A floor can only contain a maximum of one caped bullet (with one known exception outlined below). There is a 49.95% chance of one or more Red-Caped Bullet Kin appearing in a full run through the Forge, and a 62.46% chance on a run through Bullet Hell.
+
+Trivia
+Red-Caped Bullet Kin wield Magnums, but do not fire them or point them at the player.
+Red-Caped Bullet Kin do not deal contact damage unless they are jammed.
+Red-Caped Bullet Kin's design may be based on The Kid from I Wanna Be The Guy.
+Rooms created by the Drill can have a Red-Caped Bullet Kin spawn inside them, even if a Red-Caped Bullet Kin has already appeared on that floor.
+It's possible for Red-Caped Bullet Kin to appear in the Aimless Void and Secret Floors such as the Oubliette.
+Red-Caped Bullet Kin are not attacked by companions.
+Red-Caped Bullet Kin will teleport away if the room contains an enemy that cannot be killed, such as Gunreapers or Dead Blows."
+"---The Paths through the Underground/Underdark---(9 days of travel)
+Wandering through the dark tunnels, the rushing sounds of the underground river begin to fade as it diverges from the cavern. You walk on for miles, the smell of hard water and wet earth. Natural chambers and cavern passways are chained together by the stretches of burrowed earth left in the wake of this massive worm-like creature. Clusters of crystal and other beautiful minerals occasionally line the walls and ceilings of the chambers, glittering with the little light you have to shove back the darkness.
+
+Day 1 goes without issue... sleep.
+
+Day 2 – Ropers
+After a few miles of winding tunnel, you emerge in a smaller grotto of stalactites and stalagmites dripping with condensation. Unsure if the same underground river, or another water source, is nearby, you can see quite a bit of ground water does funnel down into this area. Seeking the next burrowed entrance left by the Kryn...
+---ENCOUNTER – Ropers x 2---
+Day 3 goes without issue...sleep.
+
+Day 4 - Kobold Trap
+Part way into the journey, the path becomes a protracted tunnel, snaking through the rock for hours without end. Eventually, you begin to notice other smaller tunnels intersecting with the burrowed canal. They appear partially ruined by this fresher tunnel, many of them now filled or partially collapsed.
+
+They are no more than 2-3 feet wide, and numerous (dozens).
+
+In some of the rubble, you can find broken tools... a hammer, some soiled leather, a knife.
+
+The tunnel finally seems to open into a small 15-foot high, 30ft long chamber of dirt and rock, where a rather rancid smell lingers. Glancing within, a handful of the smaller tunnels seem to intersect with it, and whomever enters first (if not Cad), their leg is SNARED by a noose and they must make a Dexterity Saving Throw (DC 15) or be lifted into the air to dangle from a small trap (restrained, DC 16 to escape). The snare also drags a cable tied to numerous pans and metal scraps, making a ruckus!
+
+Chattering and tiny warcrys begin to fill the tunnel from all sides... as dozens of small kobolds rush into the room, and from behind!
+
+-ENCOUNTER: Kobolds x 26, Kobold Inventor x 1-
+“Loud food! Loud meal!”
+
+When seeing the group, they bark and growl. (if noticed, they appear rather fearful)
+
+“You! Give us stuffs! Give us foods! Drop things you have, or we stab stab!”
+
+If asked about tunnel “Big worm eat through! Bring ingoeth! In and out, gone quick, leave mess!”
+
+They must parlay with them, avoiding a battle with a significant trade, or intimidation. Otherwise, a fight ensues! Either way, two kobolds are too scared and freeze up. They are brothers Spurt and Bex, scavenger kobolds. They are timid, but know the tunnels well...ish?"
+"Semantic and Textual Inference Chatbot Interface (STICI-Note) - Part 1: Planning and Prototyping
+
+The start of my RAG to riches story
+
+STICI-note
+
+Published: Mon, 27 May 2024
+
+Last modified: Tue, 04 Jun 2024
+
+Introduction
+
+In this three-part series, I will be talking you through how I built the Semantic and Textual Inference Chatbot Interface (or STICI-note for short), a locally run RAG chatbot that uses unstructured text documents to enhance its responses. I came up with the name when I was discussing this project with a friend and asked him whether he had any ideas of what to call it. He said, ""You should call it sticky because it sounds funny."" The name... stuck...
+
+The code for this project is available here.
+
+In this part, I will be planning the project from the tech stack to the techniques I will use, and I will be building a prototype. I will be discussing all of the choices I made and all of the choices I didn’t make, so I hope you find this insightful. Without further ado, let’s get started.
+
+The Problem
+
+In my spare time, I occasionally play Dungeons and Dragons (DnD), a tabletop roleplaying game, and the stories are often told over several months, so details can be easily lost or forgotten over time. I can write notes on my laptop, but sometimes regular text search does not always provide me with the results I want when trying to search for specific notes. Some common examples include when a keyword is used often (e.g., I might write a lot about the actions of “Miles Lawson,” but only one segment of text might describe who he is, making searching for information on his character like finding a needle in a haystack) or when I simply cannot think of the correct keyword to search (e.g., what if I search “silver” instead of “gold”?).
+
+One day, I thought to myself that it’d be great if I had a tool that I could write my DnD notes into in an unstructured way and retrieve the information at any time with simple questions like “Who is Miles Lawson?” or “How much silver did I pay for a stay in ye olde tavern?”. This tool could be extended to be used for querying my notes on many things that are not available online (and therefore not searchable on a search engine), such as documentation on software that I build, notes on things that I’m learning about, such as AWS cloud infrastructure, and my diary of my deepest thoughts and feelings (at least I hope this is not available online). And thus, I decided to start working on STICI-note because the tools available online that do this cost money and run on the cloud, and I’m a tight-fisted guy who’s very sceptical about company promises to not sell your data.
+
+Narrowing Down Features
+
+As with all projects, I began by deciding what features I needed from this tool.
+
+Required features:
+
+Chatbot that you can ask questions and get answers in response (conversational memory is not required).
+Information is taken from an unstructured text file.
+It must be able to tell me if it doesn’t know the answer to my question.
+Fast.
+Efficient enough to run on my MacBook with other programs without any performance issues.
+Locally run for privacy and to ensure it will always be free, runnable, and consistent.
+Conversational memory is the memory of previous interactions given to an LLM. I decided not to require it as a feature because I just need the AI to answer my questions about the given text. It might be added as a feature in the future if I feel like I need it, but I do not plan to include it in the initial version of STICI-note.
+
+I knew that limiting it to running on my M1 MacBook with 8 GB of memory would greatly limit the performance of the tool as I would not be able to access truly large language models like GPT-4 and Claude 3 Opus, but I decided to do it anyway primarily for privacy but also to remove dependencies on external organisations to reduce the maintenance required for the tool in the future.
+
+Planning How to Evaluate and Compare Solutions
+
+If you don’t evaluate a solution, how do you know whether it’s an effective solution? You don’t.
+
+I next planned how I would evaluate different variations of the tool. While I do not evaluate anything in this part, I decided to sketch out a rough plan of how I would evaluate different solutions to encourage designing a testable AI in the same way that Test-Driven Development (TDD) encourages you to write testable code.
+
+At first, I considered using Wikipedia pages as the data source and making my own questions about the content of the pages before I realised that this would lead to data leakage as many LLMs are trained on Wikipedia data.
+
+An alternative dataset that I considered using for evaluation is the TREC 2024 RAG Corpus. This is a 28 GB corpus of text documents scraped from the internet. This corpus comes with thousands of queries, and the relevant documents for each query have been tagged as such. This is an amazing corpus for training and evaluating vector DataBase (DBs). Ignoring the fact that its questions do not come with answers, meaning I would have to write my own answers to use the document, there is one glaring flaw that makes it unusable for my use case: the documents are generally relatively short and describe a large variety of things. In my use case, I expect documents to be long and typically written about the same topic. If I were to use the corpus, I would have to stick documents together to present a realistic challenge in the semantic search of the vector DB vector space, but as each document will likely be about very different topics (e.g., one might be about aviation while another might be about economics), context retrieval would be unrealistically easy.
+
+Another alternative evaluation dataset that I considered using was a synthetic dataset. By following a method like this, I can use an LLM to generate synthetic context and questions automatically. I decided not to do this as I was concerned that this would produce bad-quality data with a massive bias towards things an LLM might already know, despite the use case expecting data that the LLM does not already know.
+
+Because the documents in my evaluation corpus need to be thousands of words in length while staying relevant to a topic and they need to include information that will not be in the LLM’s training data, I decided that it would be best to manually curate a small dataset to evaluate my models. I plan to create documents from sources on the internet like videogame wikis, people’s blogs, and scientific journals and write my own pairs of questions and answers about the
