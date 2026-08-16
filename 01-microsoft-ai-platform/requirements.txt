@@ -1,6 +1,6 @@
 # =====================================================================
 # AdvertSphere Broadcasting - AI Upskilling - Exercises
-# SINGLE requirements.txt, valid for all four exercises.
+# SINGLE requirements.txt, valid for all laboratories of this section.
 # (Creating/activating the environment was already covered: this only
 #  installs the packages.)
 # =====================================================================
