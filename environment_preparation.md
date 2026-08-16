@@ -9,7 +9,7 @@
 ## 1. Checklist — what you need
 
 - [ ] An **Azure subscription** with permission to create resources (see §2).
-- [ ] A **development machine** (physical or VM) with **administrator rights** (see §3).
+- [ ] A **development machine** (physical or VM) with **administrator rights**; Windows users also need **WSL 2 with Ubuntu** (see §3 and §4.1).
 - [ ] **Azure CLI**, **Git**, **Visual Studio Code**, and **uv** installed (see §4).
 - [ ] A **Python project workspace** with a virtual environment and the dependencies from your session's `requirements.txt` (see §5).
 - [ ] Your **secrets/configuration** placed in a local `.env` file (see §7).
@@ -71,16 +71,60 @@ AZURE_OPENAI_CHAT_DEPLOYMENT_NAME=<CHAT-DEPLOYMENT-NAME>
 ## 3. Development machine
 
 - **OS:** Windows, macOS, or Linux, with **administrator/sudo rights** (needed to install the tools below).
+- **Windows:** use **WSL 2 with Ubuntu** as the lab terminal and Python environment. This gives students the same Linux shell, paths, activation commands, and `uv` workflow.
+- **Linux / macOS:** WSL is **not required**. WSL is a Windows compatibility layer for running Linux; these systems already provide a Unix-like development environment directly.
 - **Hardware:** any modern laptop/VM; no GPU required (the models run in Azure, not locally).
 - **Network:** outbound HTTPS to Azure and to `astral.sh` / `pypi.org` (for uv and packages).
+
+> [!IMPORTANT]
+> On Windows, keep the repository and virtual environments in the WSL filesystem (for example, `~/projects/microsoft-ai-upskilling`), not under `/mnt/c`. Run all lab commands from the WSL terminal opened in VS Code.
 
 ---
 
 ## 4. Install the tooling
 
-### 4.1 Azure CLI + sign in
+### 4.1 Windows only: install WSL 2 and Ubuntu
 
-Install the [Azure CLI](https://learn.microsoft.com/cli/azure/install-azure-cli), then sign in and select your subscription:
+WSL is required only for Windows students in this workshop. Open **PowerShell as Administrator** and run:
+
+```powershell
+wsl --install -d Ubuntu
+```
+
+Restart Windows if requested, open **Ubuntu** from the Start menu, and complete the first-run username and password setup. Then update and verify WSL from PowerShell:
+
+```powershell
+wsl --update
+wsl --status
+wsl --list --verbose
+```
+
+The `VERSION` column for Ubuntu must show **2**. If an existing distribution still uses version 1, run:
+
+```powershell
+wsl --set-default-version 2
+wsl --set-version Ubuntu 2
+```
+
+Inside the Ubuntu terminal, update the base packages and install Git and `curl`:
+
+```bash
+sudo apt update
+sudo apt upgrade -y
+sudo apt install -y git curl
+```
+
+From this point onward, Windows students run every `bash` command in the **WSL Ubuntu terminal**. Linux and macOS students use their normal terminal and skip this section.
+
+### 4.2 Azure CLI + sign in
+
+Install the [Azure CLI](https://learn.microsoft.com/cli/azure/install-azure-cli) in the environment where the labs run:
+
+- **Windows:** install the Linux version inside WSL Ubuntu.
+- **Linux:** install the package for your distribution.
+- **macOS:** install the macOS package.
+
+Then sign in and select your subscription from that same terminal:
 
 ```bash
 az login --use-device-code
@@ -91,25 +135,29 @@ az account show   # confirm the right subscription is active
 > [!IMPORTANT]
 > Most labs authenticate with **`DefaultAzureCredential`**, which reuses your `az login` session — so **no secrets are needed for interactive labs**. Only app-only / "without OBO" exercises need a client ID + secret.
 
-### 4.2 Visual Studio Code
+### 4.3 Visual Studio Code
 
 Install [VS Code](https://code.visualstudio.com/) and these extensions:
 
 - **Python** (`ms-python.python`)
 - **Jupyter** (`ms-toolsai.jupyter`)
+- **WSL** (`ms-vscode-remote.remote-wsl`) — Windows only
 
-### 4.3 uv (Python package & project manager)
+On Windows, install VS Code on Windows, open a WSL terminal, navigate to the repository, and run `code .`. Confirm that the bottom-left corner of VS Code shows **WSL: Ubuntu** before continuing.
 
-- **Linux / macOS:**
+### 4.4 uv (Python package & project manager)
+
+- **Windows (inside WSL), Linux, and macOS:**
   ```bash
   curl -LsSf https://astral.sh/uv/install.sh | sh
   ```
-- **Windows (PowerShell):**
-  ```powershell
-  powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"
-  ```
 
-Verify: `uv --version`. (uv also installs and manages Python for you — you do **not** need a separate Python install).
+Close and reopen the terminal if requested by the installer, then verify with `uv --version`. uv also installs and manages Python for you, so you do **not** need a separate Python installation.
+
+> [!NOTE]
+> Installing `uv` inside WSL, rather than in Windows PowerShell, ensures that Windows students create Linux virtual environments with the same layout and commands used by Linux and macOS students.
+>
+> The environments are equivalent in Python version, declared dependencies, and commands. They are not byte-for-byte identical because `uv` may select platform-specific package builds for Linux and macOS.
 
 ---
 
@@ -127,9 +175,8 @@ uv init . --python 3.13
 # 3. Create the local virtual environment
 uv venv
 
-# 4. Activate it
-source .venv/bin/activate        # Linux / macOS
-.\.venv\Scripts\Activate.ps1   # Windows (PowerShell)
+# 4. Activate it (Windows/WSL, Linux, and macOS)
+source .venv/bin/activate
 
 # 5. Install the dependencies (note --active + --prerelease=allow)
 uv add --active -r requirements.txt --prerelease=allow
@@ -264,6 +311,8 @@ You should see **`Environment OK: ...`** with no import errors.
 | Symptom | Likely cause & fix |
 |---------|--------------------|
 | `uv: command not found` | Reopen the terminal after installing uv (PATH needs refreshing), or re-run the install command. |
+| VS Code on Windows cannot find the WSL environment | Install the WSL extension, open the repository with `code .` from Ubuntu, and confirm that VS Code shows **WSL: Ubuntu**. |
+| `wsl --install` is unavailable or fails | Install pending Windows updates and confirm that virtualization is enabled; see the [official WSL installation guide](https://learn.microsoft.com/windows/wsl/install). |
 | `az login` opens no browser | Use `az login --use-device-code` and follow the code prompt. |
 | A preview package fails to resolve | Ensure you pass `--prerelease=allow` to `uv add` / `uv sync`. |
 | `import agent_framework` fails | The venv isn't active, or the package didn't install — re-run §5 step 5 inside the activated env. |
