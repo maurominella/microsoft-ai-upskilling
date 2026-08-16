@@ -9,7 +9,7 @@
 ## 1. Checklist — what you need
 
 - [ ] An **Azure subscription** with permission to create resources (see §2).
-- [ ] A **development machine** (physical or VM) with **administrator rights**; Windows users also need **WSL 2 with Ubuntu** (see §3 and §4.1).
+- [ ] A **development machine** (physical or VM) with **administrator rights**; Windows users also need **WSL 2 with Ubuntu 24.04 LTS** (see §3 and §4.1).
 - [ ] **Azure CLI**, **Git**, **Visual Studio Code**, and **uv** installed (see §4).
 - [ ] A **Python project workspace** with a virtual environment and the dependencies from your session's `requirements.txt` (see §5).
 - [ ] Your **secrets/configuration** placed in a local `.env` file (see §7).
@@ -71,7 +71,7 @@ AZURE_OPENAI_CHAT_DEPLOYMENT_NAME=<CHAT-DEPLOYMENT-NAME>
 ## 3. Development machine
 
 - **OS:** Windows, macOS, or Linux, with **administrator/sudo rights** (needed to install the tools below).
-- **Windows:** use **WSL 2 with Ubuntu** as the lab terminal and Python environment. This gives students the same Linux shell, paths, activation commands, and `uv` workflow.
+- **Windows:** use **WSL 2 with Ubuntu 24.04 LTS** as the lab terminal and Python environment. This gives students the same Linux shell, paths, activation commands, and `uv` workflow.
 - **Linux / macOS:** WSL is **not required**. WSL is a Windows compatibility layer for running Linux; these systems already provide a Unix-like development environment directly.
 - **Hardware:** any modern laptop/VM; no GPU required (the models run in Azure, not locally).
 - **Network:** outbound HTTPS to Azure and to `astral.sh` / `pypi.org` (for uv and packages).
@@ -83,15 +83,15 @@ AZURE_OPENAI_CHAT_DEPLOYMENT_NAME=<CHAT-DEPLOYMENT-NAME>
 
 ## 4. Install the tooling
 
-### 4.1 Windows only: install WSL 2 and Ubuntu
+### 4.1 Windows only: install WSL 2 and Ubuntu 24.04 LTS
 
-WSL is required only for Windows students in this workshop. Open **PowerShell as Administrator** and run:
+WSL is required only for Windows students in this workshop. Open **PowerShell as Administrator** and install the specific Ubuntu 24.04 LTS distribution:
 
 ```powershell
-wsl --install -d Ubuntu
+wsl --install -d Ubuntu-24.04
 ```
 
-Restart Windows if requested, open **Ubuntu** from the Start menu, and complete the first-run username and password setup. Then update and verify WSL from PowerShell:
+Restart Windows if requested, open **Ubuntu 24.04 LTS** from the Start menu, and complete the first-run username and password setup. Then update and verify WSL from PowerShell:
 
 ```powershell
 wsl --update
@@ -99,14 +99,20 @@ wsl --status
 wsl --list --verbose
 ```
 
-The `VERSION` column for Ubuntu must show **2**. If an existing distribution still uses version 1, run:
+The `VERSION` column for `Ubuntu-24.04` must show **2**. If the distribution still uses version 1, run:
 
 ```powershell
 wsl --set-default-version 2
-wsl --set-version Ubuntu 2
+wsl --set-version Ubuntu-24.04 2
 ```
 
-Inside the Ubuntu terminal, update the base packages and install Git and `curl`:
+Open the Ubuntu 24.04 terminal and verify that the installed release is **Ubuntu 24.04 LTS**:
+
+```bash
+lsb_release -ds
+```
+
+Then update the base packages and install Git and `curl`:
 
 ```bash
 sudo apt update
@@ -114,13 +120,13 @@ sudo apt upgrade -y
 sudo apt install -y git curl
 ```
 
-From this point onward, Windows students run every `bash` command in the **WSL Ubuntu terminal**. Linux and macOS students use their normal terminal and skip this section.
+From this point onward, Windows students run every `bash` command in the **WSL Ubuntu 24.04 terminal**. Linux and macOS students use their normal terminal and skip this section.
 
 ### 4.2 Azure CLI + sign in
 
 Install the [Azure CLI](https://learn.microsoft.com/cli/azure/install-azure-cli) in the environment where the labs run:
 
-- **Windows:** install the Linux version inside WSL Ubuntu.
+- **Windows:** install the Linux version inside WSL Ubuntu 24.04.
 - **Linux:** install the package for your distribution.
 - **macOS:** install the macOS package.
 
@@ -143,7 +149,7 @@ Install [VS Code](https://code.visualstudio.com/) and these extensions:
 - **Jupyter** (`ms-toolsai.jupyter`)
 - **WSL** (`ms-vscode-remote.remote-wsl`) — Windows only
 
-On Windows, install VS Code on Windows, open a WSL terminal, navigate to the repository, and run `code .`. Confirm that the bottom-left corner of VS Code shows **WSL: Ubuntu** before continuing.
+On Windows, install VS Code on Windows, open the Ubuntu 24.04 WSL terminal, navigate to the repository, and run `code .`. Confirm that the bottom-left corner of VS Code shows **WSL: Ubuntu-24.04** before continuing.
 
 ### 4.4 uv (Python package & project manager)
 
@@ -311,7 +317,7 @@ You should see **`Environment OK: ...`** with no import errors.
 | Symptom | Likely cause & fix |
 |---------|--------------------|
 | `uv: command not found` | Reopen the terminal after installing uv (PATH needs refreshing), or re-run the install command. |
-| VS Code on Windows cannot find the WSL environment | Install the WSL extension, open the repository with `code .` from Ubuntu, and confirm that VS Code shows **WSL: Ubuntu**. |
+| VS Code on Windows cannot find the WSL environment | Install the WSL extension, open the repository with `code .` from Ubuntu 24.04, and confirm that VS Code shows **WSL: Ubuntu-24.04**. |
 | `wsl --install` is unavailable or fails | Install pending Windows updates and confirm that virtualization is enabled; see the [official WSL installation guide](https://learn.microsoft.com/windows/wsl/install). |
 | `az login` opens no browser | Use `az login --use-device-code` and follow the code prompt. |
 | A preview package fails to resolve | Ensure you pass `--prerelease=allow` to `uv add` / `uv sync`. |
