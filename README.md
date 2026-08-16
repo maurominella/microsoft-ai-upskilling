@@ -59,18 +59,19 @@ microsoft-ai-upskilling/
 ├── 01-microsoft-ai-platform/              ← Session 1
 │   ├── README.md
 │   ├── requirements.txt
-│   ├── slides/   (Day-1 deck PDF is here)
-│   └── labs/     → lab-1 … lab-4
+│   ├── labs/     → lab-1 … lab-4
+│   └── slides/   (Day-1 deck PDF is here)
 ├── 02-development-supervision/            ← Session 2
 │   ├── README.md
 │   ├── requirements.txt
-│   ├── slides/   (Day-1 deck PDF is here)
-│   └── labs/     → lab-1 … lab-4
+│   ├── labs/     → lab-1 … lab-4
+│   ├── samples/  → full samples by topic
+│   └── slides/   (Day-1 deck PDF is here)
 └── 03-ai-innovations/                     ← Session 3
     ├── README.md
     ├── requirements.txt
-    ├── slides/   (Day-1 deck PDF is here)
-    └── labs/     → lab-1 … lab-4
+    ├── labs/     → lab-1 … lab-4
+    └── slides/   (Day-1 deck PDF is here)
 ```
 
 Each session folder is self-describing; the two upcoming sessions will follow the same layout (`slides/` + `labs/`).
@@ -86,8 +87,12 @@ Each session folder is self-describing; the two upcoming sessions will follow th
 
 ## How to synch the folder "02-microsoft-evaluation-platform"
 This folder mirrors the repo https://github.com/maurominella/genai_evaluation.
-- The following command has to be run just the first time we need to add the external repo into the local folder:
+- The following command has to be run just the first time we need to add the external repo into the **existing** local folder:
 ```bash
+rm -rf 02-microsoft-evaluation-platform
+
+mkdir 02-microsoft-evaluation-platform
+
 git subtree add --prefix=02-microsoft-evaluation-platform \
 https://github.com/maurominella/genai_evaluation.git main --squash
 
