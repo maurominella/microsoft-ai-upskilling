@@ -1,0 +1,83 @@
+﻿input,compiledInput,expectedResponse,modelResponse,rating
+"What do keybullet kin drop?","What do keybullet kin drop?","Keybullet Kin release a key when defeated.","Keybullet kin in the game Enter the Gungeon have a chance to drop various items when defeated. Some common drops include keys, casings (currency in the game), and occasionally hearts (health). They may also drop active items, passive items, or guns. The specific drop is random and not guaranteed every time you defeat a keybullet kin.","like"
+"What kind of gun does the bandana bullet kin use?","What kind of gun does the bandana bullet kin use?","Bandana Bullet Kin uses a machine pistol.","The Bandana Bullet Kin in the video game Enter the Gungeon uses a revolver as its weapon.","like"
+"What do the giants look like?","What do the giants look like?","One giant is massive, with grey skin and clad in dark iron armor covered in metal thorns, standing at 20 feet. It leans against the wall with two large, spiked tower shields.
+
+The other giant is similarly tall but in lighter iron, holding a huge, threatening maul and appearing uninterested.","Giants are often portrayed as large humanoid beings with immense size and strength. They are typically depicted as towering over normal-sized humans, sometimes reaching heights of 10 feet or more. In folklore and mythology, giants are often described as having rugged features, long hair, and a formidable appearance. Their physical characteristics can vary depending on the culture and story they appear in.","dislike"
+"What happens on day 2?","What happens on day 2?","You find yourself in a grotto filled with stalactites and stalagmites. Two ropers appear as you explore, looking for the next entrance left by the Kryn.","It seems like you're asking about a specific event or situation on ""day 2."" Could you please provide more context or information so I can better assist you?","like"
+"What were the requirements for the project?","What were the requirements for the project?","The project required a chatbot that answers questions without needing conversational memory, pulls information from unstructured text, can admit when it doesn't know an answer, operates quickly, runs efficiently on a MacBook alongside other applications, and is locally hosted for privacy and zero cost.","I would need more specific information about the project you are referring to. Could you please provide more details or context so I can better assist you in finding the requirements for the project?","like"
+"What data did was used to test the prototype?","What data did was used to test the prototype?","To test the prototype, I used the Wikipedia pages of Grace Hopper and Alan Turing.","The data used to test the prototype typically depends on the specific project or product being developed. Common types of data used for testing prototypes include simulated or synthetic data, sample real-world data, user-generated data, and data collected from previous prototypes or iterations. It's important to use diverse and relevant data to thoroughly test the functionality and performance of a prototype.","like"
+"How do the data storage options compare?","How do the data storage options compare?","For quick setup: SQLite3 and ChromaDB are file-based and require no installation.
+For higher performance: MongoDB and Milvus use Docker Compose for setup.
+Using Postgres: both text and vector DBs can be installed via Docker Compose.
+For flexibility: LLMWare offers 3 text databases (Mongo, Postgres, SQLite) and 10 vector databases (including Milvus and Pinecone).","There are various data storage options available, each with its own advantages and disadvantages. Here is a comparison of some common data storage options:
+
+1. Hard Disk Drives (HDDs):
+- Pros: Relatively inexpensive, high storage capacity, established technology.
+- Cons: Slower read/write speeds compared to SSDs, mechanical parts can fail over time.
+
+2. Solid State Drives (SSDs):
+- Pros: Faster read/write speeds, more durable than HDDs, no moving parts.
+- Cons: More expensive per gigabyte compared to HDDs, limited read/write cycles.
+
+3. Cloud Storage:
+- Pros: Convenient access from anywhere with internet connection, scalable storage capacity, automated backups.
+- Cons: Requires internet connection, ongoing subscription costs, potential security and privacy concerns.
+
+4. Network Attached Storage (NAS):
+- Pros: Centralized storage accessible by multiple devices, data redundancy and backup capabilities, customizable features.
+- Cons: Initial setup and maintenance can be complex, higher cost upfront compared to personal cloud storage.
+
+5. Optical Storage (CDs, DVDs, Blu-ray):
+- Pros: Low cost, physical media that can be stored offline, suitable for long-term archival storage.
+- Cons: Limited storage capacity compared to other options, slower read/write speeds, susceptible to physical damage.
+
+Ultimately, the best data storage option depends on your specific needs, such as storage capacity, speed, accessibility, and budget. It's important to consider factors like data security, reliability, and ease of use when choosing a data storage solution.","dislike"
+"When was UTF-8 support added for European languages?","When was UTF-8 support added for European languages?","The support for UTF-8 encoding for European languages was introduced on April 3rd in the v0.2.7 update.","UTF-8 support for European languages was added with the publication of the Unicode Standard, Version 1.0 in 1991. UTF-8 is able to represent all characters in the Unicode standard, including those used in European languages.","dislike"
+"How do I make a button?","How do I make a button?","Create a button using marimo:
+
+import marimo as mo
+
+button = mo.ui.button()
+button
+
+Use the button to trigger an action:
+
+import random
+random.randint(0, 500) if button.value else None","To make a button, you can use HTML and CSS. Here is a simple example:
+
+HTML:
+```html
+<button class=""my-button"">Click Me</button>
+```
+
+CSS:
+```css
+.my-button {
+  background-color: #4CAF50; /* Green */
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+```
+
+You can customize the button further by changing the background color, text color, padding, font size, border, etc. to fit your design preferences.","dislike"
+"When might I use caching?","When might I use caching?","Caching is useful when your notebook calculates costly embeddings like t-SNE, UMAP, or PyMDE.","Caching is commonly used in software development and web applications to improve performance by storing frequently accessed data in a cache memory. Here are some scenarios where you might consider using caching:
+
+1. **Frequent database queries**: If your application frequently queries a database for the same data, you can cache the results to reduce the number of database calls and improve performance.
+
+2. **Static content**: Caching static content such as images, CSS, and JavaScript files can help reduce server load and speed up page load times for users.
+
+3. **API calls**: Caching API responses can help reduce latency and improve the responsiveness of your application, especially when dealing with external APIs that have rate limits.
+
+4. **Expensive computations**: If your application performs expensive computations or generates complex data, caching the results can help improve performance by avoiding redundant calculations.
+
+5. **Session data**: Caching session data can help improve the performance of web applications by reducing the load on the server and speeding up user interactions.
+
+Overall, caching can be a powerful tool for optimizing performance and improving the user experience in various scenarios.","like"
