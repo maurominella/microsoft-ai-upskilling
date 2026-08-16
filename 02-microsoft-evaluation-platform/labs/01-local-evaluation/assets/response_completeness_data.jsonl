@@ -1,0 +1,4 @@
+{"response": "The temperature of Seattle now is 70 degrees. Based on the temperature, having an outdoor office party is recommended.", "ground_truth": "The temperature of Seattle now is 50 degrees. It will be recommended to bring a jacket in the evening."}
+{"response": "The email draft \"Project Plan\" is attached. Please review and provide feedback.", "ground_truth": "The email draft \"Project Plan\" is attached. Please review and provide feedback by EOD."}
+{"response": "Based on the retrieved documents, the shareholder meeting discussed the operational efficiency of the company and financing options.", "ground_truth": "The shareholder meeting discussed the compensation package of the company CEO."}
+{"response": "The calendar API returns an error code 500. Please check the server logs for more details.", "ground_truth": "The meeting is scheduled for 2 PM tomorrow. Please confirm your availability by EOD."}
