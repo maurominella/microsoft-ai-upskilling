@@ -1,4 +1,4 @@
-# Generative AI Evaluation
+# Session 2 — Generative AI Evaluation
 
 This repository contains examples, notebooks, hands-on labs, and workshop materials for evaluating generative AI applications with Microsoft Foundry.
 
