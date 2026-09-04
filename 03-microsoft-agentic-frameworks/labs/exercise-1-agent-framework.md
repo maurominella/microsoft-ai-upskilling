@@ -2,7 +2,7 @@
 ### Topic: Microsoft Agent Framework - Core duration: ~55 min
 
 > **Goal:** build, with the **Microsoft Agent Framework**, an agent that *reasons about a
-> goal* and *calls function tools* to answer real questions about RAI Pubblicita campaigns
+> goal* and *calls function tools* to answer real questions about AdvertSphere Broadcasting campaigns
 > (metrics, ROI, comparisons). You'll see the **agentic loop** live (perceive -> reason ->
 > act with a tool -> observe), just as we discussed yesterday.
 
@@ -46,6 +46,7 @@ load_dotenv()
 
 async def main():
     client = OpenAIChatClient(
+        # endpoint not needed since it will be inferred from the environment variable AZURE_OPENAI_ENDPOINT
         model=os.environ["AZURE_OPENAI_CHAT_DEPLOYMENT_NAME"],
         credential=AzureCliCredential(),
     )
@@ -53,7 +54,7 @@ async def main():
         client=client,
         name="CampaignAnalyst",
         instructions=(
-            "You are an analyst at RAI Pubblicita. Always answer in English, "
+            "You are an analyst at AdvertSphere Broadcasting. Always answer in English, "
             "concisely and professionally."
         )
     )
@@ -81,7 +82,7 @@ from rai_campaigns import get_campaign
 def campaign_metrics(
     campaign_id: Annotated[str, Field(description="Campaign code, e.g. 'CMP-004'")]
 ) -> str:
-    """Return budget, impressions, conversions and revenue for a RAI Pubblicita campaign."""
+    """Return budget, impressions, conversions and revenue for a AdvertSphere Broadcasting campaign."""
     c = get_campaign(campaign_id)
     if not c:
         return f"No campaign found with id {campaign_id}."
@@ -104,7 +105,7 @@ async def main():
         client=client,
         name="CampaignAnalyst",
         instructions=(
-            "You are an analyst at RAI Pubblicita. Always answer in English, "
+            "You are an analyst at AdvertSphere Broadcasting. Always answer in English, "
             "concisely and professionally."
         ),
         tools=[campaign_metrics],
@@ -141,7 +142,7 @@ async def main():
         client=client,
         name="CampaignAnalyst",
         instructions=(
-            "You are an analyst at RAI Pubblicita. Always answer in English, "
+            "You are an analyst at AdvertSphere Broadcasting. Always answer in English, "
             "concisely and professionally."
         ),
         tools=[campaign_metrics, compute_roi],
@@ -218,7 +219,7 @@ This is the "in-code" equivalent of the *trace* panel from the slides.
 **Expected output (abridged):**
 ```
 === A) Plain question ===
-I'm a RAI Pubblicita campaign analyst; I can pull campaign metrics and compute ROI for you.
+I'm an AdvertSphere Broadcasting campaign analyst; I can pull campaign metrics and compute ROI for you.
 === B) Tool-grounded metrics ===
 VoloBlu (CMP-004, sector Travel): budget 150000 EUR, impressions 9200000, conversions 2208, revenue 351000 EUR.
 === C) Multi-step reasoning ===
