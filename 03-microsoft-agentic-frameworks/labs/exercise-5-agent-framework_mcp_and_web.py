@@ -16,6 +16,7 @@ load_dotenv()
 # possible queries 
 # --> "Introduce yourself in one sentence and tell me how you can help."
 # --> "Prepare a draft Back to School TV Campaign Proposal for children 7-10 years old."
+# --> "what's the latest Azure OpenAI REST API api-version for calling GPT-5.6? give me the official link page also"
 
 @app.get("/", response_class=HTMLResponse)
 def read_root():
