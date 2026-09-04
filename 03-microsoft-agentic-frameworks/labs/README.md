@@ -1,10 +1,10 @@
-# RAI Pubblicita - Upskilling - Day 2
+# Agentic Frameworks - Upskilling - Day 2
 ## Hands-on Exercises (technical deep dive)
 
 Welcome to the hands-on part. After Day 1 (vision, architectures and demos), today you
 put your **hands on the keyboard**. These four exercises mirror the four Day 1 topics and
 are meant to **cement the concepts** by building and running real Python code, always on
-cases close to RAI Pubblicita's business (campaigns, ROI, pricing, media planning, evaluation).
+cases close to AdvertSphere Broadcasting's business (campaigns, ROI, pricing, media planning, evaluation).
 
 All exercises are in **Python**.
 
