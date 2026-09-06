@@ -1,0 +1,9 @@
+{
+  "tenantId": "3ad0b905-34ab-4116-93d9-c1dcc2d35af6",
+  "clientAppId": "b4d8a0c5-e178-44fc-bfa2-d2c479a639eb",
+  "agentIdentityDisplayName": "mauromi-web-agent01 Identity",
+  "agentBlueprintDisplayName": "mauromi-web-agent01 Blueprint",
+  "agentDescription": "mauromi-web-agent01",
+  "aiTeammate": false,
+  "useBlueprint": true
+}
