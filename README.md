@@ -3,7 +3,7 @@
 **Build, evaluate, and govern production-grade AI agents on Microsoft Foundry — a hands-on, three-session program with runnable code, not just slides.**
 
 <p align="center">
-  <img src="./AdvertSphere Broadcasting.jpg" alt="AdvertSphere Broadcasting" width="640">
+  <img src="./_IMAGES/AdvertSphere Broadcasting.jpg" alt="AdvertSphere Broadcasting" width="640">
 </p>
 
 Everything is taught against **one coherent business scenario** — *AdvertSphere Broadcasting (ASB)*, a fictional advertising concessionaire spanning TV, radio, streaming, digital, and social. Every demo, lab, and evaluation builds on the same realistic context, so you're solving a real-shaped problem instead of disconnected toy examples.
