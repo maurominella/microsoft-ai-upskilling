@@ -1,128 +1,61 @@
 # Microsoft AI Upskilling
 
-## Workshop scenario: AdvertSphere Broadcasting (***ASB***)
+**Build, evaluate, and govern production-grade AI agents on Microsoft Foundry — a hands-on, three-session program with runnable code, not just slides.**
 
 <p align="center">
-    <img src="./_IMAGES/AdvertSphere Broadcasting.jpg" alt="AdvertSphere Broadcasting" width="720">
+  <img src="./AdvertSphere Broadcasting.jpg" alt="AdvertSphere Broadcasting" width="640">
 </p>
 
-> [!NOTE]
-> **AdvertSphere Broadcasting (in short: ***ASB***) is a fictional company created exclusively for this workshop.** It is used consistently throughout the examples, exercises, simulations, and presentation materials to provide a realistic and coherent business context.
-
-AdvertSphere Broadcasting is the advertising concessionaire of the fictional AdvertSphere Group. It manages commercial inventory across the group’s television, radio, streaming, digital, and social channels, providing advertisers with unified access to its total video and total audio media portfolio.
-
-As the commercial gateway to the AdvertSphere media ecosystem, the company coordinates advertising formats and strategy across linear and digital environments, drives sales and commercial innovation, and supports selected third-party publishers through radio and digital partnerships. Editorial responsibility remains with AdvertSphere Media, while advertising strategy, sales, and commercial innovation are centralized within AdvertSphere Broadcasting.
+Everything is taught against **one coherent business scenario** — *AdvertSphere Broadcasting (ASB)*, a fictional advertising concessionaire spanning TV, radio, streaming, digital, and social. Every demo, lab, and evaluation builds on the same realistic context, so you're solving a real-shaped problem instead of disconnected toy examples.
 
 ---
 
-## Workshop overview
+## What you'll take home
 
-A hands-on training programme on **Microsoft Foundry** and the Microsoft AI platform, delivered as **three onsite sessions** of **8 hours each** (every session split into **two 4-hour days**: Day 1 vision & architecture, Day 2 hands-on labs).
+Not a deck you skim once — a **working mental model** of the Microsoft agent platform, plus **twelve hands-on labs (four per session)** and reference code you can run, adapt, and bring back to your own projects.
 
-This repository collects, for each session, the **slides** (PDF), the **hands-on exercises**, and a shared **lab environment setup**.
+**If you build AI** — developers, Cloud Solution Architects, data scientists — you'll leave able to:
 
----
+- Stand up an agent on **Microsoft Foundry**, extend it with a real **MCP tool** (with approval control), and call it from your own code through the **Responses API**.
+- **Evaluate it like you mean it** — AI-judge, groundedness, content-safety and **custom evaluators**, run both locally and as cloud jobs.
+- **Pressure-test it before your users do** — synthetic & adversarial data generation, jailbreak and **red-teaming** simulations.
+- Compose agents with the **Microsoft Agent Framework** and connect them over **open protocols (MCP, A2A)** instead of bespoke glue.
 
-## Sessions
+**If you own the platform** — architecture, governance, strategy — you'll leave with:
 
-| # | Session | Focus | Status |
-|---|---------|-------|--------|
-| 1 | [Microsoft AI Platform](01-microsoft-ai-platform/) | Foundry vision & architecture, agents, grounding, governance | ✅ **Complete** |
-| 2 | [AI Evaluation](./02-microsoft-evaluation-platform/) | Evaluation, custom evaluators, synthetic data, red teaming | ✅ **Complete** |
-| 3 | [AI Innovations & Recent Announcements](./03-microsoft-agentic-frameworks/) | Agent Framework, MCP, A2A, Agent 365 governance | ✅ **Complete** |
-
-### 1 · Microsoft AI Platform  ✅
-*Mix of overview, architecture, demos and specific use cases.*
-- AI Foundry Vision and Architecture · AI Services in AI Foundry · AI Agent Service
-- **Audience:** IT / Cloud Architect · Data Platform / AI Platform Owner · IT Governance / IT Strategy · Innovation Manager / Digital Transformation · business application leads (high-level)
-
-### 2 · AI Evaluation  ✅
-*Mix of overview, architecture, demos and specific use cases.*
-- Key concepts and tools in AI Foundry · Manual vs cloud evaluation · Synthetic & simulated automatic data generation · Custom evaluators · Red-teaming attacks in action
-- **Audience:** AI / ML Engineers · Software Developers (backend / integration) · Data Engineers · AI Solution Architects · Application Quality / Testing leads · Security Engineering (red teaming)
-
-### 3 · AI Innovations & Recent Announcements  ✅
-*Mix of overview, architecture, demos and specific use cases.*
-- From Microsoft Semantic Kernel to Agent Framework · Model Context Protocol (MCP) · A2A (Agent-to-Agent) Protocol · Agent 365 for agents governance
-- **Audience:** AI / Solution Engineers · Software Developers (backend / integration) · IT Architecture · AI Solution Architects · IT Governance / IT Strategy
+- A clear **build → ground → govern** map: how one agent becomes a grounded agent, then a *governed* fleet.
+- How every agent gets a **first-class identity (Entra Agent ID)** and is published and governed with **Agent 365** — including invocation with an agent's **own app-only identity (no OBO)**.
+- A defensible **evaluation & safety story** to put in front of risk, security, and compliance stakeholders.
+- The vocabulary to tell **architecture from hype** when teams pitch "agentic" everything.
 
 ---
 
-## Repository structure
+## The three sessions
 
-```text
-microsoft-ai-upskilling/
-├── README.md                              ← you are here
-├── environment_preparation.md             ← shared, one-time lab setup (do this first)
-├── .env.example                           ← template for the real .env file
-├── .gitignore
-├── 01-microsoft-ai-platform/              ← Session 1
-│   ├── README.md
-│   ├── requirements.txt
-│   ├── labs/     → lab-1 … lab-4
-│   └── slides/   (Day-1 deck PDF is here)
-├── 02-development-supervision/            ← Session 2
-│   ├── README.md
-│   ├── requirements.txt
-│   ├── labs/     → lab-1 … lab-4
-│   ├── samples/  → full samples by topic
-│   └── slides/   (Day-1 deck PDF is here)
-└── 03-ai-innovations/                     ← Session 3
-    ├── README.md
-    ├── requirements.txt
-    ├── labs/     → lab-1 … lab-4
-    └── slides/   (Day-1 deck PDF is here)
-```
+Each session is **8 hours over two consecutive days** — Day 1 vision & architecture (leadership + technical), Day 2 hands-on labs (technical roles). **Four labs per session — twelve in total.**
 
-Each session folder is self-describing; the two upcoming sessions will follow the same layout (`slides/` + `labs/`).
+| # | Session | What you'll master | Day-2 hands-on |
+|---|---------|--------------------|----------------|
+| 1 | [**Microsoft AI Platform**](01-microsoft-ai-platform/) | Foundry architecture; build, ground & govern agents; Agent 365 | Prompt agent → MCP tool → Responses API → publish to Agent 365 |
+| 2 | [**GenAI Evaluation**](02-microsoft-evaluation-platform/) | Metrics, local & cloud evaluation, custom evaluators, red teaming | Local eval → dataset generation → cloud eval → red teaming |
+| 3 | [**Agentic Frameworks**](03-microsoft-agentic-frameworks/) | Semantic Kernel → Agent Framework, MCP, A2A, fleet governance | Build & connect agents across open protocols |
 
 ---
 
-## Getting started
+## Start here
 
-1. Complete the shared **[Environment Preparation](environment_preparation.md)** once (Azure access + tooling + Python via `uv`).
-2. Open the session you're attending — start with **[Session 1 — Microsoft AI Platform](01-microsoft-ai-platform/)**.
+1. Complete the shared **[Environment Preparation](environment_preparation.md)** once — Azure access + tooling + Python via `uv` (~30–45 min, reused by every session).
+2. Open the session you're attending — begin with **[Session 1 — Microsoft AI Platform](01-microsoft-ai-platform/)**.
+
+📖 Full program details, repository layout and setup live in **[PROGRAM-GUIDE.md](PROGRAM-GUIDE.md)**.
 
 ---
-
-## How to synch the folder "02-microsoft-evaluation-platform"
-This folder mirrors the repo https://github.com/maurominella/genai_evaluation.
-- The following command has to be run just the first time we need to add the external repo into the **existing** local folder:
-```bash
-rm -rf 02-microsoft-evaluation-platform
-
-git rm -r --cached 02-microsoft-evaluation-platform
-
-git commit -m "Folder 02-microsoft-evaluation-platform removed"
-
-git subtree add --prefix=02-microsoft-evaluation-platform \
-https://github.com/maurominella/genai_evaluation.git main --squash
-
-```
-
-- The following command updates that folder when the source is updated:
-```bash
-git subtree pull --prefix=02-microsoft-evaluation-platform \
-https://github.com/maurominella/genai_evaluation.git main --squash
-```
-
-- After that, the next commands add, commit and push the [microsoft-ai-upskilling repository](https://github.com/maurominella/microsoft-ai-upskilling):
-```bash
-git add .
-git commit -m "Initial subtree import of genai_evaluation"
-git push 
-```
----
-
-## License & disclaimer
-
-Released under the [MIT License](LICENSE) — you are free to use, copy, modify and redistribute this material, with attribution. It is provided **"as is", without warranty or support**.
 
 > [!IMPORTANT]
-> **Please read the full [Disclaimer](disclaimer.md) before using these materials.** In brief: this is a **personal, unofficial** repository (**not** an official Microsoft product); it is a **work in progress** 🚧; it is provided for **learning only** and is **not a substitute for official Microsoft documentation**; and it is **not maintained over time** — some technologies are in **Preview** and change frequently, so no guarantees are given.
+> **Personal, unofficial** repository — **not** an official Microsoft product. A **work in progress** 🚧, provided **for learning only**, **not a substitute for official Microsoft documentation**, and **not maintained over time** (some features are in **Preview** and change frequently). Please read the full **[Disclaimer](disclaimer.md)**.
 >
 > The **authoritative, maintained** samples remain Microsoft's official repository: **https://github.com/microsoft-foundry/foundry-samples/**
 
----
+Released under the [MIT License](LICENSE) — free to use, copy, modify and redistribute with attribution; provided **"as is", without warranty or support**.
 
-*Prepared by Mauro Minella — Sr. Cloud Solution Architect -Cloud AI & Apps-, Microsoft.*
+*Prepared by Mauro Minella — Sr. Cloud Solution Architect (Cloud AI & Apps), Microsoft.*
