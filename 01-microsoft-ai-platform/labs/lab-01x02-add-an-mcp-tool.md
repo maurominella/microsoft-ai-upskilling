@@ -40,9 +40,10 @@
 
 In this step, we create a small MCP server, run it on your machine, and expose it through an anonymous HTTPS Dev Tunnel so that Foundry Agent Service can reach it.
 
+
 ### 2.1 Create the MCP server
 
-In the `01-microsoft-ai-platform/labs` folder, create a file named [`lab-2-echo_mcp_server.py`](./lab-01x02-echo_mcp_server.py) with the following content:
+In the `01-microsoft-ai-platform/labs` folder, create a file named `lab-01x02-echo_mcp_server.py` ([link to the solution](./solutions/lab-01x02-echo_mcp_server.py)) with the following content:
 
 ```python
 from fastmcp import FastMCP
@@ -71,7 +72,13 @@ The `@mcp.tool` decorator exposes the Python function as an MCP tool. The type h
 
 The server uses the Streamable HTTP transport and exposes its MCP endpoint at `http://127.0.0.1:8000/mcp`. The `json_response` and `stateless_http` options make the endpoint suitable for a managed remote client such as Foundry Agent Service.
 
-### 2.2 Start the local server
+
+### 2.2 Verify the Python environment
+
+Make sure that you have a Python environment as explained in the [Environment Preparation](../../environment_preparation.md#5-create-your-python-environment) documentation.
+
+
+### 2.3 Start the local server
 
 Open a terminal in the `01-microsoft-ai-platform/labs` folder, activate the virtual environment, and run the server, either in debug mode or from the command line:
 
@@ -89,21 +96,27 @@ http://127.0.0.1:8000/mcp
 > [!IMPORTANT]
 > Only one process can listen on port `8000`. If you receive `Address already in use`, stop the previous server instance with `Ctrl+C` before starting it again.
 
-### 2.3 Expose port 8000 through Dev Tunnels
+### 2.4 Expose port 8000 through Dev Tunnels
 
 Open a **second terminal**. If you completed the permanent Dev Tunnel setup in [Environment Preparation](../../environment_preparation.md#7-configure-devtunnel), host the existing tunnel with:
 
 ```bash
-devtunnel host mylocalmcpserver --allow-anonymous
+devtunnel user logout
+devtunnel user login --entra
+devtunnel user show
 ```
 
 For a temporary tunnel instead, run:
-
 ```bash
 devtunnel host -p 8000 --allow-anonymous
 ```
 
-The temporary URL changes when the tunnel is recreated. A hosted tunnel reports URLs similar to:
+If you already registered a tunnel name like `mylocalmcpserver`, run:
+```bash
+devtunnel host mylocalmcpserver --allow-anonymous
+```
+
+The temporary URL changes when the tunnel is created. A hosted tunnel reports URLs similar to:
 
 ```text
 Hosting port: 8000
@@ -125,7 +138,7 @@ https://5ndxcpg3-8000.eun1.devtunnels.ms/mcp
 
 Do not use the site root: `/` returns `404 Not Found` because FastMCP exposes the protocol endpoint specifically at `/mcp`.
 
-### 2.4 Verify the public MCP endpoint
+### 2.5 Verify the public MCP endpoint
 
 From another terminal, send an MCP `tools/list` request through the tunnel:
 
