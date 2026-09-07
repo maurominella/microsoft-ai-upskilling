@@ -1,18 +1,15 @@
-# Before running the sample:
-#    pip install azure-ai-projects>=2.1.0
-
-from azure.identity import DefaultAzureCredential
+from azure.identity import AzureCliCredential
 from azure.ai.projects import AIProjectClient
 
-endpoint = "https://mm-ai-upskilling-project-resourc.services.ai.azure.com/api/projects/ai-upskilling-project"
+project_endpoint = "https://mm-ai-upskilling-project-resourc.services.ai.azure.com/api/projects/ai-upskilling-project"
 
 project_client = AIProjectClient(
-    endpoint=endpoint,
-    credential=DefaultAzureCredential(),
+    endpoint=project_endpoint,
+    credential=AzureCliCredential(),
 )
 
 my_agent = "asb-assistant-01"
-my_version = "3"
+my_version = "4"
 
 openai_client = project_client.get_openai_client()
 
@@ -21,14 +18,12 @@ response = openai_client.responses.create(
     input=[{"role": "user", "content": "Tell me what you can help with."}],
     extra_body={"agent_reference": {"name": my_agent, "version": my_version, "type": "agent_reference"}},
 )
-
 print(f"Response output: {response.output_text}")
 
 # Reference the agent to get a follow-up response, using the previous response's ID
 follow_up = openai_client.responses.create(
-    input=[{"role": "user", "content": "Tell me more about the last features you mentioned."}],
+    input=[{"role": "user", "content": "Tell me more about the last help you mentioned."}],
     extra_body={"agent_reference": {"name": my_agent, "version": my_version, "type": "agent_reference"}},
     previous_response_id=response.id
 )
-
 print(f"Follow-up response output: {follow_up.output_text}")
