@@ -17,9 +17,11 @@
 
 ## Prerequisites
 
-- The Project Endpoint, for example `https://ai-upskilling-project-resourc.services.ai.azure.com/api/projects/ai-upskilling-project`, that you may retrieve from here:
-
+- The Responses ***Project*** Endpoint, for example `https://ai-upskilling-project-resourc.services.ai.azure.com/api/projects/ai-upskilling-project`, that you may retrieve from here:
 ![project.responses-endpoint.png](./_IMAGES/project.responses-endpoint.png)
+
+- The Responses ***Agent*** Endpoint, retrievable from here:
+![agent.responses-endpoint.png](./_IMAGES/agent.responses-endpoint.png)
 
 - The agent from [Lab 1](lab-01x01-create-a-prompt-agent.md)/[Lab 2](lab-01x02-add-an-mcp-tool.md) and its **agent ID**, for example `3af1d206-af82-4692-94e7-db7654435e6e` that you may retrieve from:<br/>
 ![Agent ID](./_IMAGES/agent_id.png)
@@ -132,9 +134,6 @@ print(f"Follow-up response output: {follow_up.output_text}")
 
 The same call over REST, for non-Python stacks.
 In both cases, the invoker must have at least the "Foundry Agent Consumer" role assigned to the Foundry Agent or Project as explained [here](https://learn.microsoft.com/en-us/azure/foundry/concepts/rbac-foundry?tabs=owner%2Cfoundry#built-in-roles)
-
-Please retrieve the Responses Agent Endpoint from here:
-![alt text](./_IMAGES/agent.responses-endpoint.png)
 
 
 ```bash
