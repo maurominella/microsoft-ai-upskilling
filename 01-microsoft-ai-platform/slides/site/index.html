@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>AI Evaluation in Microsoft Foundry — session portal</title>
+<style>
+.slidebox{container-type:inline-size;inline-size:100%;margin:0 0 1rem}
+.slide169{position:relative;inline-size:100%;aspect-ratio:16/9;overflow:hidden;border:1px solid var(--border);
+border-radius:.5rem;font-family:"Segoe UI",system-ui,sans-serif;color:#0f172a;box-shadow:var(--shadow)}
+.slide169 .sp{position:absolute;box-sizing:border-box}
+.slide169 .pic{object-fit:fill}
+.slide169 .tx{position:absolute;inset:0;display:flex;flex-direction:column;box-sizing:border-box}
+.slide169 .pp{margin:0;line-height:1.25}
+.slide169 .stbl{inline-size:100%;block-size:100%;border-collapse:collapse}
+.slide169 .stbl td{border:.08cqw solid rgba(148,163,184,.6);padding:.4cqw .6cqw;vertical-align:top;line-height:1.2}
+@supports not (width:1cqw){.slide169{aspect-ratio:auto;min-block-size:30rem}}
+
+:root{color-scheme:light dark;
+--bg:#ffffff;--panel:#f4f6f9;--panel-2:#e9edf3;--fg:#14171c;--muted:#59626f;
+--accent:#0f6cbd;--accent-2:#7a4ddb;--accent-soft:#e8f1fb;--border:#dbe0e8;--shadow:0 1px 2px rgba(16,24,40,.06),0 8px 24px rgba(16,24,40,.05)}
+@media (prefers-color-scheme:dark){:root{
+--bg:#101317;--panel:#171b21;--panel-2:#1e232b;--fg:#e9ecf1;--muted:#a2acba;
+--accent:#6cb0ec;--accent-2:#b193f0;--accent-soft:#18293a;--border:#2c333d;--shadow:none}}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-block-start:5rem}
+body{margin:0;background:var(--bg);color:var(--fg);font-size:16px;line-height:1.6;
+font-family:"Segoe UI",system-ui,-apple-system,"Helvetica Neue",Arial,sans-serif}
+a{color:var(--accent)}
+.topbar{position:sticky;inset-block-start:0;z-index:20;background:color-mix(in srgb,var(--bg) 88%, transparent);
+backdrop-filter:blur(8px);border-block-end:1px solid var(--border)}
+.topbar .inner{max-width:76rem;margin-inline:auto;padding:.7rem 1.25rem;display:flex;gap:1rem;align-items:center;justify-content:space-between}
+.brand{display:flex;gap:.6rem;align-items:center;text-decoration:none;color:inherit;font-weight:700;font-size:.95rem}
+.dot{inline-size:.7rem;block-size:.7rem;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent-2))}
+.topnav{display:flex;gap:1.1rem;flex-wrap:wrap;font-size:.88rem}
+.topnav a{text-decoration:none;color:var(--muted);font-weight:600}
+.topnav a:hover,.topnav a[aria-current="page"]{color:var(--accent)}
+.wrap{max-width:76rem;margin-inline:auto;padding:0 1.25rem}
+.hero{padding:3.2rem 0 2.2rem;border-block-end:1px solid var(--border)}
+.eyebrow{text-transform:uppercase;letter-spacing:.15em;font-size:.72rem;font-weight:700;color:var(--accent);margin:0 0 .7rem}
+.hero h1{font-size:clamp(2rem,4vw,2.9rem);line-height:1.1;margin:0 0 .7rem;max-inline-size:22ch}
+.hero p.sub{font-size:1.12rem;color:var(--muted);margin:0 0 1.4rem;max-inline-size:60ch}
+.chips{display:flex;flex-wrap:wrap;gap:.5rem;margin:0 0 1.6rem;padding:0;list-style:none}
+.chips li{background:var(--panel);border:1px solid var(--border);border-radius:2rem;padding:.25rem .75rem;font-size:.8rem;color:var(--muted)}
+.btnrow{display:flex;flex-wrap:wrap;gap:.7rem}
+.btn{display:inline-block;text-decoration:none;font-weight:600;font-size:.92rem;padding:.6rem 1.1rem;border-radius:.5rem;
+background:var(--accent);color:#fff;border:1px solid transparent}
+.btn.ghost{background:transparent;color:var(--accent);border-color:var(--border)}
+section.block{padding:2.6rem 0;border-block-end:1px solid var(--border)}
+section.block h2.sec{font-size:1.4rem;margin:0 0 .3rem}
+section.block p.secsub{color:var(--muted);margin:0 0 1.5rem}
+.grid{display:grid;gap:1rem;grid-template-columns:repeat(auto-fill,minmax(19rem,1fr))}
+.modcard{display:flex;flex-direction:column;gap:.55rem;background:var(--panel);border:1px solid var(--border);
+border-radius:.75rem;padding:1.1rem 1.15rem;text-decoration:none;color:inherit;box-shadow:var(--shadow)}
+.modcard:hover{border-color:var(--accent)}
+.modcard .n{font-size:.72rem;font-weight:700;letter-spacing:.14em;color:var(--accent)}
+.modcard h3{margin:0;font-size:1.12rem}
+.modcard p{margin:0;color:var(--muted);font-size:.9rem}
+.tagrow{display:flex;flex-wrap:wrap;gap:.35rem;margin-block-start:.3rem}
+.tag{font-size:.72rem;background:var(--accent-soft);color:var(--accent);border-radius:.3rem;padding:.1rem .45rem}
+.meta{font-size:.78rem;color:var(--muted);margin-block-start:auto;padding-block-start:.5rem}
+.pillars{display:grid;gap:1rem;grid-template-columns:repeat(auto-fit,minmax(15rem,1fr))}
+.pill{background:var(--panel);border:1px solid var(--border);border-inline-start:4px solid var(--accent);border-radius:.6rem;padding:1rem}
+.pill b{display:block;letter-spacing:.12em;font-size:.74rem;color:var(--accent);margin-block-end:.25rem}
+.pill span{font-size:.92rem;color:var(--muted)}
+.layout{display:grid;grid-template-columns:16rem minmax(0,1fr);gap:2.2rem;padding-block:2rem}
+@media (max-width:60rem){.layout{grid-template-columns:1fr}.sidebar{position:static!important;max-block-size:none!important}}
+.sidebar{position:sticky;inset-block-start:4.4rem;align-self:start;max-block-size:calc(100vh - 6rem);overflow:auto}
+.sidebar h2{font-size:.74rem;text-transform:uppercase;letter-spacing:.13em;color:var(--muted);margin:0 0 .6rem}
+.sidebar ol{list-style:none;margin:0;padding:0;font-size:.86rem}
+.sidebar li{margin:0}
+.sidebar a{display:block;padding:.3rem .55rem;border-radius:.35rem;text-decoration:none;color:var(--muted);border-inline-start:2px solid var(--border)}
+.sidebar a:hover{color:var(--accent);background:var(--panel);border-inline-start-color:var(--accent)}
+.crumb{font-size:.82rem;color:var(--muted);margin:0 0 .5rem}
+.crumb a{text-decoration:none}
+.pagehead h1{font-size:2rem;margin:0 0 .5rem}
+.pagehead p.sub{color:var(--muted);margin:0 0 1rem;max-inline-size:65ch}
+.card{background:var(--panel);border:1px solid var(--border);border-radius:.75rem;padding:1.2rem 1.35rem;margin-block-end:1.1rem;box-shadow:var(--shadow)}
+.cardhead{position:relative;margin-block-end:.6rem;padding-inline-end:5rem}
+.card h2{font-size:1.18rem;margin:0}
+.kicker{text-transform:uppercase;letter-spacing:.12em;font-size:.7rem;font-weight:700;color:var(--accent);margin:0 0 .2rem}
+.slideref{position:absolute;inset-block-start:0;inset-inline-end:0;font-size:.72rem;color:var(--muted);text-decoration:none;
+background:var(--panel-2);border:1px solid var(--border);border-radius:1rem;padding:.1rem .55rem}
+.card p{margin:.45rem 0}
+.card p.lead{font-weight:600;margin-block-start:.9rem}
+.card ul{margin:.4rem 0 .7rem;padding-inline-start:1.2rem}
+.card li{margin:.22rem 0}
+figure{margin:.9rem 0;text-align:center}
+figure img{max-inline-size:100%;block-size:auto;border:1px solid var(--border);border-radius:.5rem;background:#fff}
+.tablewrap{overflow-x:auto}
+table{border-collapse:collapse;inline-size:100%;font-size:.9rem;margin:.6rem 0}
+th,td{border:1px solid var(--border);padding:.4rem .55rem;text-align:start;vertical-align:top}
+th{background:var(--panel-2)}
+.pagenav{display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;margin-block-start:2rem;padding-block-start:1.2rem;border-block-start:1px solid var(--border)}
+.pagenav a{text-decoration:none;font-weight:600;font-size:.9rem}
+footer.site{border-block-start:1px solid var(--border);margin-block-start:2rem;padding:1.6rem 0 2.6rem;color:var(--muted);font-size:.85rem}
+.txtver{border-block-start:1px solid var(--border);margin-block-start:.9rem;padding-block-start:.6rem}
+.txtver>summary{cursor:pointer;list-style:none;display:inline-flex;align-items:center;gap:.4rem;
+text-transform:uppercase;letter-spacing:.1em;font-size:.68rem;font-weight:700;color:var(--muted);
+border:1px solid var(--border);background:var(--panel-2);border-radius:2rem;padding:.2rem .7rem}
+.txtver>summary::-webkit-details-marker{display:none}
+.txtver>summary::before{content:"+";font-size:.85rem;line-height:1;color:var(--accent)}
+.txtver[open]>summary::before{content:"−"}
+.txtver>summary:hover{color:var(--accent);border-color:var(--accent)}
+.txtbody{margin-block-start:.6rem}
+@media print{.topbar,.sidebar,.pagenav,.btnrow,.txtver{display:none}.layout{display:block}.card{break-inside:avoid;box-shadow:none}}
+</style>
+</head>
+<body>
+<div class="topbar"><div class="inner">
+<a class="brand" href="index.html"><span class="dot"></span>AI Evaluation in Microsoft Foundry</a>
+<nav class="topnav"><a href="index.html" aria-current="page">Home</a><a href="sessions/00-orientation.html">00</a><a href="sessions/01-why-evaluation.html">01</a><a href="sessions/02-measure.html">02</a><a href="sessions/03-generate.html">03</a><a href="sessions/04-harden.html">04</a><a href="sessions/05-code-appendix.html">05</a></nav>
+</div></div>
+
+<header class="hero"><div class="wrap">
+<p class="eyebrow">Microsoft &middot; AI &amp; App Dev &middot; Upskilling</p>
+<h1>AI Evaluation in Microsoft Foundry</h1>
+<p class="sub">How to measure, test and red-team AI you can actually trust — the full session, reorganised as a navigable reference you can read, search and share.</p>
+<ul class="chips">
+<li>Session 2 of 3 · Day 1 — Vision, Architecture &amp; Live Demos</li><li>96 slides &middot; 6 modules</li><li>6 live demos</li><li>Day 2: 4 hands-on labs</li>
+</ul>
+<div class="btnrow">
+<a class="btn" href="sessions/01-why-evaluation.html">Start with Module 01 &rarr;</a>
+<a class="btn ghost" href="sessions/00-orientation.html">How the two days work</a>
+</div>
+</div></header>
+
+<section class="block"><div class="wrap">
+<h2 class="sec">The mental model</h2>
+<p class="secsub">Three pillars carry the whole session — you need data to measure, and adversarial data to harden.</p>
+<div class="pillars">
+<div class="pill"><b>MEASURE</b><span>Evaluators for quality, safety and agent behaviour — manually, in the cloud, or with your own custom evaluators.</span></div>
+<div class="pill"><b>GENERATE</b><span>Synthetic &amp; simulated data so you always have meaningful cases to evaluate against.</span></div>
+<div class="pill"><b>HARDEN</b><span>Adversarially probe the system to surface safety and security risks before real users do.</span></div>
+</div>
+</div></section>
+
+<section class="block"><div class="wrap">
+<h2 class="sec">Modules</h2>
+<p class="secsub">Every slide of the deck, grouped into six readable modules. Each page carries its own table of contents.</p>
+<div class="grid">
+<a class="modcard" href="sessions/00-orientation.html">
+<span class="n">MODULE 00</span>
+<h3>Orientation</h3>
+<p>How the two days work, the agenda, and why evaluation is the next question after building agents.</p>
+<div class="tagrow"><span class="tag">Agenda</span><span class="tag">Positioning</span><span class="tag">For everyone</span></div>
+<p class="meta">5 topics &middot; slides 1–5</p>
+</a>
+<a class="modcard" href="sessions/01-why-evaluation.html">
+<span class="n">MODULE 01</span>
+<h3>Why evaluation &amp; the platform</h3>
+<p>Non-deterministic systems, the stakes, Responsible AI, the GenAIOps loop and what Foundry gives you out of the box.</p>
+<div class="tagrow"><span class="tag">Responsible AI</span><span class="tag">GenAIOps</span><span class="tag">Platform</span><span class="tag">Demo 1</span></div>
+<p class="meta">10 topics &middot; slides 6–15</p>
+</a>
+<a class="modcard" href="sessions/02-measure.html">
+<span class="n">MODULE 02</span>
+<h3>Measure</h3>
+<p>The evaluator catalog: quality, safety and agent evaluators, NLP metrics, local vs cloud runs, and custom evaluators.</p>
+<div class="tagrow"><span class="tag">Evaluators</span><span class="tag">RAG triad</span><span class="tag">Safety</span><span class="tag">Agents</span><span class="tag">Demo 2–4</span></div>
+<p class="meta">32 topics &middot; slides 16–47</p>
+</a>
+<a class="modcard" href="sessions/03-generate.html">
+<span class="n">MODULE 03</span>
+<h3>Generate</h3>
+<p>Synthetic and simulated data with the Simulator — conversational, adversarial, UPIA and XPIA — so you always have something to evaluate.</p>
+<div class="tagrow"><span class="tag">Simulator</span><span class="tag">Prompty</span><span class="tag">Jailbreak</span><span class="tag">Demo 5</span></div>
+<p class="meta">14 topics &middot; slides 48–61</p>
+</a>
+<a class="modcard" href="sessions/04-harden.html">
+<span class="n">MODULE 04</span>
+<h3>Harden</h3>
+<p>Adversarial red teaming with the AI Red Teaming Agent, attack techniques, the ASR scorecard and the remediation loop.</p>
+<div class="tagrow"><span class="tag">Red teaming</span><span class="tag">PyRIT</span><span class="tag">ASR</span><span class="tag">Demo 6</span></div>
+<p class="meta">19 topics &middot; slides 62–80</p>
+</a>
+<a class="modcard" href="sessions/05-code-appendix.html">
+<span class="n">MODULE 05</span>
+<h3>Code appendix</h3>
+<p>Reference walkthroughs: evaluating agents and GenAI apps locally with the SDK, custom evaluators, and running a red-team scan.</p>
+<div class="tagrow"><span class="tag">azure-ai-evaluation</span><span class="tag">SDK</span><span class="tag">Reference</span></div>
+<p class="meta">16 topics &middot; slides 81–96</p>
+</a></div>
+</div></section>
+
+<section class="block"><div class="wrap">
+<h2 class="sec">Where this sits in the programme</h2>
+<p class="secsub">Three sessions, each delivered over two half-days: a shared vision day and a technical hands-on day.</p>
+<div class="grid">
+<div class="modcard"><span class="n">SESSION 1 &mdash; DONE</span><h3>Foundry Agent Service</h3><p>Build agents.</p></div>
+<div class="modcard"><span class="n">SESSION 2 &mdash; THIS SITE</span><h3>AI Evaluation</h3><p>Trust the agents: measure, generate, harden.</p></div>
+<div class="modcard"><span class="n">SESSION 3 &mdash; NEXT</span><h3>Agentic Frameworks</h3><p>MCP, A2A, hosted agents.</p></div>
+</div>
+</div></section>
+
+<section class="block"><div class="wrap">
+<h2 class="sec">Day 2 — hands-on labs</h2>
+<p class="secsub">45–60 minutes each, step-by-step, on your own machine.</p>
+<div class="grid">
+<div class="modcard"><span class="n">LAB 1</span><h3>Run evaluators</h3><p>Evaluate a dataset with quality + safety evaluators, local and cloud.</p></div>
+<div class="modcard"><span class="n">LAB 2</span><h3>Generate data</h3><p>Use the Simulator to build a synthetic evaluation dataset.</p></div>
+<div class="modcard"><span class="n">LAB 3</span><h3>Custom evaluator</h3><p>Write a code-based and a prompt-based custom evaluator.</p></div>
+<div class="modcard"><span class="n">LAB 4</span><h3>Red-team scan</h3><p>Run the AI Red Teaming Agent and read the scorecard.</p></div>
+</div>
+</div></section>
+
+<footer class="site"><div class="wrap">
+<p>Session 2 of 3 · Day 1 — Vision, Architecture &amp; Live Demos &middot; Mauro Minella · Senior Cloud Solution Architect · Microsoft</p>
+<p>Built from the session deck (96 slides). Speaker notes are not published on this site.</p>
+</div></footer>
+</body>
+</html>

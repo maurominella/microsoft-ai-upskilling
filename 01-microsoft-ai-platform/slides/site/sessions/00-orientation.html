@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>Orientation — AI Evaluation in Microsoft Foundry</title>
+<style>
+.slidebox{container-type:inline-size;inline-size:100%;margin:0 0 1rem}
+.slide169{position:relative;inline-size:100%;aspect-ratio:16/9;overflow:hidden;border:1px solid var(--border);
+border-radius:.5rem;font-family:"Segoe UI",system-ui,sans-serif;color:#0f172a;box-shadow:var(--shadow)}
+.slide169 .sp{position:absolute;box-sizing:border-box}
+.slide169 .pic{object-fit:fill}
+.slide169 .tx{position:absolute;inset:0;display:flex;flex-direction:column;box-sizing:border-box}
+.slide169 .pp{margin:0;line-height:1.25}
+.slide169 .stbl{inline-size:100%;block-size:100%;border-collapse:collapse}
+.slide169 .stbl td{border:.08cqw solid rgba(148,163,184,.6);padding:.4cqw .6cqw;vertical-align:top;line-height:1.2}
+@supports not (width:1cqw){.slide169{aspect-ratio:auto;min-block-size:30rem}}
+
+:root{color-scheme:light dark;
+--bg:#ffffff;--panel:#f4f6f9;--panel-2:#e9edf3;--fg:#14171c;--muted:#59626f;
+--accent:#0f6cbd;--accent-2:#7a4ddb;--accent-soft:#e8f1fb;--border:#dbe0e8;--shadow:0 1px 2px rgba(16,24,40,.06),0 8px 24px rgba(16,24,40,.05)}
+@media (prefers-color-scheme:dark){:root{
+--bg:#101317;--panel:#171b21;--panel-2:#1e232b;--fg:#e9ecf1;--muted:#a2acba;
+--accent:#6cb0ec;--accent-2:#b193f0;--accent-soft:#18293a;--border:#2c333d;--shadow:none}}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-block-start:5rem}
+body{margin:0;background:var(--bg);color:var(--fg);font-size:16px;line-height:1.6;
+font-family:"Segoe UI",system-ui,-apple-system,"Helvetica Neue",Arial,sans-serif}
+a{color:var(--accent)}
+.topbar{position:sticky;inset-block-start:0;z-index:20;background:color-mix(in srgb,var(--bg) 88%, transparent);
+backdrop-filter:blur(8px);border-block-end:1px solid var(--border)}
+.topbar .inner{max-width:76rem;margin-inline:auto;padding:.7rem 1.25rem;display:flex;gap:1rem;align-items:center;justify-content:space-between}
+.brand{display:flex;gap:.6rem;align-items:center;text-decoration:none;color:inherit;font-weight:700;font-size:.95rem}
+.dot{inline-size:.7rem;block-size:.7rem;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent-2))}
+.topnav{display:flex;gap:1.1rem;flex-wrap:wrap;font-size:.88rem}
+.topnav a{text-decoration:none;color:var(--muted);font-weight:600}
+.topnav a:hover,.topnav a[aria-current="page"]{color:var(--accent)}
+.wrap{max-width:76rem;margin-inline:auto;padding:0 1.25rem}
+.hero{padding:3.2rem 0 2.2rem;border-block-end:1px solid var(--border)}
+.eyebrow{text-transform:uppercase;letter-spacing:.15em;font-size:.72rem;font-weight:700;color:var(--accent);margin:0 0 .7rem}
+.hero h1{font-size:clamp(2rem,4vw,2.9rem);line-height:1.1;margin:0 0 .7rem;max-inline-size:22ch}
+.hero p.sub{font-size:1.12rem;color:var(--muted);margin:0 0 1.4rem;max-inline-size:60ch}
+.chips{display:flex;flex-wrap:wrap;gap:.5rem;margin:0 0 1.6rem;padding:0;list-style:none}
+.chips li{background:var(--panel);border:1px solid var(--border);border-radius:2rem;padding:.25rem .75rem;font-size:.8rem;color:var(--muted)}
+.btnrow{display:flex;flex-wrap:wrap;gap:.7rem}
+.btn{display:inline-block;text-decoration:none;font-weight:600;font-size:.92rem;padding:.6rem 1.1rem;border-radius:.5rem;
+background:var(--accent);color:#fff;border:1px solid transparent}
+.btn.ghost{background:transparent;color:var(--accent);border-color:var(--border)}
+section.block{padding:2.6rem 0;border-block-end:1px solid var(--border)}
+section.block h2.sec{font-size:1.4rem;margin:0 0 .3rem}
+section.block p.secsub{color:var(--muted);margin:0 0 1.5rem}
+.grid{display:grid;gap:1rem;grid-template-columns:repeat(auto-fill,minmax(19rem,1fr))}
+.modcard{display:flex;flex-direction:column;gap:.55rem;background:var(--panel);border:1px solid var(--border);
+border-radius:.75rem;padding:1.1rem 1.15rem;text-decoration:none;color:inherit;box-shadow:var(--shadow)}
+.modcard:hover{border-color:var(--accent)}
+.modcard .n{font-size:.72rem;font-weight:700;letter-spacing:.14em;color:var(--accent)}
+.modcard h3{margin:0;font-size:1.12rem}
+.modcard p{margin:0;color:var(--muted);font-size:.9rem}
+.tagrow{display:flex;flex-wrap:wrap;gap:.35rem;margin-block-start:.3rem}
+.tag{font-size:.72rem;background:var(--accent-soft);color:var(--accent);border-radius:.3rem;padding:.1rem .45rem}
+.meta{font-size:.78rem;color:var(--muted);margin-block-start:auto;padding-block-start:.5rem}
+.pillars{display:grid;gap:1rem;grid-template-columns:repeat(auto-fit,minmax(15rem,1fr))}
+.pill{background:var(--panel);border:1px solid var(--border);border-inline-start:4px solid var(--accent);border-radius:.6rem;padding:1rem}
+.pill b{display:block;letter-spacing:.12em;font-size:.74rem;color:var(--accent);margin-block-end:.25rem}
+.pill span{font-size:.92rem;color:var(--muted)}
+.layout{display:grid;grid-template-columns:16rem minmax(0,1fr);gap:2.2rem;padding-block:2rem}
+@media (max-width:60rem){.layout{grid-template-columns:1fr}.sidebar{position:static!important;max-block-size:none!important}}
+.sidebar{position:sticky;inset-block-start:4.4rem;align-self:start;max-block-size:calc(100vh - 6rem);overflow:auto}
+.sidebar h2{font-size:.74rem;text-transform:uppercase;letter-spacing:.13em;color:var(--muted);margin:0 0 .6rem}
+.sidebar ol{list-style:none;margin:0;padding:0;font-size:.86rem}
+.sidebar li{margin:0}
+.sidebar a{display:block;padding:.3rem .55rem;border-radius:.35rem;text-decoration:none;color:var(--muted);border-inline-start:2px solid var(--border)}
+.sidebar a:hover{color:var(--accent);background:var(--panel);border-inline-start-color:var(--accent)}
+.crumb{font-size:.82rem;color:var(--muted);margin:0 0 .5rem}
+.crumb a{text-decoration:none}
+.pagehead h1{font-size:2rem;margin:0 0 .5rem}
+.pagehead p.sub{color:var(--muted);margin:0 0 1rem;max-inline-size:65ch}
+.card{background:var(--panel);border:1px solid var(--border);border-radius:.75rem;padding:1.2rem 1.35rem;margin-block-end:1.1rem;box-shadow:var(--shadow)}
+.cardhead{position:relative;margin-block-end:.6rem;padding-inline-end:5rem}
+.card h2{font-size:1.18rem;margin:0}
+.kicker{text-transform:uppercase;letter-spacing:.12em;font-size:.7rem;font-weight:700;color:var(--accent);margin:0 0 .2rem}
+.slideref{position:absolute;inset-block-start:0;inset-inline-end:0;font-size:.72rem;color:var(--muted);text-decoration:none;
+background:var(--panel-2);border:1px solid var(--border);border-radius:1rem;padding:.1rem .55rem}
+.card p{margin:.45rem 0}
+.card p.lead{font-weight:600;margin-block-start:.9rem}
+.card ul{margin:.4rem 0 .7rem;padding-inline-start:1.2rem}
+.card li{margin:.22rem 0}
+figure{margin:.9rem 0;text-align:center}
+figure img{max-inline-size:100%;block-size:auto;border:1px solid var(--border);border-radius:.5rem;background:#fff}
+.tablewrap{overflow-x:auto}
+table{border-collapse:collapse;inline-size:100%;font-size:.9rem;margin:.6rem 0}
+th,td{border:1px solid var(--border);padding:.4rem .55rem;text-align:start;vertical-align:top}
+th{background:var(--panel-2)}
+.pagenav{display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;margin-block-start:2rem;padding-block-start:1.2rem;border-block-start:1px solid var(--border)}
+.pagenav a{text-decoration:none;font-weight:600;font-size:.9rem}
+footer.site{border-block-start:1px solid var(--border);margin-block-start:2rem;padding:1.6rem 0 2.6rem;color:var(--muted);font-size:.85rem}
+.txtver{border-block-start:1px solid var(--border);margin-block-start:.9rem;padding-block-start:.6rem}
+.txtver>summary{cursor:pointer;list-style:none;display:inline-flex;align-items:center;gap:.4rem;
+text-transform:uppercase;letter-spacing:.1em;font-size:.68rem;font-weight:700;color:var(--muted);
+border:1px solid var(--border);background:var(--panel-2);border-radius:2rem;padding:.2rem .7rem}
+.txtver>summary::-webkit-details-marker{display:none}
+.txtver>summary::before{content:"+";font-size:.85rem;line-height:1;color:var(--accent)}
+.txtver[open]>summary::before{content:"−"}
+.txtver>summary:hover{color:var(--accent);border-color:var(--accent)}
+.txtbody{margin-block-start:.6rem}
+@media print{.topbar,.sidebar,.pagenav,.btnrow,.txtver{display:none}.layout{display:block}.card{break-inside:avoid;box-shadow:none}}
+</style>
+</head>
+<body>
+<div class="topbar"><div class="inner">
+<a class="brand" href="../index.html"><span class="dot"></span>AI Evaluation in Microsoft Foundry</a>
+<nav class="topnav"><a href="../index.html">Home</a><a href="../sessions/00-orientation.html" aria-current="page">00</a><a href="../sessions/01-why-evaluation.html">01</a><a href="../sessions/02-measure.html">02</a><a href="../sessions/03-generate.html">03</a><a href="../sessions/04-harden.html">04</a><a href="../sessions/05-code-appendix.html">05</a></nav>
+</div></div>
+
+<main class="wrap layout">
+<aside class="sidebar"><h2>On this page</h2><ol><li><a href="#s1">AI Evaluation in Microsoft Foundry</a></li><li><a href="#s2">Four themes, two breaks, one story</a></li><li><a href="#s3">Two half-days, two audiences — the second of three sessions</a></li><li><a href="#s4">Overview → demo → takeaway, every time</a></li><li><a href="#s5">From building agents to trusting them</a></li></ol></aside>
+<div>
+<p class="crumb"><a href="../index.html">Home</a> &rsaquo; Module 00</p>
+<header class="pagehead">
+<p class="eyebrow">Module 00 &middot; slides 1–5</p>
+<h1>Orientation</h1>
+<p class="sub">How the two days work, the agenda, and why evaluation is the next question after building agents.</p>
+<ul class="chips"><li>Agenda</li><li>Positioning</li><li>For everyone</li></ul>
+</header>
+<article class="card" id="s1">
+<div class="cardhead">
+<p class="kicker">MEASURE</p>
+<h2>AI Evaluation in Microsoft Foundry</h2>
+<a class="slideref" href="#s1">Slide 1</a>
+</div>
+<div class="slidebox"><div class="slide169" style="background:#ffffff"><div class="sp" style="left:6.750cqw;top:10.125cqw;width:82.500cqw;height:2.625cqw;"><div class="tx" style="justify-content:center;padding:0.000cqw 0.000cqw 0.000cqw 0.000cqw;"><p class="pp" style="font-size:1.354cqw;font-weight:700;"><span style="font-weight:700;">MICROSOFT  ·  AI &amp; APP DEV  ·  UPSKILLING</span></p></div></div><div class="sp" style="left:6.450cqw;top:14.250cqw;width:88.500cqw;height:11.250cqw;"><div class="tx" style="justify-content:flex-start;padding:0.000cqw 0.000cqw 0.000cqw 0.000cqw;"><p class="pp" style="font-size:5.208cqw;font-weight:600;"><span style="font-weight:600;">AI Evaluation in Microsoft Foundry</span></p></div></div><div class="sp" style="left:6.750cqw;top:25.500cqw;width:84.000cqw;height:5.250cqw;"><div class="tx" style="justify-content:center;padding:0.000cqw 0.000cqw 0.000cqw 0.000cqw;"><p class="pp" style="font-size:2.188cqw;"><span style="font-style:italic;">How to measure, test and red-team AI you can actually trust</span></p></div></div><div class="sp" style="left:8.400cqw;top:35.100cqw;width:24.150cqw;height:2.250cqw;"><div class="tx" style="justify-content:center;padding:0.000cqw 0.000cqw 0.000cqw 0.000cqw;"><p class="pp" style="font-size:1.198cqw;font-weight:700;"><span style="font-weight:700;">MEASURE</span></p></div></div><div class="sp" style="left:8.400cqw;top:37.275cqw;width:24.150cqw;height:3.000cqw;"><div class="tx" style="justify-content:center;padding:0.000cqw 0.000cqw 0.000cqw 0.000cqw;"><p class="pp" style="font-size:1.354cqw;font-weight:600;"><span style="font-weight:600;">Evaluators &amp; scoring</span></p></div></div><div class="sp" style="left:33.975cqw;top:35.625cqw;width:2.400cqw;height:3.750cqw;"><div class="tx" style="justify-content:center;padding:0.000cqw 0.000cqw 0.000cqw 0.000cqw;"><p class="pp" style="font-size:1.667cqw;text-align:end;">→</p></div></div><div class="sp" style="left:38.100cqw;top:35.100cqw;width:24.150cqw;height:2.250cqw;"><div class="tx" style="justify-content:center;padding:0.000cqw 0.000cqw 0.000cqw 0.000cqw;"><p class="pp" style="font-size:1.198cqw;font-weight:700;"><span style="font-weight:700;">GENERATE</span></p></div></div><div class="sp" style="left:38.100cqw;top:37.275cqw;width:24.150cqw;height:3.000cqw;"><div class="tx" style="justify-content:center;padding:0.000cqw 0.000cqw 0.000cqw 0.000cqw;"><p class="pp" style="font-size:1.354cqw;font-weight:600;"><span style="font-weight:600;">Synthetic &amp; simulated data</span></p></div></div><div class="sp" style="left:63.675cqw;top:35.625cqw;width:2.400cqw;height:3.750cqw;"><div class="tx" style="justify-content:center;padding:0.000cqw 0.000cqw 0.000cqw 0.000cqw;"><p class="pp" style="font-size:1.667cqw;text-align:end;">→</p></div></div><div class="sp" style="left:67.800cqw;top:35.100cqw;width:24.150cqw;height:2.250cqw;"><div class="tx" style="justify-content:center;padding:0.000cqw 0.000cqw 0.000cqw 0.000cqw;"><p class="pp" style="font-size:1.198cqw;font-weight:700;"><span style="font-weight:700;">HARDEN</span></p></div></div><div class="sp" style="left:67.800cqw;top:37.275cqw;width:24.150cqw;height:3.000cqw;"><div class="tx" style="justify-content:center;padding:0.000cqw 0.000cqw 0.000cqw 0.000cqw;"><p class="pp" style="font-size:1.354cqw;font-weight:600;"><span style="font-weight:600;">Red teaming</span></p></div></div><div class="sp" style="left:6.750cqw;top:48.000cqw;width:85.500cqw;height:6.000cqw;"><div class="tx" style="justify-content:center;padding:0.000cqw 0.000cqw 0.000cqw 0.000cqw;"><p class="pp" style="font-size:1.354cqw;font-weight:700;line-height:1.25;margin-bottom:0.474cqw;"><span style="font-weight:700;">Session 2 of 3  ·  Day 1 — Vision, Architecture &amp; Live Demos</span></p><p class="pp" style="font-size:1.354cqw;line-height:1.25;">Delivered for RAI Pubblicità  ·  Mauro Minella, Senior Cloud Solution Architect</p></div></div></div></div>
+<details class="txtver"><summary>Slide text</summary><div class="txtbody"><p>MICROSOFT  ·  AI &amp; APP DEV  ·  UPSKILLING</p>
+<p class="lead">How to measure, test and red-team AI you can actually trust</p>
+<p>Evaluators &amp; scoring</p>
+<ul><li>Session 2 of 3  ·  Day 1 — Vision, Architecture &amp; Live Demos</li><li>Delivered for RAI Pubblicità  ·  Mauro Minella, Senior Cloud Solution Architect</li></ul>
+<p>GENERATE</p>
+<p>Synthetic &amp; simulated data</p>
+<p>HARDEN</p>
+<p>Red teaming</p></div></details>
+</article>
+<article class="card" id="s2">
+<div class="cardhead">
+<p class="kicker">AGENDA</p>
+<h2>Four themes, two breaks, one story</h2>
+<a class="slideref" href="#s2">Slide 2</a>
+</div>
+<div class="slidebox"><div class="slide169" style="background:#ffffff"><div class="sp" style="left:4.500cqw;top:3.600cqw;width:90.000cqw;height:2.250cqw;"><div class="tx" style="justify-content:center;padding:0.000cqw 0.000cqw 0.000cqw 0.000cqw;"><p class="pp" style="font-size:1.250cqw;font-weight:700;"><span style="font-weight:700;">AGENDA</span></p></div></div><div class="sp" style="left:4.500cqw;top:6.000cqw;width:90.750cqw;height:7.125cqw;"><div class="tx" style="justify-content:flex-start;padding:0.000cqw 0.000cqw 0.000cqw 0.000cqw;"><p class="pp" style="font-size:2.812cqw;font-weight:600;"><span style="font-weight:600;">Four themes, two breaks, one story</span></p></div></div><div class="sp" style="left:5.250cqw;top:14.625cqw;width:5.400cqw;height:5.400cqw;"><div class="tx" style="justify-content:center;padding:0.000cqw 0.000cqw 0.000cqw 0.000cqw;"><p class="pp" style="font-size:2.708cqw;font-weight:600;text-align:end;"><span style="font-weight:600;">1</span></p></div></div><div class="sp" style="left:12.750cqw;top:14.475cqw;width:54.000cqw;height:3.375cqw;"><div class="tx" style="justify-content:center;padding:0.000cqw 0.000cqw 0.000cqw 0.000cqw;"><p class="pp" style="font-size:1.979cqw;font-weight:600;"><span style="font-weight:600;">Why evaluation &amp; the platform</span></p></div></div><div class="sp" style="left:12.750cqw;top:17.775cqw;width:64.500cqw;height:4.125cqw;"><div class="tx" style="justify-content:center;padding:0.000cqw 0.000cqw 0.000cqw 0.000cqw;"><p class="pp" style="font-size:1.302cqw;">Why we evaluate, the GenAIOps loop, and Foundry&#x27;s evaluation platform</p></div></div><div class="sp" style="left:81.750cqw;top:27.750cqw;width:15.000cqw;height:3.000cqw;"><div class="tx" style="justify-content:center;padding:0.000cqw 0.000cqw 0.000cqw 0.000cqw;"><p class="pp" style="font-size:1.146cqw;text-align:justify;"><span style="font-style:italic;">☕  break after</span></p></div></div><div class="sp" style="left:5.250cqw;top:23.175cqw;width:5.400cqw;height:5.400cqw;"><div class="tx" style="justify-content:center;padding:0.000cqw 0.000cqw 0.000cqw 0.000cqw;"><p class="pp" style="font-size:2.708cqw;font-weight:600;text-align:end;"><span style="font-weight:600;">2</span></p></div></div><div class="sp" style="left:12.750cqw;top:23.025cqw;width:54.000cqw;height:3.375cqw;"><div class="tx" style="justify-content:center;padding:0.000cqw 0.000cqw 0.000cqw 0.000cqw;"><p class="pp" style="font-size:1.979cqw;font-weight:600;"><span style="font-weight:600;">Measure</span></p></div></div><div class="sp" style="left:12.750cqw;top:26.325cqw;width:64.500cqw;height:4.125cqw;"><div class="tx" style="justify-content:center;padding:0.000cqw 0.000cqw 0.000cqw 0.000cqw;"><p class="pp" style="font-size:1.302cqw;">Evaluators for quality &amp; safety · manual vs cloud · custom evaluators</p></div></div><div class="sp" style="left:81.750cqw;top:36.300cqw;width:15.000cqw;height:3.000cqw;"><div class="tx" style="justify-content:center;padding:0.000cqw 0.000cqw 0.000cqw 0.000cqw;"><p class="pp" style="font-size:1.146cqw;text-align:justify;"><span style="font-style:italic;">☕  break after</span></p></div></div><div class="sp" style="left:5.250cqw;top:31.725cqw;width:5.400cqw;height:5.400cqw;"><div class="tx" style="justify-content:center;padding:0.000cqw 0.000cqw 0.000cqw 0.000cqw;"><p class="pp" style="font-size:2.708cqw;font-weight:600;text-align:end;"><span style="font-weight:600;">3</span></p></div></div><div class="sp" style="left:12.750cqw;top:31.575cqw;width:54.000cqw;height:3.375cqw;"><div class="tx" style="justify-content:center;padding:0.000cqw 0.000cqw 0.000cqw 0.000cqw;"><p class="pp" style="font-size:1.979cqw;font-weight:600;"><span style="font-weight:600;">Generate</span></p></div></div><div class="sp" style="left:12.750cqw;top:34.875cqw;width:64.500cqw;height:4.125cqw;"><div class="tx" style="justify-content:center;padding:0.000cqw 0.000cqw 0.000cqw 0.000cqw;"><p class="pp" style="font-size:1.302cqw;">Synthetic &amp; simulated data to test with — at scale</p></div></div><div class="sp" style="left:5.250cqw;top:40.275cqw;width:5.400cqw;height:5.400cqw;"><div class="tx" style="justify-content:center;padding:0.000cqw 0.000cqw 0.000cqw 0.000cqw;"><p class="pp" style="font-size:2.708cqw;font-weight:600;text-align:end;"><span style="font-weight:600;">4</span></p></div></div><div class="sp" style="left:12.750cqw;top:40.125cqw;width:54.000cqw;height:3.375cqw;"><div class="tx" style="justify-content:center;padding:0.000cqw 0.000cqw 0.000cqw 0.000cqw;"><p class="pp" style="font-size:1.979cqw;font-weight:600;"><span style="font-weight:600;">Harden</span></p></div></div><div class="sp" style="left:12.750cqw;top:43.425cqw;width:64.500cqw;height:4.125cqw;"><div class="tx" style="justify-content:center;padding:0.000cqw 0.000cqw 0.000cqw 0.000cqw;"><p class="pp" style="font-size:1.302cqw;">Adversarial red teaming to find risks before your users do</p></div></div><div class="sp" style="left:4.125cqw;top:53.100cqw;width:67.500cqw;height:2.250cqw;"><div class="tx" style="justify-content:center;padding:0.000cqw 0.000cqw 0.000cqw 0.000cqw;"><p class="pp" style="font-size:0.833cqw;text-align:center;">AI Evaluation in Microsoft Foundry  ·  Session 2 · Day 1</p></div></div><div class="sp" style="left:93.750cqw;top:53.100cqw;width:2.625cqw;height:2.250cqw;"><div class="tx" style="justify-content:center;padding:0.000cqw 0.000cqw 0.000cqw 0.000cqw;"><p class="pp" style="font-size:0.938cqw;text-align:justify;">2</p></div></div></div></div>
+<details class="txtver"><summary>Slide text</summary><div class="txtbody"><p class="lead">Why evaluation &amp; the platform</p>
+<p>Why we evaluate, the GenAIOps loop, and Foundry&#x27;s evaluation platform</p>
+<p class="lead">Measure</p>
+<p>Evaluators for quality &amp; safety · manual vs cloud · custom evaluators</p>
+<p class="lead">Generate</p>
+<p>Synthetic &amp; simulated data to test with — at scale</p>
+<p class="lead">Harden</p>
+<p>Adversarial red teaming to find risks before your users do</p>
+<p>☕  break after</p>
+<p>☕  break after</p></div></details>
+</article>
+<article class="card" id="s3">
+<div class="cardhead">
+<p class="kicker">HOW WE WORK</p>
+<h2>Two half-days, two audiences — the second of three sessions</h2>
+<a class="slideref" href="#s3">Slide 3</a>
+</div>
+<div class="slidebox"><div class="slide169" style="background:#ffffff"><div class="sp" style="left:4.500cqw;top:3.600cqw;width:90.000cqw;height:2.250cqw;"><div class="tx" style="justify-content:center;padding:0.000cqw 0.000cqw 0.000cqw 0.000cqw;"><p class="pp" style="font-size:1.250cqw;font-weight:700;"><span style="font-weight:700;">HOW WE WORK</span></p></div></div><div class="sp" style="left:4.500cqw;top:6.000cqw;width:90.750cqw;height:7.125cqw;"><div class="tx" style="justify-content:flex-start;padding:0.000cqw 0.000cqw 0.000cqw 0.000cqw;"><p class="pp" style="font-size:2.812cqw;font-weight:600;"><span style="font-weight:600;">Two half-days, two audiences — the second of three sessions</span></p></div></div><div class="sp" style="left:7.200cqw;top:15.825cqw;width:40.575cqw;height:4.125cqw;"><div class="tx" style="justify-content:flex-start;padding:0.000cqw 0.000cqw 0.000cqw 0.000cqw;"><p class="pp" style="font-size:1.510cqw;font-weight:600;"><span style="font-weight:600;">Day 1 — today (4h)</span></p></div></div><div class="sp" style="left:7.200cqw;top:19.575cqw;width:40.575cqw;height:7.875cqw;"><div class="tx" style="justify-content:flex-start;padding:0.000cqw 0.000cqw 0.000cqw 0.000cqw;"><p class="pp" style="font-size:1.198cqw;line-height:1.03;">For everyone: leadership + technical teams. Vision, architecture and the opportunity of evaluation, with short live demos. Goal: shared language and a clear map.</p></div></div><div class="sp" style="left:53.250cqw;top:15.825cqw;width:40.575cqw;height:4.125cqw;"><div class="tx" style="justify-content:flex-start;padding:0.000cqw 0.000cqw 0.000cqw 0.000cqw;"><p class="pp" style="font-size:1.510cqw;font-weight:600;"><span style="font-weight:600;">Day 2 — tomorrow (4h)</span></p></div></div><div class="sp" style="left:53.250cqw;top:19.575cqw;width:40.575cqw;height:7.875cqw;"><div class="tx" style="justify-content:flex-start;padding:0.000cqw 0.000cqw 0.000cqw 0.000cqw;"><p class="pp" style="font-size:1.198cqw;line-height:1.03;">For technical roles. Deeper demos and hands-on labs: run evaluators, generate data, build a custom evaluator, launch a red-team scan.</p></div></div><div class="sp" style="left:5.250cqw;top:31.125cqw;width:90.000cqw;height:3.000cqw;"><div class="tx" style="justify-content:center;padding:0.000cqw 0.000cqw 0.000cqw 0.000cqw;"><p class="pp" style="font-size:1.354cqw;font-weight:600;"><span style="font-weight:600;">Where this sits in the programme:</span></p></div></div><div class="sp" style="left:7.200cqw;top:35.700cqw;width:25.225cqw;height:4.125cqw;"><div class="tx" style="justify-content:flex-start;padding:0.000cqw 0.000cqw 0.000cqw 0.000cqw;"><p class="pp" style="font-size:1.510cqw;font-weight:600;"><span style="font-weight:600;">Session 1 ✓</span></p></div></div><div class="sp" style="left:7.200cqw;top:39.450cqw;width:25.225cqw;height:5.625cqw;"><div class="tx" style="justify-content:flex-start;padding:0.000cqw 0.000cqw 0.000cqw 0.000cqw;"><p class="pp" style="font-size:1.198cqw;line-height:1.03;">Foundry Agent Service — build agents</p></div></div><div class="sp" style="left:37.900cqw;top:35.700cqw;width:25.225cqw;height:4.125cqw;"><div class="tx" style="justify-content:flex-start;padding:0.000cqw 0.000cqw 0.000cqw 0.000cqw;"><p class="pp" style="font-size:1.510cqw;font-weight:600;"><span style="font-weight:600;">Session 2 — today</span></p></div></div><div class="sp" style="left:37.900cqw;top:39.450cqw;width:25.225cqw;height:5.625cqw;"><div class="tx" style="justify-content:flex-start;padding:0.000cqw 0.000cqw 0.000cqw 0.000cqw;"><p class="pp" style="font-size:1.198cqw;line-height:1.03;">AI Evaluation — trust the agents</p></div></div><div class="sp" style="left:68.600cqw;top:35.700cqw;width:25.225cqw;height:4.125cqw;"><div class="tx" style="justify-content:flex-start;padding:0.000cqw 0.000cqw 0.000cqw 0.000cqw;"><p class="pp" style="font-size:1.510cqw;font-weight:600;"><span style="font-weight:600;">Session 3</span></p></div></div><div class="sp" style="left:68.600cqw;top:39.450cqw;width:25.225cqw;height:5.625cqw;"><div class="tx" style="justify-content:flex-start;padding:0.000cqw 0.000cqw 0.000cqw 0.000cqw;"><p class="pp" style="font-size:1.198cqw;line-height:1.03;">Agentic Frameworks — MCP, A2A, hosted</p></div></div><div class="sp" style="left:4.125cqw;top:53.100cqw;width:67.500cqw;height:2.250cqw;"><div class="tx" style="justify-content:center;padding:0.000cqw 0.000cqw 0.000cqw 0.000cqw;"><p class="pp" style="font-size:0.833cqw;text-align:center;">AI Evaluation in Microsoft Foundry  ·  Session 2 · Day 1</p></div></div><div class="sp" style="left:93.750cqw;top:53.100cqw;width:2.625cqw;height:2.250cqw;"><div class="tx" style="justify-content:center;padding:0.000cqw 0.000cqw 0.000cqw 0.000cqw;"><p class="pp" style="font-size:0.938cqw;text-align:justify;">3</p></div></div></div></div>
+<details class="txtver"><summary>Slide text</summary><div class="txtbody"><p class="lead">Day 1 — today (4h)</p>
+<p>For everyone: leadership + technical teams. Vision, architecture and the opportunity of evaluation, with short live demos. Goal: shared language and a clear map.</p>
+<p>Where this sits in the programme:</p>
+<p class="lead">Session 1 ✓</p>
+<p>Foundry Agent Service — build agents</p>
+<p class="lead">Day 2 — tomorrow (4h)</p>
+<p>For technical roles. Deeper demos and hands-on labs: run evaluators, generate data, build a custom evaluator, launch a red-team scan.</p>
+<p class="lead">Session 2 — today</p>
+<p>AI Evaluation — trust the agents</p>
+<p class="lead">Session 3</p>
+<p>Agentic Frameworks — MCP, A2A, hosted</p></div></details>
+</article>
+<article class="card" id="s4">
+<div class="cardhead">
+<p class="kicker">RHYTHM</p>
+<h2>Overview → demo → takeaway, every time</h2>
+<a class="slideref" href="#s4">Slide 4</a>
+</div>
+<div class="slidebox"><div class="slide169" style="background:#ffffff"><div class="sp" style="left:4.500cqw;top:3.600cqw;width:90.000cqw;height:2.250cqw;"><div class="tx" style="justify-content:center;padding:0.000cqw 0.000cqw 0.000cqw 0.000cqw;"><p class="pp" style="font-size:1.250cqw;font-weight:700;"><span style="font-weight:700;">RHYTHM</span></p></div></div><div class="sp" style="left:4.500cqw;top:6.000cqw;width:90.750cqw;height:7.125cqw;"><div class="tx" style="justify-content:flex-start;padding:0.000cqw 0.000cqw 0.000cqw 0.000cqw;"><p class="pp" style="font-size:2.812cqw;font-weight:600;"><span style="font-weight:600;">Overview → demo → takeaway, every time</span></p></div></div><div class="sp" style="left:7.500cqw;top:18.375cqw;width:5.400cqw;height:5.400cqw;"><div class="tx" style="justify-content:center;padding:0.000cqw 0.000cqw 0.000cqw 0.000cqw;"><p class="pp" style="font-size:2.500cqw;font-weight:600;text-align:end;"><span style="font-weight:600;">1</span></p></div></div><div class="sp" style="left:7.500cqw;top:25.125cqw;width:24.000cqw;height:3.000cqw;"><div class="tx" style="justify-content:center;padding:0.000cqw 0.000cqw 0.000cqw 0.000cqw;"><p class="pp" style="font-size:1.875cqw;font-weight:600;"><span style="font-weight:600;">Overview</span></p></div></div><div class="sp" style="left:7.500cqw;top:28.500cqw;width:24.375cqw;height:6.000cqw;"><div class="tx" style="justify-content:center;padding:0.000cqw 0.000cqw 0.000cqw 0.000cqw;"><p class="pp" style="font-size:1.302cqw;line-height:1.05;">The concept in plain language, then the real technical detail behind it.</p></div></div><div class="sp" style="left:34.125cqw;top:21.750cqw;width:2.100cqw;height:6.750cqw;"><div class="tx" style="justify-content:center;padding:0.000cqw 0.000cqw 0.000cqw 0.000cqw;"><p class="pp" style="font-size:2.292cqw;text-align:end;">→</p></div></div><div class="sp" style="left:38.475cqw;top:18.375cqw;width:5.400cqw;height:5.400cqw;"><div class="tx" style="justify-content:center;padding:0.000cqw 0.000cqw 0.000cqw 0.000cqw;"><p class="pp" style="font-size:2.500cqw;font-weight:600;text-align:end;"><span style="font-weight:600;">2</span></p></div></div><div class="sp" style="left:38.475cqw;top:25.125cqw;width:24.000cqw;height:3.000cqw;"><div class="tx" style="justify-content:center;padding:0.000cqw 0.000cqw 0.000cqw 0.000cqw;"><p class="pp" style="font-size:1.875cqw;font-weight:600;"><span style="font-weight:600;">Live demo</span></p></div></div><div class="sp" style="left:38.475cqw;top:28.500cqw;width:24.375cqw;height:6.000cqw;"><div class="tx" style="justify-content:center;padding:0.000cqw 0.000cqw 0.000cqw 0.000cqw;"><p class="pp" style="font-size:1.302cqw;line-height:1.05;">Short and ready-to-deliver on Foundry / Azure — no data loading, no setup.</p></div></div><div class="sp" style="left:65.100cqw;top:21.750cqw;width:2.100cqw;height:6.750cqw;"><div class="tx" style="justify-content:center;padding:0.000cqw 0.000cqw 0.000cqw 0.000cqw;"><p class="pp" style="font-size:2.292cqw;text-align:end;">→</p></div></div><div class="sp" style="left:69.450cqw;top:18.375cqw;width:5.400cqw;height:5.400cqw;"><div class="tx" style="justify-content:center;padding:0.000cqw 0.000cqw 0.000cqw 0.000cqw;"><p class="pp" style="font-size:2.500cqw;font-weight:600;text-align:end;"><span style="font-weight:600;">3</span></p></div></div><div class="sp" style="left:69.450cqw;top:25.125cqw;width:24.000cqw;height:3.000cqw;"><div class="tx" style="justify-content:center;padding:0.000cqw 0.000cqw 0.000cqw 0.000cqw;"><p class="pp" style="font-size:1.875cqw;font-weight:600;"><span style="font-weight:600;">Takeaway</span></p></div></div><div class="sp" style="left:69.450cqw;top:28.500cqw;width:24.375cqw;height:6.000cqw;"><div class="tx" style="justify-content:center;padding:0.000cqw 0.000cqw 0.000cqw 0.000cqw;"><p class="pp" style="font-size:1.302cqw;line-height:1.05;">Why it matters for you — as a leader, or as a builder.</p></div></div><div class="sp" style="left:7.350cqw;top:39.825cqw;width:85.800cqw;height:2.250cqw;"><div class="tx" style="justify-content:center;padding:0.000cqw 0.000cqw 0.000cqw 0.000cqw;"><p class="pp" style="font-size:1.146cqw;font-weight:700;"><span style="font-weight:700;">PROMISE</span></p></div></div><div class="sp" style="left:7.350cqw;top:42.525cqw;width:85.800cqw;height:3.375cqw;"><div class="tx" style="justify-content:flex-start;padding:0.000cqw 0.000cqw 0.000cqw 0.000cqw;"><p class="pp" style="font-size:1.406cqw;line-height:1.10;">Engaging intro, then real technical depth. You won&#x27;t leave with a marketing deck — you&#x27;ll leave able to reason about, and start running, real evaluations.</p></div></div><div class="sp" style="left:4.125cqw;top:53.100cqw;width:67.500cqw;height:2.250cqw;"><div class="tx" style="justify-content:center;padding:0.000cqw 0.000cqw 0.000cqw 0.000cqw;"><p class="pp" style="font-size:0.833cqw;text-align:center;">AI Evaluation in Microsoft Foundry  ·  Session 2 · Day 1</p></div></div><div class="sp" style="left:93.750cqw;top:53.100cqw;width:2.625cqw;height:2.250cqw;"><div class="tx" style="justify-content:center;padding:0.000cqw 0.000cqw 0.000cqw 0.000cqw;"><p class="pp" style="font-size:0.938cqw;text-align:justify;">4</p></div></div></div></div>
+<details class="txtver"><summary>Slide text</summary><div class="txtbody"><p class="lead">Overview</p>
+<p>The concept in plain language, then the real technical detail behind it.</p>
+<p>PROMISE</p>
+<p>Engaging intro, then real technical depth. You won&#x27;t leave with a marketing deck — you&#x27;ll leave able to reason about, and start running, real evaluations.</p>
+<p class="lead">Live demo</p>
+<p>Short and ready-to-deliver on Foundry / Azure — no data loading, no setup.</p>
+<p class="lead">Takeaway</p>
+<p>Why it matters for you — as a leader, or as a builder.</p></div></details>
+</article>
+<article class="card" id="s5">
+<div class="cardhead">
+<p class="kicker">POSITIONING</p>
+<h2>From building agents to trusting them</h2>
+<a class="slideref" href="#s5">Slide 5</a>
+</div>
+<div class="slidebox"><div class="slide169" style="background:#ffffff"><div class="sp" style="left:4.500cqw;top:3.600cqw;width:90.000cqw;height:2.250cqw;"><div class="tx" style="justify-content:center;padding:0.000cqw 0.000cqw 0.000cqw 0.000cqw;"><p class="pp" style="font-size:1.250cqw;font-weight:700;"><span style="font-weight:700;">POSITIONING</span></p></div></div><div class="sp" style="left:4.500cqw;top:6.000cqw;width:90.750cqw;height:7.125cqw;"><div class="tx" style="justify-content:flex-start;padding:0.000cqw 0.000cqw 0.000cqw 0.000cqw;"><p class="pp" style="font-size:2.812cqw;font-weight:600;"><span style="font-weight:600;">From building agents to trusting them</span></p></div></div><div class="sp" style="left:4.500cqw;top:12.750cqw;width:90.750cqw;height:7.500cqw;"><div class="tx" style="justify-content:center;padding:0.000cqw 0.000cqw 0.000cqw 0.000cqw;"><p class="pp" style="font-size:1.458cqw;line-height:1.15;">In Session 1 we built agents. The very next question in every enterprise is: can we trust them enough to ship? Evaluation is the discipline that answers it — and in Microsoft Foundry it&#x27;s a first-class, built-in capability, not an afterthought.</p></div></div><div class="sp" style="left:4.500cqw;top:21.750cqw;width:90.750cqw;height:20.325cqw;"><table class="stbl"><tr><td style="font-size:1.458cqw;">Session 1 — Build</td><td style="font-size:1.458cqw;">Session 2 — Trust (today)</td></tr><tr><td style="font-size:1.406cqw;">Create &amp; run agents (Foundry Agent Service)</td><td style="font-size:1.406cqw;">Measure quality &amp; safety with evaluators</td></tr><tr><td style="font-size:1.406cqw;">Ground them in enterprise knowledge (the IQs)</td><td style="font-size:1.406cqw;">Generate synthetic &amp; simulated test data</td></tr><tr><td style="font-size:1.406cqw;">Govern the fleet (Agent 365)</td><td style="font-size:1.406cqw;">Harden with adversarial red teaming</td></tr></table></div><div class="sp" style="left:6.600cqw;top:46.575cqw;width:86.550cqw;height:2.250cqw;"><div class="tx" style="justify-content:center;padding:0.000cqw 0.000cqw 0.000cqw 0.000cqw;"><p class="pp" style="font-size:1.146cqw;font-weight:700;"><span style="font-weight:700;">THE THROUGH-LINE</span></p></div></div><div class="sp" style="left:6.600cqw;top:49.275cqw;width:86.550cqw;height:1.125cqw;"><div class="tx" style="justify-content:flex-start;padding:0.000cqw 0.000cqw 0.000cqw 0.000cqw;"><p class="pp" style="font-size:1.406cqw;line-height:1.10;">Build → Trust → Innovate. Evaluation is the bridge that turns a promising prototype into something you can defend to your stakeholders.</p></div></div><div class="sp" style="left:4.125cqw;top:53.100cqw;width:67.500cqw;height:2.250cqw;"><div class="tx" style="justify-content:center;padding:0.000cqw 0.000cqw 0.000cqw 0.000cqw;"><p class="pp" style="font-size:0.833cqw;text-align:center;">AI Evaluation in Microsoft Foundry  ·  Session 2 · Day 1</p></div></div><div class="sp" style="left:93.750cqw;top:53.100cqw;width:2.625cqw;height:2.250cqw;"><div class="tx" style="justify-content:center;padding:0.000cqw 0.000cqw 0.000cqw 0.000cqw;"><p class="pp" style="font-size:0.938cqw;text-align:justify;">5</p></div></div></div></div>
+<details class="txtver"><summary>Slide text</summary><div class="txtbody"><p>In Session 1 we built agents. The very next question in every enterprise is: can we trust them enough to ship? Evaluation is the discipline that answers it — and in Microsoft Foundry it&#x27;s a first-class, built-in capability, not an afterthought.</p>
+<div class="tablewrap"><table><tr><th>Session 1 — Build</th><th>Session 2 — Trust (today)</th></tr><tr><td>Create &amp; run agents (Foundry Agent Service)</td><td>Measure quality &amp; safety with evaluators</td></tr><tr><td>Ground them in enterprise knowledge (the IQs)</td><td>Generate synthetic &amp; simulated test data</td></tr><tr><td>Govern the fleet (Agent 365)</td><td>Harden with adversarial red teaming</td></tr></table></div>
+<p>THE THROUGH-LINE</p>
+<p>Build → Trust → Innovate. Evaluation is the bridge that turns a promising prototype into something you can defend to your stakeholders.</p></div></details>
+</article>
+<nav class="pagenav"><a href="../index.html">&larr; Home</a><a href="01-why-evaluation.html">Why evaluation &amp; the platform &rarr;</a></nav>
+</div>
+</main>
+
+<footer class="site"><div class="wrap">
+<p>Session 2 of 3 · Day 1 — Vision, Architecture &amp; Live Demos &middot; Mauro Minella · Senior Cloud Solution Architect · Microsoft</p>
+<p>Built from the session deck (96 slides). Speaker notes are not published on this site.</p>
+</div></footer>
+</body>
+</html>
