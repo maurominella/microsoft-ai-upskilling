@@ -14,10 +14,10 @@ model_config = AzureOpenAIModelConfiguration(
     api_version=settings["openai_api_version"],
 )
 
+# we need an LLM -configured in "credential"- to run the LOCAL evaluator
 response_completeness_evaluator = ResponseCompletenessEvaluator(
     model_config, credential=settings["credential"]
 )
-
 
 # Constants
 eval_data_path           = "response_completeness_data.jsonl"
@@ -51,6 +51,7 @@ from utils import prepare_ground_truth_and_response
 prepare_ground_truth_and_response(file_path=eval_data_path)
 
 # prepare_ground_truth_and_response
+# in this case we publish the results into the Azure AI Project (Foundry), but it's still a LOCAL evaluation
 local_path, evaluation_result = batch_evaluation(
     eval_data_path=eval_data_path,
     eval_name=eval_name,
@@ -58,6 +59,7 @@ local_path, evaluation_result = batch_evaluation(
     eval_output_path=eval_output_path,
     publish_to_foundry=publish_to_foundry,
     foundry_project_endpoint=foundry_project_endpoint,
+    credential=settings["credential"],
     )
 
 print(f"Relative local path for evaluation results: {local_path}")

@@ -58,6 +58,7 @@ local_path, evaluation_result = batch_evaluation(
     eval_output_path=eval_output_path,
     publish_to_foundry=publish_to_foundry,
     foundry_project_endpoint=foundry_project_endpoint,
+    credential=settings["credential"],
     )
 
 print(f"Relative local path for evaluation results: {local_path}")

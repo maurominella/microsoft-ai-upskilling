@@ -1,11 +1,11 @@
 import os, sys
 from dotenv import load_dotenv  # requires python-dotenv
-from azure.identity import DefaultAzureCredential
+from azure.identity import DefaultAzureCredential, AzureCliCredential
 
 # set the path to this file's directory as the current working directory
 os.chdir(os.path.dirname(os.path.abspath(__file__)))
 
-if not load_dotenv("./../../credentials_my.env"):
+if not load_dotenv():
     print(f"Environment variables not loaded from {os.getcwd()}, cell execution stopped")
     sys.exit()
 
@@ -19,8 +19,10 @@ def initialize(output: bool = False):
         "AZURE_OPENAI_EVALUATION_COMPATIBLE_DEPLOYMENT_NAME"
     ]
 
-    credential = DefaultAzureCredential()
-
+    credential = DefaultAzureCredential(
+        exclude_environment_credential=True
+    )
+    
     if output:
         print(f"azure_openai_endpoint: {azure_openai_endpoint}")
         print(f"foundry_project_endpoint: {foundry_project_endpoint}")
@@ -117,7 +119,8 @@ def batch_evaluation(
         eval_output_path: str="evaluation_results",
         publish_to_foundry:bool = False,
         foundry_project_endpoint: str = None,
-        ) -> tuple[str, dict]:
+        credential = None,
+            ) -> tuple[str, dict]:
     """
     Perform batch evaluation of a metric, using its Evaluator.
     This function can be modified to read from a file or database as needed.
@@ -147,6 +150,7 @@ def batch_evaluation(
             eval_name: eval_object,
         },
         azure_ai_project=project_endpoint,
+        credential=credential,
         output_path=output_path,
     )
 
