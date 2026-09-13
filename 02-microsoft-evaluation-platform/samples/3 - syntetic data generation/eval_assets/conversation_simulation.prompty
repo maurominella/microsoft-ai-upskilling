@@ -5,8 +5,8 @@ model:
     id: ${env:AZURE_OPENAI_CHAT_DEPLOYMENT_NAME}
     provider: foundry
     connection:
-        kind: foundry
-        endpoint: ${env:FOUNDRY_PROJECT_ENDPOINT}
+        kind: reference
+        name: workshop-foundry
     options:
         temperature: 0.0
         top_p: 1.0

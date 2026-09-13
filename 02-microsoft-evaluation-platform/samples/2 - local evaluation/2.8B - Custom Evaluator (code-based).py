@@ -5,11 +5,10 @@ from response_length_score import ResponseLengthScoreEvaluator
 
 response_length_score_evaluator = ResponseLengthScoreEvaluator()
 response_length_score = response_length_score_evaluator(answer="What is the speed of light?")
-
 print(response_length_score)
 
+# let's publish this code-based evaluator!
 publish_evaluator = True
-
 if publish_evaluator:
     from azure.ai.projects import AIProjectClient
     from azure.ai.projects.models import (

@@ -22,16 +22,15 @@ friendliness_eval = FriendlinessEvaluator(
 result = friendliness_eval(
     response="I'm very sorry. I'll be happy to help resolve this issue."
 )
+print(result)
 
 result = friendliness_eval(
     response="I won't apologize for my behaviour!!"
 )
-
 print(result)
-# {"score": 5, "reason": "..."}
 
+# let's publish this semantic-based evaluator!
 publish_evaluator = True
-
 if publish_evaluator:
     from azure.ai.projects import AIProjectClient
     from azure.ai.projects.models import EvaluatorCategory, EvaluatorDefinitionType
