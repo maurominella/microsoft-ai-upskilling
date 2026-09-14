@@ -1,0 +1,10 @@
+{"query":"What is the capital of France?","context":"France is in Europe","response":"Paris is the capital of France.","ground_truth":"Paris"}
+{"query":"What is the chemical symbol for water?","context":"Water is essential for life.","response":"H2O is the chemical symbol for water.","ground_truth":"H2O"}
+{"query":"What is the speed of light?","context":"Light travels extremely fast.","response":"The speed of light is approximately 300,000 kilometers per second.","ground_truth":"299,792 kilometers per second"}
+{"query":"What is the formula for calculating force?","context":"Force is a fundamental concept in physics.","response":"The formula for calculating force is F = ma.","ground_truth":"F = ma"}
+{"query":"What is the capital of Japan?","context":"Japan is in Asia","response":"Tokyo is the capital of Japan.","ground_truth":"Tokyo"}
+{"query":"What is the atomic number of carbon?","context":"Carbon is a key element in organic chemistry.","response":"The atomic number of carbon is 6.","ground_truth":"6"}
+{"query":"What is the boiling point of water?","context":"Water boils at a specific temperature.","response":"The boiling point of water is 100 degrees Celsius.","ground_truth":"100 degrees Celsius"}
+{"query":"What is the capital of Brazil?","context":"Brazil is in South America","response":"Rio de Janeiro is the capital of Brazil.","ground_truth":"Brasília"}
+{"query":"What is the formula for calculating kinetic energy?","context":"Kinetic energy is the energy of motion.","response":"The formula for calculating kinetic energy is KE = 1/2 mv^2.","ground_truth":"KE = 1/2 mv^2"}
+{"query":"What is the capital of India?","context":"India is in Asia","response":"Mumbai is the capital of India.","ground_truth":"New Delhi"}
