@@ -141,6 +141,31 @@ az account show   # confirm the right subscription is active
 > [!IMPORTANT]
 > Most labs authenticate with **`DefaultAzureCredential`**, which reuses your `az login` session — so **no secrets are needed for interactive labs**. Only app-only / "without OBO" exercises need a client ID + secret.
 
+#### How `DefaultAzureCredential` selects an identity
+
+`DefaultAzureCredential` is a preconfigured credential chain from the Azure Identity libraries. Depending on the language, platform, and library version, it tries up to eight authentication methods in sequence:
+
+1. `EnvironmentCredential`
+2. `WorkloadIdentityCredential`
+3. `ManagedIdentityCredential`
+4. Cached credentials or Visual Studio Code credentials
+5. `AzureCliCredential`
+6. `AzurePowerShellCredential`
+7. `AzureDeveloperCliCredential`
+8. Brokered authentication, when available
+
+The chain stops when one credential obtains a token, so the selected identity may not be the one you expected.
+
+In particular, if `AZURE_CLIENT_ID`, `AZURE_TENANT_ID`, and `AZURE_CLIENT_SECRET` are set, `EnvironmentCredential` is attempted before the Azure CLI session. Running `az logout` or `az login` will therefore not change the identity used by the application. The fallback applies only to token acquisition: if the selected identity receives a `401` or `403` from the target service, the request is not retried with another credential.
+
+For interactive development, keep the chain predictable by excluding credentials that should not be used:
+
+```python
+credential = DefaultAzureCredential(exclude_environment_credential=True)
+```
+
+Recent Azure Identity versions can also restrict the chain through `AZURE_TOKEN_CREDENTIALS`; for example, set it to `dev` for developer credentials or to `AzureCliCredential` for Azure CLI only. When using a specific value, construct `DefaultAzureCredential(require_envvar=True)` so missing configuration fails clearly. In production, prefer a deterministic credential such as `ManagedIdentityCredential`. The goal is to keep the same `TokenCredential` contract while selecting the identity intentionally for each environment.
+
 ### 4.3 Visual Studio Code
 
 Install [VS Code](https://code.visualstudio.com/) and these extensions:

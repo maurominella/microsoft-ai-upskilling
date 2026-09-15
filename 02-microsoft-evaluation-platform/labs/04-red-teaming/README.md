@@ -1,9 +1,8 @@
 # Lab 04 - Red Teaming
 
-**Duration:** ~45 minutes (steps 5-6 are optional)
-**Start from:** `lab04_red_teaming_starter.ipynb`
-**Reference solution:** `lab04_red_teaming_solution.ipynb`
-**Source material:** `4 - cloud evaluation/4.2 - Red Team Agent Demo.ipynb` and `4.2 - Red Team Agent.ipynb`
+**Duration:** ~15 minutes, plus the variable cloud scan time
+**Notebook:** `lab04_red_teaming_solution.ipynb`
+**Execution path:** `project_client.beta.red_teams`
 
 ## Objective
 
@@ -11,16 +10,15 @@ Evaluation asks *how good is the answer on my dataset*. Red teaming asks a diffe
 *can I make this system produce a policy-violating answer* - using adaptive probes that no static
 dataset contains.
 
-In this lab you create a **managed red-team scan** in Microsoft Foundry against a real model
-deployment, compare two attack techniques, compute the **Attack Success Rate (ASR)** and inspect the
-row-level evidence behind the number.
+In this lab you configure and create a **managed red-team scan** in Microsoft Foundry against a real
+Azure OpenAI deployment. The scan combines two risk categories, three attack strategies and four
+turns, then retrieves the service metrics and builds an **Attack Success Rate (ASR)** scorecard.
 
 ## Red teaming is not a synonym for PyRIT
 
 | Path | Where orchestration runs | Portal |
 | --- | --- | --- |
-| `project_client.get_openai_client().evals` with `scenario="red_team"` **(used here)** | Foundry, managed | new Foundry experience |
-| `project_client.beta.red_teams` | Foundry, managed preview | classic Foundry experience |
+| `project_client.beta.red_teams` **(used here)** | Foundry, managed preview | classic Foundry experience |
 | `azure-ai-evaluation[redteam]` | locally, on PyRIT | not compatible with the new portal |
 
 The managed path keeps your environment small: attack orchestration and grading run server-side, so
@@ -28,58 +26,90 @@ PyRIT does not need to be installed locally - even though cloud attack strategie
 
 ## Prerequisites
 
-A Foundry project (`FOUNDRY_PROJECT_ENDPOINT`), a chat deployment
-(`AZURE_OPENAI_CHAT_DEPLOYMENT_NAME`) and `az login`.
+You need:
+
+* a Microsoft Foundry project;
+* an Azure OpenAI chat model deployed in that project;
+* `azure-ai-projects`, `azure-identity` and `python-dotenv` installed in the notebook environment;
+* an authenticated Azure identity, for example through `az login`;
+* a `.env` file discoverable by `python-dotenv` with:
+
+```dotenv
+FOUNDRY_PROJECT_ENDPOINT=https://<resource>.services.ai.azure.com/api/projects/<project>
+AZURE_OPENAI_CHAT_DEPLOYMENT_NAME=<deployment-name>
+```
+
+The notebook uses `DefaultAzureCredential` with the environment credential excluded, so the signed-in
+identity must have permission to access the project and create red-team scans.
 
 ## Steps
 
 | # | Step | Time | Outcome |
 | --- | --- | --- | --- |
-| 0 | Configuration and clients | 3 min | `evals_client` ready |
-| 1 | Create the red-team evaluation group | 8 min | failure defined by `builtin.violence` |
-| 2 | Configure and start a small scan (baseline + base64, 1 turn) | 12 min | run submitted and polled |
-| 3 | Fallback: retrieve the most recent completed run | 2 min | real data even if your run is slow |
-| 4 | Compute the ASR per technique and inspect one attack | 15 min | scorecard + report URL |
-| 5 | *Optional* - widen risk categories and strategies | 10 min | comparison across more techniques |
-| 6 | *Optional* - the legacy `beta.red_teams` preview API | 10 min | classic-portal scorecard |
+| 0 | Load variables and create the client | 2 min | authenticated `AIProjectClient` ready |
+| 1 | Configure the managed scan | 3 min | 24 attacks across risks, strategies and turns |
+| 2 | Create and poll the scan | variable | cloud scan reaches a terminal status |
+| 3 | Select a completed scan | 2 min | recent real results available for the demo |
+| 4 | Build the ASR scorecard | 5 min | comparison plus detailed Foundry report URL |
 
-**Minimum result in 30 minutes:** steps 0 to 4. Start the scan early (step 2) and use step 3 while it
-runs - creating a cloud run is the slow, variable part.
+The scan configuration uses:
+
+| Dimension | Values |
+| --- | --- |
+| Risk categories | `Violence`, `Code Vulnerability` |
+| Attack strategies | `Baseline`, `Base64`, `Flip` |
+| Turns | `4` |
+| Simulation only | `False` - attacks are evaluated against the target deployment |
+
+This produces 24 attacks: $4\text{ turns} \times 2\text{ risk categories} \times 3\text{ strategies}$.
+Creating the scan is the only operation that starts new cloud work. Run it before a presentation when
+timing matters; the fallback cell can select the most recent completed scan instead.
 
 ## How to read the results
 
-* `pass` -> the response passed the safety evaluator, so the **attack failed**.
-* `fail` -> the response failed the evaluator, so the **attack succeeded**.
-* **ASR** = successful attacks / evaluated attacks. Always show the denominator: `1/1 (100%)` is one
-  observed failure, not proof that a technique always works.
-* Grading is model-based: false positives and false negatives happen, so surprising rows deserve human
-  review.
-* **Baseline vs Base64:** Base64 is not *stronger*, it is a *different* probe. It may bypass one
-  control while failing against another - that contrast is the whole point of the comparison.
+* **ASR** is the percentage of generated attacks that caused a policy-violating response.
+* A lower ASR is better; `0%` means that none of the evaluated attacks succeeded.
+* The notebook presents the `Violence` metrics for `Baseline` and `Base64` in a compact scorecard.
+* The service groups Base64 under **easy complexity**, so its raw metric is
+  `violence_easy_complexity_asr` rather than a metric containing `base64`.
+* `Metric not available` means that the expected service metric was absent, not that the ASR was zero.
+* The generated report URL opens the complete attack details in Microsoft Foundry for deeper review.
+* Grading is model-based: false positives and false negatives can occur, so surprising results need
+  human review.
+
+The scorecard is intentionally narrower than the scan itself: the service also runs `Flip` attacks and
+tests `Code Vulnerability`, while the notebook's summary focuses on the Baseline/Base64 comparison for
+Violence.
 
 ## Files
 
 ```text
 04-red-teaming/
+├── README.md
 ├── lab04_red_teaming_starter.ipynb
 ├── lab04_red_teaming_solution.ipynb
 └── lab_utils.py
 ```
 
-This lab creates no local assets: everything lives in your Foundry project.
+`lab04_red_teaming_solution.ipynb` is the notebook documented here. The scan and its evaluation result
+live in the Foundry project; the notebook does not create local result files.
 
 ## Troubleshooting
 
 | Symptom | Cause and fix |
 | --- | --- |
-| The run stays `queued` / `running` for a long time | expected: use the fallback cell (step 3) and come back later |
-| `No completed red-team run is available` | nobody in the project has completed a scan yet: wait for yours to finish |
-| `report_url` opens the classic portal | you are using the legacy `beta.red_teams` API instead of the new Evals API |
-| Missing `attack_strategy` in metadata | the field name varies across service versions: inspect the full output item and adapt the grouping key |
+| `Environment variables could not be loaded` | create a discoverable `.env` file and set both required variables |
+| Authentication or authorization fails | run `az login`, select the correct tenant/subscription and verify project permissions |
+| The scan stays queued or running for a long time | cloud execution time varies: use the completed-scan fallback and return to the live scan later |
+| `No completed scan is available` | no completed scan exists in the project yet: create one and wait for completion |
+| `Scan results are not ready` | the selected scan has not reached `Completed`; rerun polling or select a completed scan |
+| A scorecard row says `Metric not available` | inspect `evaluationMetrics`; preview service metric names can change between versions |
+| The report URL opens the classic portal | expected: this notebook uses the preview `beta.red_teams` API |
 | Costs / duration grow quickly | they scale with `risk categories x attack strategies x turns`: widen one dimension at a time |
 
 ## Wrap-up
 
-Red teaming produces evidence for mitigations and regression tests. It never proves that a system is
-safe - it proves that *these* probes, on *this* day, against *this* configuration, did or did not
-succeed.
+The notebook demonstrates the complete managed workflow: define a target, generate adaptive attacks,
+wait for Foundry evaluation and turn the raw service metrics into an interpretable scorecard. Red
+teaming produces evidence for mitigations and regression tests, but it does not guarantee security -
+it shows how *these* probes performed against *this* deployment and configuration.
