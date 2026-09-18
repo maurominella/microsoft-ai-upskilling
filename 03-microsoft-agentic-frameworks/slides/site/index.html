@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>Agentic AI on Microsoft Foundry — session portal</title>
+<style>
+.slidebox{container-type:inline-size;inline-size:100%;margin:0 0 1rem}
+.slide169{position:relative;inline-size:100%;aspect-ratio:16/9;overflow:hidden;border:1px solid var(--border);
+border-radius:.5rem;font-family:"Segoe UI",system-ui,sans-serif;color:#0f172a;box-shadow:var(--shadow)}
+.slide169 .sp{position:absolute;box-sizing:border-box}
+.slide169 .pic{object-fit:fill}
+.slide169 .tx{position:absolute;inset:0;display:flex;flex-direction:column;box-sizing:border-box}
+.slide169 .pp{margin:0;line-height:1.25}
+.slide169 .stbl{inline-size:100%;block-size:100%;border-collapse:collapse}
+.slide169 .stbl td{border:.08cqw solid rgba(148,163,184,.6);padding:.4cqw .6cqw;vertical-align:top;line-height:1.2}
+@supports not (width:1cqw){.slide169{aspect-ratio:auto;min-block-size:30rem}}
+
+:root{color-scheme:light dark;
+--bg:#ffffff;--panel:#f4f6f9;--panel-2:#e9edf3;--fg:#14171c;--muted:#59626f;
+--accent:#0f6cbd;--accent-2:#7a4ddb;--accent-soft:#e8f1fb;--border:#dbe0e8;--shadow:0 1px 2px rgba(16,24,40,.06),0 8px 24px rgba(16,24,40,.05)}
+@media (prefers-color-scheme:dark){:root{
+--bg:#101317;--panel:#171b21;--panel-2:#1e232b;--fg:#e9ecf1;--muted:#a2acba;
+--accent:#6cb0ec;--accent-2:#b193f0;--accent-soft:#18293a;--border:#2c333d;--shadow:none}}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-block-start:5rem}
+body{margin:0;background:var(--bg);color:var(--fg);font-size:16px;line-height:1.6;
+font-family:"Segoe UI",system-ui,-apple-system,"Helvetica Neue",Arial,sans-serif}
+a{color:var(--accent)}
+.topbar{position:sticky;inset-block-start:0;z-index:20;background:color-mix(in srgb,var(--bg) 88%, transparent);
+backdrop-filter:blur(8px);border-block-end:1px solid var(--border)}
+.topbar .inner{max-width:76rem;margin-inline:auto;padding:.7rem 1.25rem;display:flex;gap:1rem;align-items:center;justify-content:space-between}
+.brand{display:flex;gap:.6rem;align-items:center;text-decoration:none;color:inherit;font-weight:700;font-size:.95rem}
+.dot{inline-size:.7rem;block-size:.7rem;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent-2))}
+.topnav{display:flex;gap:1.1rem;flex-wrap:wrap;font-size:.88rem}
+.topnav a{text-decoration:none;color:var(--muted);font-weight:600}
+.topnav a:hover,.topnav a[aria-current="page"]{color:var(--accent)}
+.wrap{max-width:76rem;margin-inline:auto;padding:0 1.25rem}
+.hero{padding:3.2rem 0 2.2rem;border-block-end:1px solid var(--border)}
+.eyebrow{text-transform:uppercase;letter-spacing:.15em;font-size:.72rem;font-weight:700;color:var(--accent);margin:0 0 .7rem}
+.hero h1{font-size:clamp(2rem,4vw,2.9rem);line-height:1.1;margin:0 0 .7rem;max-inline-size:22ch}
+.hero p.sub{font-size:1.12rem;color:var(--muted);margin:0 0 1.4rem;max-inline-size:60ch}
+.chips{display:flex;flex-wrap:wrap;gap:.5rem;margin:0 0 1.6rem;padding:0;list-style:none}
+.chips li{background:var(--panel);border:1px solid var(--border);border-radius:2rem;padding:.25rem .75rem;font-size:.8rem;color:var(--muted)}
+.btnrow{display:flex;flex-wrap:wrap;gap:.7rem}
+.btn{display:inline-block;text-decoration:none;font-weight:600;font-size:.92rem;padding:.6rem 1.1rem;border-radius:.5rem;
+background:var(--accent);color:#fff;border:1px solid transparent}
+.btn.ghost{background:transparent;color:var(--accent);border-color:var(--border)}
+section.block{padding:2.6rem 0;border-block-end:1px solid var(--border)}
+section.block h2.sec{font-size:1.4rem;margin:0 0 .3rem}
+section.block p.secsub{color:var(--muted);margin:0 0 1.5rem}
+.grid{display:grid;gap:1rem;grid-template-columns:repeat(auto-fill,minmax(19rem,1fr))}
+.modcard{display:flex;flex-direction:column;gap:.55rem;background:var(--panel);border:1px solid var(--border);
+border-radius:.75rem;padding:1.1rem 1.15rem;text-decoration:none;color:inherit;box-shadow:var(--shadow)}
+.modcard:hover{border-color:var(--accent)}
+.modcard .n{font-size:.72rem;font-weight:700;letter-spacing:.14em;color:var(--accent)}
+.modcard h3{margin:0;font-size:1.12rem}
+.modcard p{margin:0;color:var(--muted);font-size:.9rem}
+.tagrow{display:flex;flex-wrap:wrap;gap:.35rem;margin-block-start:.3rem}
+.tag{font-size:.72rem;background:var(--accent-soft);color:var(--accent);border-radius:.3rem;padding:.1rem .45rem}
+.meta{font-size:.78rem;color:var(--muted);margin-block-start:auto;padding-block-start:.5rem}
+.pillars{display:grid;gap:1rem;grid-template-columns:repeat(auto-fit,minmax(15rem,1fr))}
+.pill{background:var(--panel);border:1px solid var(--border);border-inline-start:4px solid var(--accent);border-radius:.6rem;padding:1rem}
+.pill b{display:block;letter-spacing:.12em;font-size:.74rem;color:var(--accent);margin-block-end:.25rem}
+.pill span{font-size:.92rem;color:var(--muted)}
+.layout{display:grid;grid-template-columns:16rem minmax(0,1fr);gap:2.2rem;padding-block:2rem}
+@media (max-width:60rem){.layout{grid-template-columns:1fr}.sidebar{position:static!important;max-block-size:none!important}}
+.sidebar{position:sticky;inset-block-start:4.4rem;align-self:start;max-block-size:calc(100vh - 6rem);overflow:auto}
+.sidebar h2{font-size:.74rem;text-transform:uppercase;letter-spacing:.13em;color:var(--muted);margin:0 0 .6rem}
+.sidebar ol{list-style:none;margin:0;padding:0;font-size:.86rem}
+.sidebar li{margin:0}
+.sidebar a{display:block;padding:.3rem .55rem;border-radius:.35rem;text-decoration:none;color:var(--muted);border-inline-start:2px solid var(--border)}
+.sidebar a:hover{color:var(--accent);background:var(--panel);border-inline-start-color:var(--accent)}
+.crumb{font-size:.82rem;color:var(--muted);margin:0 0 .5rem}
+.crumb a{text-decoration:none}
+.pagehead h1{font-size:2rem;margin:0 0 .5rem}
+.pagehead p.sub{color:var(--muted);margin:0 0 1rem;max-inline-size:65ch}
+.card{background:var(--panel);border:1px solid var(--border);border-radius:.75rem;padding:1.2rem 1.35rem;margin-block-end:1.1rem;box-shadow:var(--shadow)}
+.cardhead{position:relative;margin-block-end:.6rem;padding-inline-end:5rem}
+.card h2{font-size:1.18rem;margin:0}
+.kicker{text-transform:uppercase;letter-spacing:.12em;font-size:.7rem;font-weight:700;color:var(--accent);margin:0 0 .2rem}
+.slideref{position:absolute;inset-block-start:0;inset-inline-end:0;font-size:.72rem;color:var(--muted);text-decoration:none;
+background:var(--panel-2);border:1px solid var(--border);border-radius:1rem;padding:.1rem .55rem}
+.card p{margin:.45rem 0}
+.card p.lead{font-weight:600;margin-block-start:.9rem}
+.card ul{margin:.4rem 0 .7rem;padding-inline-start:1.2rem}
+.card li{margin:.22rem 0}
+figure{margin:.9rem 0;text-align:center}
+figure img{max-inline-size:100%;block-size:auto;border:1px solid var(--border);border-radius:.5rem;background:#fff}
+.tablewrap{overflow-x:auto}
+table{border-collapse:collapse;inline-size:100%;font-size:.9rem;margin:.6rem 0}
+th,td{border:1px solid var(--border);padding:.4rem .55rem;text-align:start;vertical-align:top}
+th{background:var(--panel-2)}
+.pagenav{display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;margin-block-start:2rem;padding-block-start:1.2rem;border-block-start:1px solid var(--border)}
+.pagenav a{text-decoration:none;font-weight:600;font-size:.9rem}
+footer.site{border-block-start:1px solid var(--border);margin-block-start:2rem;padding:1.6rem 0 2.6rem;color:var(--muted);font-size:.85rem}
+.txtver{border-block-start:1px solid var(--border);margin-block-start:.9rem;padding-block-start:.6rem}
+.txtver>summary{cursor:pointer;list-style:none;display:inline-flex;align-items:center;gap:.4rem;
+text-transform:uppercase;letter-spacing:.1em;font-size:.68rem;font-weight:700;color:var(--muted);
+border:1px solid var(--border);background:var(--panel-2);border-radius:2rem;padding:.2rem .7rem}
+.txtver>summary::-webkit-details-marker{display:none}
+.txtver>summary::before{content:"+";font-size:.85rem;line-height:1;color:var(--accent)}
+.txtver[open]>summary::before{content:"−"}
+.txtver>summary:hover{color:var(--accent);border-color:var(--accent)}
+.txtbody{margin-block-start:.6rem}
+@media print{.topbar,.sidebar,.pagenav,.btnrow,.txtver{display:none}.layout{display:block}.card{break-inside:avoid;box-shadow:none}}
+</style>
+</head>
+<body>
+<div class="topbar"><div class="inner">
+<a class="brand" href="index.html"><span class="dot"></span>Agentic AI on Microsoft Foundry</a>
+<nav class="topnav"><a href="index.html" aria-current="page">Home</a><a href="sessions/00-orientation.html">00</a><a href="sessions/01-agentic-landscape.html">01</a><a href="sessions/02-agent-framework.html">02</a><a href="sessions/03-foundry-hosted-agents.html">03</a><a href="sessions/04-mcp.html">04</a><a href="sessions/05-a2a.html">05</a><a href="sessions/06-putting-it-together.html">06</a></nav>
+</div></div>
+
+<header class="hero"><div class="wrap">
+<p class="eyebrow">Microsoft &middot; AI &amp; App Dev &middot; Upskilling</p>
+<h1>Agentic AI on Microsoft Foundry</h1>
+<p class="sub">Agent Framework · Foundry Hosted Agents · MCP · A2A — the full session, reorganised as a navigable reference you can read, search and share.</p>
+<ul class="chips">
+<li>Session 3 of 3 · Day 1 — Vision, Architecture &amp; Live Demos</li><li>56 slides &middot; 7 modules</li><li>4 live demos</li><li>Day 2: technical deep dive</li>
+</ul>
+<div class="btnrow">
+<a class="btn" href="sessions/01-agentic-landscape.html">Start with Module 01 &rarr;</a>
+<a class="btn ghost" href="sessions/00-orientation.html">How the two days work</a>
+</div>
+</div></header>
+
+<section class="block"><div class="wrap">
+<h2 class="sec">The four technologies</h2>
+<p class="secsub">Four pieces fit together: a framework to build with, a platform to run on, and two open protocols to connect everything.</p>
+<div class="pillars">
+<div class="pill"><b>AGENT FRAMEWORK</b><span>The open-source SDK for single agents and multi-agent workflows &mdash; .NET, Python and Go.</span></div>
+<div class="pill"><b>FOUNDRY</b><span>The managed platform that runs, scales, secures and observes agents in production.</span></div>
+<div class="pill"><b>MCP</b><span>The open standard connecting any agent to tools and data &mdash; the USB-C of AI.</span></div>
+<div class="pill"><b>A2A</b><span>The protocol for agents that discover, delegate to and collaborate with other agents.</span></div>
+</div>
+</div></section>
+
+<section class="block"><div class="wrap">
+<h2 class="sec">Modules</h2>
+<p class="secsub">Every slide of the deck, grouped into seven readable modules. Each page carries its own table of contents.</p>
+<div class="grid">
+<a class="modcard" href="sessions/00-orientation.html">
+<span class="n">MODULE 00</span>
+<h3>Orientation</h3>
+<p>Where we are in the journey, the shift from tools we operate to software that acts, why it matters for RAI, the agenda and the four live demos.</p>
+<div class="tagrow"><span class="tag">Welcome</span><span class="tag">Agenda</span><span class="tag">Demos preview</span><span class="tag">For everyone</span></div>
+<p class="meta">8 topics &middot; slides 1–8</p>
+</a>
+<a class="modcard" href="sessions/01-agentic-landscape.html">
+<span class="n">MODULE 01</span>
+<h3>The Agentic Landscape</h3>
+<p>From chatbots to systems of collaborating agents: the anatomy of an agent, the agentic loop, the Microsoft agentic stack and why open protocols matter.</p>
+<div class="tagrow"><span class="tag">Agentic loop</span><span class="tag">Multi-agent</span><span class="tag">Microsoft stack</span><span class="tag">Open protocols</span></div>
+<p class="meta">8 topics &middot; slides 9–16</p>
+</a>
+<a class="modcard" href="sessions/02-agent-framework.html">
+<span class="n">MODULE 02</span>
+<h3>Microsoft Agent Framework</h3>
+<p>One open-source SDK for single agents and multi-agent workflows in .NET, Python and Go — the successor to Semantic Kernel and AutoGen.</p>
+<div class="tagrow"><span class="tag">MAF</span><span class="tag">Workflows</span><span class="tag">Orchestration patterns</span><span class="tag">Demo 1</span></div>
+<p class="meta">9 topics &middot; slides 17–25</p>
+</a>
+<a class="modcard" href="sessions/03-foundry-hosted-agents.html">
+<span class="n">MODULE 03</span>
+<h3>Microsoft Foundry &amp; Hosted Agents</h3>
+<p>The managed platform that runs, scales, secures and observes agents in production: prompt vs hosted agents, the Responses API, tools, and the agent lifecycle.</p>
+<div class="tagrow"><span class="tag">Foundry</span><span class="tag">Prompt vs hosted</span><span class="tag">Responses API</span><span class="tag">Lifecycle</span><span class="tag">Demo 2</span></div>
+<p class="meta">10 topics &middot; slides 26–35</p>
+</a>
+<a class="modcard" href="sessions/04-mcp.html">
+<span class="n">MODULE 04</span>
+<h3>Model Context Protocol (MCP)</h3>
+<p>The open standard that lets any agent connect to tools and data — the M &times; N integration problem, MCP primitives, the Microsoft ecosystem, security and governance.</p>
+<div class="tagrow"><span class="tag">MCP</span><span class="tag">Primitives</span><span class="tag">Toolbox</span><span class="tag">Security</span><span class="tag">Demo 3</span></div>
+<p class="meta">7 topics &middot; slides 36–42</p>
+</a>
+<a class="modcard" href="sessions/05-a2a.html">
+<span class="n">MODULE 05</span>
+<h3>Agent-to-Agent (A2A)</h3>
+<p>How agents discover, delegate to and collaborate with other agents across teams and vendors — and how A2A complements MCP rather than competing with it.</p>
+<div class="tagrow"><span class="tag">A2A</span><span class="tag">Agent Cards</span><span class="tag">MCP vs A2A</span><span class="tag">Demo 4A &amp; 4B</span></div>
+<p class="meta">7 topics &middot; slides 43–49</p>
+</a>
+<a class="modcard" href="sessions/06-putting-it-together.html">
+<span class="n">MODULE 06</span>
+<h3>Putting It All Together</h3>
+<p>One reference architecture uniting the four technologies, five things to remember, resources — and the bridge to the Day 2 hands-on.</p>
+<div class="tagrow"><span class="tag">Reference architecture</span><span class="tag">Takeaways</span><span class="tag">Day 2</span><span class="tag">Q&amp;A</span></div>
+<p class="meta">7 topics &middot; slides 50–56</p>
+</a></div>
+</div></section>
+
+<section class="block"><div class="wrap">
+<h2 class="sec">Where this sits in the programme</h2>
+<p class="secsub">Three sessions, each delivered over two half-days: a shared vision day and a technical hands-on day.</p>
+<div class="grid">
+<div class="modcard"><span class="n">SESSION 1</span><h3>Foundry Agent Service</h3><p>Build, ground and govern agents.</p></div>
+<div class="modcard"><span class="n">SESSION 2</span><h3>AI Evaluation</h3><p>Trust the agents: measure, generate, harden.</p></div>
+<div class="modcard"><span class="n">SESSION 3 &mdash; THIS SITE</span><h3>Agentic Frameworks</h3><p>Agent Framework, hosted agents, MCP, A2A.</p></div>
+</div>
+</div></section>
+
+<section class="block"><div class="wrap">
+<h2 class="sec">Tomorrow — deep dive &amp; hands-on (Group B)</h2>
+<p class="secsub">Longer, deeper demos plus guided exercises — you build and wire the agents yourselves.</p>
+<div class="grid">
+<div class="modcard"><span class="n">TRACK 1</span><h3>Agent Framework in depth</h3><p>Workflows &amp; orchestration in code; tools, middleware, state.</p></div>
+<div class="modcard"><span class="n">TRACK 2</span><h3>Foundry hosted agents</h3><p>Package, deploy and scale a real hosted agent end-to-end.</p></div>
+<div class="modcard"><span class="n">TRACK 3</span><h3>Build &amp; secure an MCP server</h3><p>Expose your own tools; auth, scopes and safety.</p></div>
+<div class="modcard"><span class="n">TRACK 4</span><h3>Wire up A2A</h3><p>Publish an Agent Card and delegate across agents.</p></div>
+</div>
+</div></section>
+
+<footer class="site"><div class="wrap">
+<p>Session 3 of 3 · Day 1 — Vision, Architecture &amp; Live Demos &middot; Mauro Minella · Senior Cloud Solution Architect · Microsoft</p>
+<p>Built from the session deck (56 slides). Speaker notes are not published on this site.</p>
+</div></footer>
+</body>
+</html>
