@@ -34,11 +34,11 @@ Not a deck you skim once — a **working mental model** of the Microsoft agent p
 
 Each session is **8 hours over two consecutive days** — Day 1 vision & architecture (leadership + technical), Day 2 hands-on labs (technical roles). **Four labs per session — twelve in total.**
 
-| # | Session | What you'll master | Day-2 hands-on |
-|---|---------|--------------------|----------------|
-| 1 | [**Microsoft AI Platform**](01-microsoft-ai-platform/) | Foundry architecture; build, ground & govern agents; Agent 365 | Prompt agent → MCP tool → Responses API → publish to Agent 365 |
-| 2 | [**GenAI Evaluation**](02-microsoft-evaluation-platform/) | Metrics, local & cloud evaluation, custom evaluators, red teaming | Local eval → dataset generation → cloud eval → red teaming |
-| 3 | [**Agentic Frameworks**](03-microsoft-agentic-frameworks/) | Semantic Kernel → Agent Framework, MCP, A2A, fleet governance | Build & connect agents across open protocols |
+| # | Session | What you'll master | Day-2 hands-on | Slides |
+|---|---------|--------------------|----------------|--------|
+| 1 | [**Microsoft AI Platform**](01-microsoft-ai-platform/) | Foundry architecture; build, ground & govern agents; Agent 365 | Prompt agent → MCP tool → Responses API → publish to Agent 365 | [OnePager slides](https://maurominella.github.io/microsoft-ai-upskilling/01-microsoft-ai-platform/slides/site/) |
+| 2 | [**GenAI Evaluation**](02-microsoft-evaluation-platform/) | Metrics, local & cloud evaluation, custom evaluators, red teaming | Local eval → dataset generation → cloud eval → red teaming | [OnePager slides](https://maurominella.github.io/microsoft-ai-upskilling/02-microsoft-evaluation-platform/slides/site/) |
+| 3 | [**Agentic Frameworks**](03-microsoft-agentic-frameworks/) | Semantic Kernel → Agent Framework, MCP, A2A, fleet governance | Build & connect agents across open protocols | [OnePager slides](https://maurominella.github.io/microsoft-ai-upskilling/03-microsoft-agentic-frameworks/slides/site/) |
 
 ---
 

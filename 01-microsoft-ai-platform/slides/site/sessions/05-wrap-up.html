@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>Wrap-up &amp; next steps — Foundry Agent Service</title>
+<style>
+.slidebox{container-type:inline-size;inline-size:100%;margin:0 0 1rem}
+.slide169{position:relative;inline-size:100%;aspect-ratio:16/9;overflow:hidden;border:1px solid var(--border);
+border-radius:.5rem;font-family:"Segoe UI",system-ui,sans-serif;color:#0f172a;box-shadow:var(--shadow)}
+.slide169 .sp{position:absolute;box-sizing:border-box}
+.slide169 .pic{object-fit:fill}
+.slide169 .tx{position:absolute;inset:0;display:flex;flex-direction:column;box-sizing:border-box}
+.slide169 .pp{margin:0;line-height:1.25}
+.slide169 .stbl{inline-size:100%;block-size:100%;border-collapse:collapse}
+.slide169 .stbl td{border:.08cqw solid rgba(148,163,184,.6);padding:.4cqw .6cqw;vertical-align:top;line-height:1.2}
+@supports not (width:1cqw){.slide169{aspect-ratio:auto;min-block-size:30rem}}
+
+:root{color-scheme:light dark;
+--bg:#ffffff;--panel:#f4f6f9;--panel-2:#e9edf3;--fg:#14171c;--muted:#59626f;
+--accent:#0f6cbd;--accent-2:#7a4ddb;--accent-soft:#e8f1fb;--border:#dbe0e8;--shadow:0 1px 2px rgba(16,24,40,.06),0 8px 24px rgba(16,24,40,.05)}
+@media (prefers-color-scheme:dark){:root{
+--bg:#101317;--panel:#171b21;--panel-2:#1e232b;--fg:#e9ecf1;--muted:#a2acba;
+--accent:#6cb0ec;--accent-2:#b193f0;--accent-soft:#18293a;--border:#2c333d;--shadow:none}}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-block-start:5rem}
+body{margin:0;background:var(--bg);color:var(--fg);font-size:16px;line-height:1.6;
+font-family:"Segoe UI",system-ui,-apple-system,"Helvetica Neue",Arial,sans-serif}
+a{color:var(--accent)}
+.topbar{position:sticky;inset-block-start:0;z-index:20;background:color-mix(in srgb,var(--bg) 88%, transparent);
+backdrop-filter:blur(8px);border-block-end:1px solid var(--border)}
+.topbar .inner{max-width:76rem;margin-inline:auto;padding:.7rem 1.25rem;display:flex;gap:1rem;align-items:center;justify-content:space-between}
+.brand{display:flex;gap:.6rem;align-items:center;text-decoration:none;color:inherit;font-weight:700;font-size:.95rem}
+.dot{inline-size:.7rem;block-size:.7rem;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent-2))}
+.topnav{display:flex;gap:1.1rem;flex-wrap:wrap;font-size:.88rem}
+.topnav a{text-decoration:none;color:var(--muted);font-weight:600}
+.topnav a:hover,.topnav a[aria-current="page"]{color:var(--accent)}
+.wrap{max-width:76rem;margin-inline:auto;padding:0 1.25rem}
+.hero{padding:3.2rem 0 2.2rem;border-block-end:1px solid var(--border)}
+.eyebrow{text-transform:uppercase;letter-spacing:.15em;font-size:.72rem;font-weight:700;color:var(--accent);margin:0 0 .7rem}
+.hero h1{font-size:clamp(2rem,4vw,2.9rem);line-height:1.1;margin:0 0 .7rem;max-inline-size:22ch}
+.hero p.sub{font-size:1.12rem;color:var(--muted);margin:0 0 1.4rem;max-inline-size:60ch}
+.chips{display:flex;flex-wrap:wrap;gap:.5rem;margin:0 0 1.6rem;padding:0;list-style:none}
+.chips li{background:var(--panel);border:1px solid var(--border);border-radius:2rem;padding:.25rem .75rem;font-size:.8rem;color:var(--muted)}
+.btnrow{display:flex;flex-wrap:wrap;gap:.7rem}
+.btn{display:inline-block;text-decoration:none;font-weight:600;font-size:.92rem;padding:.6rem 1.1rem;border-radius:.5rem;
+background:var(--accent);color:#fff;border:1px solid transparent}
+.btn.ghost{background:transparent;color:var(--accent);border-color:var(--border)}
+section.block{padding:2.6rem 0;border-block-end:1px solid var(--border)}
+section.block h2.sec{font-size:1.4rem;margin:0 0 .3rem}
+section.block p.secsub{color:var(--muted);margin:0 0 1.5rem}
+.grid{display:grid;gap:1rem;grid-template-columns:repeat(auto-fill,minmax(19rem,1fr))}
+.modcard{display:flex;flex-direction:column;gap:.55rem;background:var(--panel);border:1px solid var(--border);
+border-radius:.75rem;padding:1.1rem 1.15rem;text-decoration:none;color:inherit;box-shadow:var(--shadow)}
+.modcard:hover{border-color:var(--accent)}
+.modcard .n{font-size:.72rem;font-weight:700;letter-spacing:.14em;color:var(--accent)}
+.modcard h3{margin:0;font-size:1.12rem}
+.modcard p{margin:0;color:var(--muted);font-size:.9rem}
+.tagrow{display:flex;flex-wrap:wrap;gap:.35rem;margin-block-start:.3rem}
+.tag{font-size:.72rem;background:var(--accent-soft);color:var(--accent);border-radius:.3rem;padding:.1rem .45rem}
+.meta{font-size:.78rem;color:var(--muted);margin-block-start:auto;padding-block-start:.5rem}
+.pillars{display:grid;gap:1rem;grid-template-columns:repeat(auto-fit,minmax(15rem,1fr))}
+.pill{background:var(--panel);border:1px solid var(--border);border-inline-start:4px solid var(--accent);border-radius:.6rem;padding:1rem}
+.pill b{display:block;letter-spacing:.12em;font-size:.74rem;color:var(--accent);margin-block-end:.25rem}
+.pill span{font-size:.92rem;color:var(--muted)}
+.layout{display:grid;grid-template-columns:16rem minmax(0,1fr);gap:2.2rem;padding-block:2rem}
+@media (max-width:60rem){.layout{grid-template-columns:1fr}.sidebar{position:static!important;max-block-size:none!important}}
+.sidebar{position:sticky;inset-block-start:4.4rem;align-self:start;max-block-size:calc(100vh - 6rem);overflow:auto}
+.sidebar h2{font-size:.74rem;text-transform:uppercase;letter-spacing:.13em;color:var(--muted);margin:0 0 .6rem}
+.sidebar ol{list-style:none;margin:0;padding:0;font-size:.86rem}
+.sidebar li{margin:0}
+.sidebar a{display:block;padding:.3rem .55rem;border-radius:.35rem;text-decoration:none;color:var(--muted);border-inline-start:2px solid var(--border)}
+.sidebar a:hover{color:var(--accent);background:var(--panel);border-inline-start-color:var(--accent)}
+.crumb{font-size:.82rem;color:var(--muted);margin:0 0 .5rem}
+.crumb a{text-decoration:none}
+.pagehead h1{font-size:2rem;margin:0 0 .5rem}
+.pagehead p.sub{color:var(--muted);margin:0 0 1rem;max-inline-size:65ch}
+.card{background:var(--panel);border:1px solid var(--border);border-radius:.75rem;padding:1.2rem 1.35rem;margin-block-end:1.1rem;box-shadow:var(--shadow)}
+.cardhead{position:relative;margin-block-end:.6rem;padding-inline-end:5rem}
+.card h2{font-size:1.18rem;margin:0}
+.kicker{text-transform:uppercase;letter-spacing:.12em;font-size:.7rem;font-weight:700;color:var(--accent);margin:0 0 .2rem}
+.slideref{position:absolute;inset-block-start:0;inset-inline-end:0;font-size:.72rem;color:var(--muted);text-decoration:none;
+background:var(--panel-2);border:1px solid var(--border);border-radius:1rem;padding:.1rem .55rem}
+.card p{margin:.45rem 0}
+.card p.lead{font-weight:600;margin-block-start:.9rem}
+.card ul{margin:.4rem 0 .7rem;padding-inline-start:1.2rem}
+.card li{margin:.22rem 0}
+figure{margin:.9rem 0;text-align:center}
+figure img{max-inline-size:100%;block-size:auto;border:1px solid var(--border);border-radius:.5rem;background:#fff}
+.tablewrap{overflow-x:auto}
+table{border-collapse:collapse;inline-size:100%;font-size:.9rem;margin:.6rem 0}
+th,td{border:1px solid var(--border);padding:.4rem .55rem;text-align:start;vertical-align:top}
+th{background:var(--panel-2)}
+.pagenav{display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;margin-block-start:2rem;padding-block-start:1.2rem;border-block-start:1px solid var(--border)}
+.pagenav a{text-decoration:none;font-weight:600;font-size:.9rem}
+footer.site{border-block-start:1px solid var(--border);margin-block-start:2rem;padding:1.6rem 0 2.6rem;color:var(--muted);font-size:.85rem}
+.txtver{border-block-start:1px solid var(--border);margin-block-start:.9rem;padding-block-start:.6rem}
+.txtver>summary{cursor:pointer;list-style:none;display:inline-flex;align-items:center;gap:.4rem;
+text-transform:uppercase;letter-spacing:.1em;font-size:.68rem;font-weight:700;color:var(--muted);
+border:1px solid var(--border);background:var(--panel-2);border-radius:2rem;padding:.2rem .7rem}
+.txtver>summary::-webkit-details-marker{display:none}
+.txtver>summary::before{content:"+";font-size:.85rem;line-height:1;color:var(--accent)}
+.txtver[open]>summary::before{content:"−"}
+.txtver>summary:hover{color:var(--accent);border-color:var(--accent)}
+.txtbody{margin-block-start:.6rem}
+@media print{.topbar,.sidebar,.pagenav,.btnrow,.txtver{display:none}.layout{display:block}.card{break-inside:avoid;box-shadow:none}}
+</style>
+</head>
+<body>
+<div class="topbar"><div class="inner">
+<a class="brand" href="../index.html"><span class="dot"></span>Foundry Agent Service</a>
+<nav class="topnav"><a href="../index.html">Home</a><a href="../sessions/00-orientation.html">00</a><a href="../sessions/01-vision-architecture.html">01</a><a href="../sessions/02-foundry-agent-service.html">02</a><a href="../sessions/03-four-iqs.html">03</a><a href="../sessions/04-agent-365.html">04</a><a href="../sessions/05-wrap-up.html" aria-current="page">05</a></nav>
+</div></div>
+
+<main class="wrap layout">
+<aside class="sidebar"><h2>On this page</h2><ol><li><a href="#s51">Build → Ground → Govern</a></li><li><a href="#s52">What to remember — by role</a></li><li><a href="#s53">Day 2 — four hands-on labs (for the technical team)</a></li><li><a href="#s54">Questions &amp; discussion</a></li></ol></aside>
+<div>
+<p class="crumb"><a href="../index.html">Home</a> &rsaquo; Module 05</p>
+<header class="pagehead">
+<p class="eyebrow">Module 05 &middot; slides 51–54</p>
+<h1>Wrap-up &amp; next steps</h1>
+<p class="sub">The whole story in one picture, takeaways by role, and the four hands-on labs waiting on Day 2.</p>
+<ul class="chips"><li>Takeaways</li><li>Day 2 labs</li><li>Q&amp;A</li></ul>
+</header>
+<article class="card" id="s51">
+<div class="cardhead">
+<p class="kicker">THE WHOLE STORY</p>
+<h2>Build → Ground → Govern</h2>
+<a class="slideref" href="#s51">Slide 51</a>
+</div>
+<div class="slidebox"><div class="slide169" style="background:#ffffff"><div class="sp" style="left:4.500cqw;top:4.125cqw;width:82.500cqw;height:2.250cqw;"><div class="tx" style="justify-content:center;padding:0.000cqw 0.000cqw 0.000cqw 0.000cqw;"><p class="pp" style="font-size:1.250cqw;font-weight:700;"><span style="font-weight:700;">THE WHOLE STORY</span></p></div></div><div class="sp" style="left:4.500cqw;top:6.750cqw;width:90.000cqw;height:6.750cqw;"><div class="tx" style="justify-content:center;padding:0.000cqw 0.000cqw 0.000cqw 0.000cqw;"><p class="pp" style="font-size:3.542cqw;font-weight:600;"><span style="font-weight:600;">Build → Ground → Govern</span></p></div></div><div class="sp" style="left:6.750cqw;top:17.475cqw;width:17.250cqw;height:4.500cqw;"><div class="tx" style="justify-content:center;padding:0.000cqw 0.000cqw 0.000cqw 0.000cqw;"><p class="pp" style="font-size:1.875cqw;font-weight:600;"><span style="font-weight:600;">BUILD</span></p></div></div><div class="sp" style="left:24.000cqw;top:16.875cqw;width:69.750cqw;height:5.850cqw;"><div class="tx" style="justify-content:center;padding:0.000cqw 0.000cqw 0.000cqw 0.000cqw;"><p class="pp" style="font-size:1.458cqw;">Foundry Agent Service: a managed runtime, open tools, memory, voice, identity.</p></div></div><div class="sp" style="left:6.750cqw;top:26.100cqw;width:17.250cqw;height:4.500cqw;"><div class="tx" style="justify-content:center;padding:0.000cqw 0.000cqw 0.000cqw 0.000cqw;"><p class="pp" style="font-size:1.875cqw;font-weight:600;"><span style="font-weight:600;">GROUND</span></p></div></div><div class="sp" style="left:24.000cqw;top:25.500cqw;width:69.750cqw;height:5.850cqw;"><div class="tx" style="justify-content:center;padding:0.000cqw 0.000cqw 0.000cqw 0.000cqw;"><p class="pp" style="font-size:1.458cqw;">The four IQs: Work, Foundry, Web and Fabric IQ ground agents in your reality.</p></div></div><div class="sp" style="left:6.750cqw;top:34.725cqw;width:17.250cqw;height:4.500cqw;"><div class="tx" style="justify-content:center;padding:0.000cqw 0.000cqw 0.000cqw 0.000cqw;"><p class="pp" style="font-size:1.875cqw;font-weight:600;"><span style="font-weight:600;">GOVERN</span></p></div></div><div class="sp" style="left:24.000cqw;top:34.125cqw;width:69.750cqw;height:5.850cqw;"><div class="tx" style="justify-content:center;padding:0.000cqw 0.000cqw 0.000cqw 0.000cqw;"><p class="pp" style="font-size:1.458cqw;">Agent 365: publish, secure, observe and manage the whole fleet.</p></div></div><div class="sp" style="left:4.500cqw;top:44.250cqw;width:90.750cqw;height:3.750cqw;"><div class="tx" style="justify-content:center;padding:0.000cqw 0.000cqw 0.000cqw 0.000cqw;"><p class="pp" style="font-size:1.562cqw;"><span style="font-style:italic;">One agent → a grounded agent → a governed fleet. That&#x27;s the whole platform in one line.</span></p></div></div></div></div>
+<details class="txtver"><summary>Slide text</summary><div class="txtbody"><p>Foundry Agent Service: a managed runtime, open tools, memory, voice, identity.</p>
+<p class="lead">BUILD</p>
+<p>The four IQs: Work, Foundry, Web and Fabric IQ ground agents in your reality.</p>
+<p class="lead">GROUND</p>
+<p class="lead">Agent 365: publish, secure, observe and manage the whole fleet.</p>
+<p class="lead">GOVERN</p>
+<p>One agent → a grounded agent → a governed fleet. That&#x27;s the whole platform in one line.</p></div></details>
+</article>
+<article class="card" id="s52">
+<div class="cardhead">
+<p class="kicker">TAKEAWAYS</p>
+<h2>What to remember — by role</h2>
+<a class="slideref" href="#s52">Slide 52</a>
+</div>
+<div class="slidebox"><div class="slide169" style="background:#ffffff"><div class="sp" style="left:4.500cqw;top:3.600cqw;width:90.000cqw;height:2.250cqw;"><div class="tx" style="justify-content:center;padding:0.000cqw 0.000cqw 0.000cqw 0.000cqw;"><p class="pp" style="font-size:1.250cqw;font-weight:700;"><span style="font-weight:700;">TAKEAWAYS</span></p></div></div><div class="sp" style="left:4.500cqw;top:6.000cqw;width:90.750cqw;height:7.125cqw;"><div class="tx" style="justify-content:flex-start;padding:0.000cqw 0.000cqw 0.000cqw 0.000cqw;"><p class="pp" style="font-size:2.812cqw;font-weight:600;"><span style="font-weight:600;">What to remember — by role</span></p></div></div><div class="sp" style="left:7.500cqw;top:17.250cqw;width:39.750cqw;height:3.375cqw;"><div class="tx" style="justify-content:center;padding:0.000cqw 0.000cqw 0.000cqw 0.000cqw;"><p class="pp" style="font-size:1.667cqw;font-weight:600;"><span style="font-weight:600;">For leadership (Group A)</span></p></div></div><div class="sp" style="left:7.500cqw;top:21.750cqw;width:39.750cqw;height:19.500cqw;"><div class="tx" style="justify-content:flex-start;padding:0.000cqw 0.000cqw 0.000cqw 0.000cqw;"><p class="pp" style="font-size:1.354cqw;line-height:1.05;margin-bottom:0.938cqw;">Agents are an operating-model shift, not a feature</p><p class="pp" style="font-size:1.354cqw;line-height:1.05;margin-bottom:0.938cqw;">Microsoft extends your trusted stack to agents</p><p class="pp" style="font-size:1.354cqw;line-height:1.05;margin-bottom:0.938cqw;">Governance &amp; ROI are built in with Agent 365</p><p class="pp" style="font-size:1.354cqw;line-height:1.05;margin-bottom:0.938cqw;">The plan is current, not changed — just renamed</p></div></div><div class="sp" style="left:53.625cqw;top:17.250cqw;width:39.750cqw;height:3.375cqw;"><div class="tx" style="justify-content:center;padding:0.000cqw 0.000cqw 0.000cqw 0.000cqw;"><p class="pp" style="font-size:1.667cqw;font-weight:600;"><span style="font-weight:600;">For technical teams (Group B)</span></p></div></div><div class="sp" style="left:53.625cqw;top:21.750cqw;width:39.750cqw;height:19.500cqw;"><div class="tx" style="justify-content:flex-start;padding:0.000cqw 0.000cqw 0.000cqw 0.000cqw;"><p class="pp" style="font-size:1.354cqw;line-height:1.05;margin-bottom:0.938cqw;">A managed runtime removes the production plumbing</p><p class="pp" style="font-size:1.354cqw;line-height:1.05;margin-bottom:0.938cqw;">Open standards (MCP/A2A/OpenAPI) prevent lock-in</p><p class="pp" style="font-size:1.354cqw;line-height:1.05;margin-bottom:0.938cqw;">Grounding with IQ makes answers correct &amp; cited</p><p class="pp" style="font-size:1.354cqw;line-height:1.05;margin-bottom:0.938cqw;">Identity (Entra Agent ID) is first-class from day one</p></div></div><div class="sp" style="left:4.125cqw;top:53.100cqw;width:67.500cqw;height:2.250cqw;"><div class="tx" style="justify-content:center;padding:0.000cqw 0.000cqw 0.000cqw 0.000cqw;"><p class="pp" style="font-size:0.833cqw;text-align:center;">Foundry Agent Service  ·  Day 1 — Vision &amp; Architecture</p></div></div><div class="sp" style="left:93.750cqw;top:53.100cqw;width:2.625cqw;height:2.250cqw;"><div class="tx" style="justify-content:center;padding:0.000cqw 0.000cqw 0.000cqw 0.000cqw;"><p class="pp" style="font-size:0.938cqw;text-align:justify;">50</p></div></div></div></div>
+<details class="txtver"><summary>Slide text</summary><div class="txtbody"><p class="lead">For leadership (Group A)</p>
+<ul><li>Agents are an operating-model shift, not a feature</li><li>Microsoft extends your trusted stack to agents</li><li>Governance &amp; ROI are built in with Agent 365</li><li>The plan is current, not changed — just renamed</li></ul>
+<p class="lead">For technical teams (Group B)</p>
+<ul><li>A managed runtime removes the production plumbing</li><li>Open standards (MCP/A2A/OpenAPI) prevent lock-in</li><li>Grounding with IQ makes answers correct &amp; cited</li><li>Identity (Entra Agent ID) is first-class from day one</li></ul></div></details>
+</article>
+<article class="card" id="s53">
+<div class="cardhead">
+<p class="kicker">TOMORROW</p>
+<h2>Day 2 — four hands-on labs (for the technical team)</h2>
+<a class="slideref" href="#s53">Slide 53</a>
+</div>
+<div class="slidebox"><div class="slide169" style="background:#ffffff"><div class="sp" style="left:4.500cqw;top:3.600cqw;width:90.000cqw;height:2.250cqw;"><div class="tx" style="justify-content:center;padding:0.000cqw 0.000cqw 0.000cqw 0.000cqw;"><p class="pp" style="font-size:1.250cqw;font-weight:700;"><span style="font-weight:700;">TOMORROW</span></p></div></div><div class="sp" style="left:4.500cqw;top:6.000cqw;width:90.750cqw;height:7.125cqw;"><div class="tx" style="justify-content:flex-start;padding:0.000cqw 0.000cqw 0.000cqw 0.000cqw;"><p class="pp" style="font-size:2.812cqw;font-weight:600;"><span style="font-weight:600;">Day 2 — four hands-on labs (for the technical team)</span></p></div></div><div class="sp" style="left:7.200cqw;top:15.825cqw;width:40.575cqw;height:4.125cqw;"><div class="tx" style="justify-content:flex-start;padding:0.000cqw 0.000cqw 0.000cqw 0.000cqw;"><p class="pp" style="font-size:1.510cqw;font-weight:600;"><span style="font-weight:600;">Lab 1 · Create a prompt agent</span></p></div></div><div class="sp" style="left:7.200cqw;top:19.575cqw;width:40.575cqw;height:3.637cqw;"><div class="tx" style="justify-content:flex-start;padding:0.000cqw 0.000cqw 0.000cqw 0.000cqw;"><p class="pp" style="font-size:1.198cqw;line-height:1.03;">Build an agent in the Foundry portal: model, instructions, playground.</p></div></div><div class="sp" style="left:53.250cqw;top:15.825cqw;width:40.575cqw;height:4.125cqw;"><div class="tx" style="justify-content:flex-start;padding:0.000cqw 0.000cqw 0.000cqw 0.000cqw;"><p class="pp" style="font-size:1.510cqw;font-weight:600;"><span style="font-weight:600;">Lab 2 · Add an MCP tool</span></p></div></div><div class="sp" style="left:53.250cqw;top:19.575cqw;width:40.575cqw;height:3.637cqw;"><div class="tx" style="justify-content:flex-start;padding:0.000cqw 0.000cqw 0.000cqw 0.000cqw;"><p class="pp" style="font-size:1.198cqw;line-height:1.03;">Connect a tool via the Toolbox / MCP; invoke it from the agent.</p></div></div><div class="sp" style="left:7.200cqw;top:27.562cqw;width:40.575cqw;height:4.125cqw;"><div class="tx" style="justify-content:flex-start;padding:0.000cqw 0.000cqw 0.000cqw 0.000cqw;"><p class="pp" style="font-size:1.510cqw;font-weight:600;"><span style="font-weight:600;">Lab 3 · Call via Responses API</span></p></div></div><div class="sp" style="left:7.200cqw;top:31.312cqw;width:40.575cqw;height:3.637cqw;"><div class="tx" style="justify-content:flex-start;padding:0.000cqw 0.000cqw 0.000cqw 0.000cqw;"><p class="pp" style="font-size:1.198cqw;line-height:1.03;">Use each agent&#x27;s Coding panel: run it from code (Python / REST).</p></div></div><div class="sp" style="left:53.250cqw;top:27.562cqw;width:40.575cqw;height:4.125cqw;"><div class="tx" style="justify-content:flex-start;padding:0.000cqw 0.000cqw 0.000cqw 0.000cqw;"><p class="pp" style="font-size:1.510cqw;font-weight:600;"><span style="font-weight:600;">Lab 4 · Publish to Agent 365</span></p></div></div><div class="sp" style="left:53.250cqw;top:31.312cqw;width:40.575cqw;height:3.637cqw;"><div class="tx" style="justify-content:flex-start;padding:0.000cqw 0.000cqw 0.000cqw 0.000cqw;"><p class="pp" style="font-size:1.198cqw;line-height:1.03;">Publish and invoke with the agent&#x27;s own identity — without OBO.</p></div></div><div class="sp" style="left:5.250cqw;top:37.875cqw;width:90.000cqw;height:3.000cqw;"><div class="tx" style="justify-content:center;padding:0.000cqw 0.000cqw 0.000cqw 0.000cqw;"><p class="pp" style="font-size:1.354cqw;font-weight:700;"><span style="font-weight:700;font-style:italic;">45–60 minutes each · step-by-step scripts · follow along on your own machine</span></p></div></div><div class="sp" style="left:4.125cqw;top:53.100cqw;width:67.500cqw;height:2.250cqw;"><div class="tx" style="justify-content:center;padding:0.000cqw 0.000cqw 0.000cqw 0.000cqw;"><p class="pp" style="font-size:0.833cqw;text-align:center;">Foundry Agent Service  ·  Day 1 — Vision &amp; Architecture</p></div></div><div class="sp" style="left:93.750cqw;top:53.100cqw;width:2.625cqw;height:2.250cqw;"><div class="tx" style="justify-content:center;padding:0.000cqw 0.000cqw 0.000cqw 0.000cqw;"><p class="pp" style="font-size:0.938cqw;text-align:justify;">49</p></div></div></div></div>
+<details class="txtver"><summary>Slide text</summary><div class="txtbody"><p class="lead">Lab 1 · Create a prompt agent</p>
+<p>Build an agent in the Foundry portal: model, instructions, playground.</p>
+<p class="lead">Lab 3 · Call via Responses API</p>
+<p>Use each agent&#x27;s Coding panel: run it from code (Python / REST).</p>
+<p>45–60 minutes each · step-by-step scripts · follow along on your own machine</p>
+<p class="lead">Lab 2 · Add an MCP tool</p>
+<p>Connect a tool via the Toolbox / MCP; invoke it from the agent.</p>
+<p class="lead">Lab 4 · Publish to Agent 365</p>
+<p>Publish and invoke with the agent&#x27;s own identity — without OBO.</p></div></details>
+</article>
+<article class="card" id="s54">
+<div class="cardhead">
+<p class="kicker">BUILD</p>
+<h2>Questions &amp; discussion</h2>
+<a class="slideref" href="#s54">Slide 54</a>
+</div>
+<div class="slidebox"><div class="slide169" style="background:#ffffff"><div class="sp" style="left:6.750cqw;top:16.500cqw;width:82.500cqw;height:3.000cqw;"><div class="tx" style="justify-content:center;padding:0.000cqw 0.000cqw 0.000cqw 0.000cqw;"><p class="pp" style="font-size:1.458cqw;font-weight:700;"><span style="font-weight:700;">THANK YOU</span></p></div></div><div class="sp" style="left:6.450cqw;top:20.250cqw;width:87.000cqw;height:8.250cqw;"><div class="tx" style="justify-content:center;padding:0.000cqw 0.000cqw 0.000cqw 0.000cqw;"><p class="pp" style="font-size:4.792cqw;font-weight:600;"><span style="font-weight:600;">Questions &amp; discussion</span></p></div></div><div class="sp" style="left:6.750cqw;top:29.625cqw;width:85.500cqw;height:4.500cqw;"><div class="tx" style="justify-content:center;padding:0.000cqw 0.000cqw 0.000cqw 0.000cqw;"><p class="pp" style="font-size:1.875cqw;"><span style="font-style:italic;">Today: Build → Ground → Govern.   Tomorrow: we build it, together.</span></p></div></div><div class="sp" style="left:8.400cqw;top:39.975cqw;width:24.150cqw;height:2.250cqw;"><div class="tx" style="justify-content:center;padding:0.000cqw 0.000cqw 0.000cqw 0.000cqw;"><p class="pp" style="font-size:1.198cqw;font-weight:700;"><span style="font-weight:700;">BUILD</span></p></div></div><div class="sp" style="left:8.400cqw;top:42.150cqw;width:24.150cqw;height:3.000cqw;"><div class="tx" style="justify-content:center;padding:0.000cqw 0.000cqw 0.000cqw 0.000cqw;"><p class="pp" style="font-size:1.406cqw;font-weight:600;"><span style="font-weight:600;">Foundry Agent Service</span></p></div></div><div class="sp" style="left:33.975cqw;top:40.500cqw;width:2.400cqw;height:3.750cqw;"><div class="tx" style="justify-content:center;padding:0.000cqw 0.000cqw 0.000cqw 0.000cqw;"><p class="pp" style="font-size:1.667cqw;text-align:end;">→</p></div></div><div class="sp" style="left:38.100cqw;top:39.975cqw;width:24.150cqw;height:2.250cqw;"><div class="tx" style="justify-content:center;padding:0.000cqw 0.000cqw 0.000cqw 0.000cqw;"><p class="pp" style="font-size:1.198cqw;font-weight:700;"><span style="font-weight:700;">GROUND</span></p></div></div><div class="sp" style="left:38.100cqw;top:42.150cqw;width:24.150cqw;height:3.000cqw;"><div class="tx" style="justify-content:center;padding:0.000cqw 0.000cqw 0.000cqw 0.000cqw;"><p class="pp" style="font-size:1.406cqw;font-weight:600;"><span style="font-weight:600;">The four IQs</span></p></div></div><div class="sp" style="left:63.675cqw;top:40.500cqw;width:2.400cqw;height:3.750cqw;"><div class="tx" style="justify-content:center;padding:0.000cqw 0.000cqw 0.000cqw 0.000cqw;"><p class="pp" style="font-size:1.667cqw;text-align:end;">→</p></div></div><div class="sp" style="left:67.800cqw;top:39.975cqw;width:24.150cqw;height:2.250cqw;"><div class="tx" style="justify-content:center;padding:0.000cqw 0.000cqw 0.000cqw 0.000cqw;"><p class="pp" style="font-size:1.198cqw;font-weight:700;"><span style="font-weight:700;">GOVERN</span></p></div></div><div class="sp" style="left:67.800cqw;top:42.150cqw;width:24.150cqw;height:3.000cqw;"><div class="tx" style="justify-content:center;padding:0.000cqw 0.000cqw 0.000cqw 0.000cqw;"><p class="pp" style="font-size:1.406cqw;font-weight:600;"><span style="font-weight:600;">Agent 365</span></p></div></div><div class="sp" style="left:6.750cqw;top:49.500cqw;width:85.500cqw;height:3.000cqw;"><div class="tx" style="justify-content:center;padding:0.000cqw 0.000cqw 0.000cqw 0.000cqw;"><p class="pp" style="font-size:1.250cqw;">Mauro Minella · Senior Cloud Solution Architect · Microsoft</p></div></div></div></div>
+<details class="txtver"><summary>Slide text</summary><div class="txtbody"><p class="lead">THANK YOU</p>
+<p class="lead">Today: Build → Ground → Govern.   Tomorrow: we build it, together.</p>
+<p class="lead">Foundry Agent Service</p>
+<p>Mauro Minella · Senior Cloud Solution Architect · Microsoft</p>
+<p>GROUND</p>
+<p class="lead">The four IQs</p>
+<p>GOVERN</p>
+<p class="lead">Agent 365</p></div></details>
+</article>
+<nav class="pagenav"><a href="04-agent-365.html">&larr; Agent 365 &mdash; Govern</a></nav>
+</div>
+</main>
+
+<footer class="site"><div class="wrap">
+<p>Session 1 of 3 · Day 1 — Vision, Architecture &amp; Live Demos &middot; Mauro Minella · Senior Cloud Solution Architect · Microsoft</p>
+<p>Built from the session deck (54 slides). Speaker notes are not published on this site.</p>
+</div></footer>
+</body>
+</html>

@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="light dark">
-<title>AI Evaluation in Microsoft Foundry — session portal</title>
+<title>Foundry Agent Service — session portal</title>
 <style>
 .slidebox{container-type:inline-size;inline-size:100%;margin:0 0 1rem}
 .slide169{position:relative;inline-size:100%;aspect-ratio:16/9;overflow:hidden;border:1px solid var(--border);
@@ -109,30 +109,30 @@ border:1px solid var(--border);background:var(--panel-2);border-radius:2rem;padd
 </head>
 <body>
 <div class="topbar"><div class="inner">
-<a class="brand" href="index.html"><span class="dot"></span>AI Evaluation in Microsoft Foundry</a>
-<nav class="topnav"><a href="index.html" aria-current="page">Home</a><a href="sessions/00-orientation.html">00</a><a href="sessions/01-why-evaluation.html">01</a><a href="sessions/02-measure.html">02</a><a href="sessions/03-generate.html">03</a><a href="sessions/04-harden.html">04</a><a href="sessions/05-code-appendix.html">05</a></nav>
+<a class="brand" href="index.html"><span class="dot"></span>Foundry Agent Service</a>
+<nav class="topnav"><a href="index.html" aria-current="page">Home</a><a href="sessions/00-orientation.html">00</a><a href="sessions/01-vision-architecture.html">01</a><a href="sessions/02-foundry-agent-service.html">02</a><a href="sessions/03-four-iqs.html">03</a><a href="sessions/04-agent-365.html">04</a><a href="sessions/05-wrap-up.html">05</a></nav>
 </div></div>
 
 <header class="hero"><div class="wrap">
 <p class="eyebrow">Microsoft &middot; AI &amp; App Dev &middot; Upskilling</p>
-<h1>AI Evaluation in Microsoft Foundry</h1>
-<p class="sub">How to measure, test and red-team AI you can actually trust — the full session, reorganised as a navigable reference you can read, search and share.</p>
+<h1>Foundry Agent Service</h1>
+<p class="sub">How to build AI-driven applications that scale AI agents — the full session, reorganised as a navigable reference you can read, search and share.</p>
 <ul class="chips">
-<li>Session 2 of 3 · Day 1 — Vision, Architecture &amp; Live Demos</li><li>96 slides &middot; 6 modules</li><li>6 live demos</li><li>Day 2: 4 hands-on labs</li>
+<li>Session 1 of 3 · Day 1 — Vision, Architecture &amp; Live Demos</li><li>54 slides &middot; 6 modules</li><li>6 live demos</li><li>Day 2: 4 hands-on labs</li>
 </ul>
 <div class="btnrow">
-<a class="btn" href="sessions/01-why-evaluation.html">Start with Module 01 &rarr;</a>
+<a class="btn" href="sessions/01-vision-architecture.html">Start with Module 01 &rarr;</a>
 <a class="btn ghost" href="sessions/00-orientation.html">How the two days work</a>
 </div>
 </div></header>
 
 <section class="block"><div class="wrap">
 <h2 class="sec">The mental model</h2>
-<p class="secsub">Three pillars carry the whole session — you need data to measure, and adversarial data to harden.</p>
+<p class="secsub">Three pillars carry the whole session: build one agent well, ground it in enterprise knowledge, then govern the fleet.</p>
 <div class="pillars">
-<div class="pill"><b>MEASURE</b><span>Evaluators for quality, safety and agent behaviour — manually, in the cloud, or with your own custom evaluators.</span></div>
-<div class="pill"><b>GENERATE</b><span>Synthetic &amp; simulated data so you always have meaningful cases to evaluate against.</span></div>
-<div class="pill"><b>HARDEN</b><span>Adversarially probe the system to surface safety and security risks before real users do.</span></div>
+<div class="pill"><b>BUILD</b><span>Foundry Agent Service &mdash; the managed runtime, tools via MCP, built-in memory and a first-class agent identity.</span></div>
+<div class="pill"><b>GROUND</b><span>The four IQs &mdash; Work, Foundry, Web and Fabric: the enterprise knowledge that turns a smart model into an informed agent.</span></div>
+<div class="pill"><b>GOVERN</b><span>Agent 365 &mdash; the control plane to publish, secure and manage agents at fleet scale.</span></div>
 </div>
 </div></section>
 
@@ -143,44 +143,44 @@ border:1px solid var(--border);background:var(--panel-2);border-radius:2rem;padd
 <a class="modcard" href="sessions/00-orientation.html">
 <span class="n">MODULE 00</span>
 <h3>Orientation</h3>
-<p>How the two days work, the agenda, and why evaluation is the next question after building agents.</p>
+<p>How the two days work, the agenda, the rhythm of the session, and the 2025 vision restated in 2026 language.</p>
 <div class="tagrow"><span class="tag">Agenda</span><span class="tag">Positioning</span><span class="tag">For everyone</span></div>
 <p class="meta">5 topics &middot; slides 1–5</p>
 </a>
-<a class="modcard" href="sessions/01-why-evaluation.html">
+<a class="modcard" href="sessions/01-vision-architecture.html">
 <span class="n">MODULE 01</span>
-<h3>Why evaluation &amp; the platform</h3>
-<p>Non-deterministic systems, the stakes, Responsible AI, the GenAIOps loop and what Foundry gives you out of the box.</p>
-<div class="tagrow"><span class="tag">Responsible AI</span><span class="tag">GenAIOps</span><span class="tag">Platform</span><span class="tag">Demo 1</span></div>
-<p class="meta">10 topics &middot; slides 6–15</p>
+<h3>Vision &amp; Architecture</h3>
+<p>Why agents now, what an agent actually is, what Microsoft Foundry brings together, and the reference map of where everything fits.</p>
+<div class="tagrow"><span class="tag">Why agents</span><span class="tag">Foundry</span><span class="tag">Reference map</span><span class="tag">Build &rarr; Ground &rarr; Govern</span></div>
+<p class="meta">9 topics &middot; slides 6–14</p>
 </a>
-<a class="modcard" href="sessions/02-measure.html">
+<a class="modcard" href="sessions/02-foundry-agent-service.html">
 <span class="n">MODULE 02</span>
-<h3>Measure</h3>
-<p>The evaluator catalog: quality, safety and agent evaluators, NLP metrics, local vs cloud runs, and custom evaluators.</p>
-<div class="tagrow"><span class="tag">Evaluators</span><span class="tag">RAG triad</span><span class="tag">Safety</span><span class="tag">Agents</span><span class="tag">Demo 2–4</span></div>
-<p class="meta">32 topics &middot; slides 16–47</p>
+<h3>Foundry Agent Service &mdash; Build</h3>
+<p>The managed runtime and the building blocks of a single production agent: prompt vs hosted agents, MCP / A2A / OpenAPI, the Toolbox, built-in memory, Entra Agent ID and Voice Live.</p>
+<div class="tagrow"><span class="tag">Hosted agents</span><span class="tag">MCP &middot; A2A</span><span class="tag">Toolbox</span><span class="tag">Memory</span><span class="tag">Entra Agent ID</span><span class="tag">Demo 1&ndash;4</span></div>
+<p class="meta">15 topics &middot; slides 15–29</p>
 </a>
-<a class="modcard" href="sessions/03-generate.html">
+<a class="modcard" href="sessions/03-four-iqs.html">
 <span class="n">MODULE 03</span>
-<h3>Generate</h3>
-<p>Synthetic and simulated data with the Simulator — conversational, adversarial, UPIA and XPIA — so you always have something to evaluate.</p>
-<div class="tagrow"><span class="tag">Simulator</span><span class="tag">Prompty</span><span class="tag">Jailbreak</span><span class="tag">Demo 5</span></div>
-<p class="meta">14 topics &middot; slides 48–61</p>
+<h3>The four IQs &mdash; Ground</h3>
+<p>Grounding agents in enterprise knowledge: Work IQ, Foundry IQ, Web IQ and Fabric IQ — the enterprise intelligence layer.</p>
+<div class="tagrow"><span class="tag">Work IQ</span><span class="tag">Foundry IQ</span><span class="tag">Web IQ</span><span class="tag">Fabric IQ</span><span class="tag">Demo 5</span></div>
+<p class="meta">9 topics &middot; slides 30–38</p>
 </a>
-<a class="modcard" href="sessions/04-harden.html">
+<a class="modcard" href="sessions/04-agent-365.html">
 <span class="n">MODULE 04</span>
-<h3>Harden</h3>
-<p>Adversarial red teaming with the AI Red Teaming Agent, attack techniques, the ASR scorecard and the remediation loop.</p>
-<div class="tagrow"><span class="tag">Red teaming</span><span class="tag">PyRIT</span><span class="tag">ASR</span><span class="tag">Demo 6</span></div>
-<p class="meta">19 topics &middot; slides 62–80</p>
+<h3>Agent 365 &mdash; Govern</h3>
+<p>The control plane for a fleet of agents: registry, least-privilege identity, visualisation, interoperability and security — plus publishing to Teams and M365 Copilot.</p>
+<div class="tagrow"><span class="tag">Fleet governance</span><span class="tag">Registry</span><span class="tag">Identity</span><span class="tag">Publishing</span><span class="tag">Demo 6</span></div>
+<p class="meta">12 topics &middot; slides 39–50</p>
 </a>
-<a class="modcard" href="sessions/05-code-appendix.html">
+<a class="modcard" href="sessions/05-wrap-up.html">
 <span class="n">MODULE 05</span>
-<h3>Code appendix</h3>
-<p>Reference walkthroughs: evaluating agents and GenAI apps locally with the SDK, custom evaluators, and running a red-team scan.</p>
-<div class="tagrow"><span class="tag">azure-ai-evaluation</span><span class="tag">SDK</span><span class="tag">Reference</span></div>
-<p class="meta">16 topics &middot; slides 81–96</p>
+<h3>Wrap-up &amp; next steps</h3>
+<p>The whole story in one picture, takeaways by role, and the four hands-on labs waiting on Day 2.</p>
+<div class="tagrow"><span class="tag">Takeaways</span><span class="tag">Day 2 labs</span><span class="tag">Q&amp;A</span></div>
+<p class="meta">4 topics &middot; slides 51–54</p>
 </a></div>
 </div></section>
 
@@ -188,9 +188,9 @@ border:1px solid var(--border);background:var(--panel-2);border-radius:2rem;padd
 <h2 class="sec">Where this sits in the programme</h2>
 <p class="secsub">Three sessions, each delivered over two half-days: a shared vision day and a technical hands-on day.</p>
 <div class="grid">
-<div class="modcard"><span class="n">SESSION 1 &mdash; DONE</span><h3>Foundry Agent Service</h3><p>Build agents.</p></div>
-<div class="modcard"><span class="n">SESSION 2 &mdash; THIS SITE</span><h3>AI Evaluation</h3><p>Trust the agents: measure, generate, harden.</p></div>
-<div class="modcard"><span class="n">SESSION 3 &mdash; NEXT</span><h3>Agentic Frameworks</h3><p>MCP, A2A, hosted agents.</p></div>
+<div class="modcard"><span class="n">SESSION 1 &mdash; THIS SITE</span><h3>Foundry Agent Service</h3><p>Build, ground and govern agents.</p></div>
+<div class="modcard"><span class="n">SESSION 2 &mdash; NEXT</span><h3>AI Evaluation</h3><p>Trust the agents: measure, generate, harden.</p></div>
+<div class="modcard"><span class="n">SESSION 3</span><h3>Agentic Frameworks</h3><p>MCP, A2A, hosted agents.</p></div>
 </div>
 </div></section>
 
@@ -198,16 +198,16 @@ border:1px solid var(--border);background:var(--panel-2);border-radius:2rem;padd
 <h2 class="sec">Day 2 — hands-on labs</h2>
 <p class="secsub">45–60 minutes each, step-by-step, on your own machine.</p>
 <div class="grid">
-<div class="modcard"><span class="n">LAB 1</span><h3>Run evaluators</h3><p>Evaluate a dataset with quality + safety evaluators, local and cloud.</p></div>
-<div class="modcard"><span class="n">LAB 2</span><h3>Generate data</h3><p>Use the Simulator to build a synthetic evaluation dataset.</p></div>
-<div class="modcard"><span class="n">LAB 3</span><h3>Custom evaluator</h3><p>Write a code-based and a prompt-based custom evaluator.</p></div>
-<div class="modcard"><span class="n">LAB 4</span><h3>Red-team scan</h3><p>Run the AI Red Teaming Agent and read the scorecard.</p></div>
+<div class="modcard"><span class="n">LAB 1</span><h3>Create a prompt agent</h3><p>Build an agent in the Foundry portal: model, instructions, playground.</p></div>
+<div class="modcard"><span class="n">LAB 2</span><h3>Add an MCP tool</h3><p>Connect a tool via the Toolbox / MCP and invoke it from the agent.</p></div>
+<div class="modcard"><span class="n">LAB 3</span><h3>Call via Responses API</h3><p>Use the agent Coding panel: run it from code (Python / REST).</p></div>
+<div class="modcard"><span class="n">LAB 4</span><h3>Publish to Agent 365</h3><p>Publish and invoke with the agent own identity &mdash; without OBO.</p></div>
 </div>
 </div></section>
 
 <footer class="site"><div class="wrap">
-<p>Session 2 of 3 · Day 1 — Vision, Architecture &amp; Live Demos &middot; Mauro Minella · Senior Cloud Solution Architect · Microsoft</p>
-<p>Built from the session deck (96 slides). Speaker notes are not published on this site.</p>
+<p>Session 1 of 3 · Day 1 — Vision, Architecture &amp; Live Demos &middot; Mauro Minella · Senior Cloud Solution Architect · Microsoft</p>
+<p>Built from the session deck (54 slides). Speaker notes are not published on this site.</p>
 </div></footer>
 </body>
 </html>
