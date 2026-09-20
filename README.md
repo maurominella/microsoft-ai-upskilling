@@ -14,19 +14,19 @@ Everything is taught against **one coherent business scenario** — *AdvertSpher
 
 Not a deck you skim once — a **working mental model** of the Microsoft agent platform, plus **twelve hands-on labs (four per session)** and reference code you can run, adapt, and bring back to your own projects.
 
-**If you build AI** — developers, Cloud Solution Architects, data scientists — you'll leave able to:
-
-- Stand up an agent on **Microsoft Foundry**, extend it with a real **MCP tool** (with approval control), and call it from your own code through the **Responses API**.
-- **Evaluate it like you mean it** — AI-judge, groundedness, content-safety and **custom evaluators**, run both locally and as cloud jobs.
-- **Pressure-test it before your users do** — synthetic & adversarial data generation, jailbreak and **red-teaming** simulations.
-- Compose agents with the **Microsoft Agent Framework** and connect them over **open protocols (MCP, A2A)** instead of bespoke glue.
-
 **If you own the platform** — architecture, governance, strategy — you'll leave with:
 
 - A clear **build → ground → govern** map: how one agent becomes a grounded agent, then a *governed* fleet.
 - How every agent gets a **first-class identity (Entra Agent ID)** and is published and governed with **Agent 365** — including invocation with an agent's **own app-only identity (no OBO)**.
 - A defensible **evaluation & safety story** to put in front of risk, security, and compliance stakeholders.
 - The vocabulary to tell **architecture from hype** when teams pitch "agentic" everything.
+
+**If you build AI** — developers, Cloud Solution Architects, data scientists — you'll leave able to:
+
+- Stand up an agent on **Microsoft Foundry**, extend it with a real **MCP tool** (with approval control), and call it from your own code through the **Responses API**.
+- **Evaluate it like you mean it** — AI-judge, groundedness, content-safety and **custom evaluators**, run both locally and as cloud jobs.
+- **Pressure-test it before your users do** — synthetic & adversarial data generation, jailbreak and **red-teaming** simulations.
+- Compose agents with the **Microsoft Agent Framework** and connect them over **open protocols (MCP, A2A)** instead of bespoke glue.
 
 ---
 
