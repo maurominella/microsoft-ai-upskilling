@@ -3,12 +3,10 @@ from agent_framework.openai import OpenAIChatClient
 import os
 from azure.identity import AzureCliCredential
 import asyncio
-
 from dotenv import load_dotenv
-
-query = "I need to open raise a question to the IT department, because I am not able to access the network with my password, and it tells me that my account has been deactivated. I also want to speak to a supervisor, because I need to access the network urgently. Please formalize my request by opening a new protocol."
-
 load_dotenv()
+
+query = "I need to open raise a question to the IT departmen. Please formalize my request by opening a new protocol."
 
 def ProtocolNumberGenerator():
     """Generates a protocol number for the request."""
@@ -20,15 +18,18 @@ client = OpenAIChatClient(
     model=os.environ["AZURE_OPENAI_CHAT_DEPLOYMENT_NAME"],
     credential=AzureCliCredential(),
 )
+
 agent = Agent(
     client=client,
     name="CampaignAnalyst",
     instructions=(
-        "You are a clever agent. Begin your answers by providing the protocol number."
+        "You are a clever agent."
     ),
     tools=[ProtocolNumberGenerator],
 )
 
 response = asyncio.run(agent.run(query))
 
-print(response.messages[-1].text)          # generated text, which is empty when functions have to be called
+for m in response.messages:
+    print("*"*10,"\n")
+    print(f"author: {m.author_name},\nrole: {m.role},\ntext: {m.text},\ncall_id: {m.contents[0].call_id},\nresult: {m.contents[0].result}\n")

@@ -43,6 +43,6 @@ response = client.responses.create(
 )
 
 
-print(response.output_text)          # generated text, which is empty when functions have to be called
+print(response.output_text)       # generated text, which is empty when functions have to be called
 print(response.output[0].name)    # function to be called
 print(response.output[0].call_id) # function identifier for the call

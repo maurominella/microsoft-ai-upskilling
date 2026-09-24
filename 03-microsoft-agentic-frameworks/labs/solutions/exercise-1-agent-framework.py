@@ -43,15 +43,17 @@ async def main():
         model=os.environ["AZURE_OPENAI_CHAT_DEPLOYMENT_NAME"],
         credential=AzureCliCredential(),
     )
+
     agent = Agent(
         client=client,
         name="CampaignAnalyst",
         instructions=(
-            "You are an analyst at RAI Pubblicita. Always answer in English, "
+            "You are an analyst at AdverSphere Broadcasting. Always answer in English, "
             "concisely and professionally."
         ),
         tools=[campaign_metrics, compute_roi, all_campaigns],
     )
+
     """
     answer = await agent.run("Introduce yourself in one sentence and tell me how you can help.")
     answer = await agent.run("Give me the key metrics of campaign CMP-004.")

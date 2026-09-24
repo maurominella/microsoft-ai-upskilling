@@ -13,6 +13,7 @@ async def main():
         model=os.environ["AZURE_OPENAI_CHAT_DEPLOYMENT_NAME"],
         credential=AzureCliCredential(),
     )
+
     agent = Agent(
         client=client,
         name="CampaignAnalyst",
@@ -21,7 +22,9 @@ async def main():
             "concisely and professionally."
         )
     )
+
     answer = await agent.run("Introduce yourself in one sentence and tell me how you can help.")
+
     print(answer.text)
 
 if __name__ == "__main__":
