@@ -8,8 +8,8 @@ from agent_framework.openai import OpenAIChatClient
 from typing import Annotated
 from pydantic import Field
 from requests import session
-from rai_campaigns import get_campaign
-from rai_campaigns import list_campaigns
+from labs.solutions.asb_campaigns import get_campaign
+from labs.solutions.asb_campaigns import list_campaigns
 
 def all_campaigns() -> list:
     """List (id, client, sector) of every campaign in the portfolio."""

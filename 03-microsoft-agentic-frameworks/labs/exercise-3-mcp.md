@@ -9,6 +9,47 @@
 **Concepts you'll cement (Day 1 slides):** MCP's client-server architecture, the *primitives*
 (tools / resources / prompts), the M x N -> M + N problem, tool reusability.
 
+## What you will do in this exercise
+
+This exercise starts from the two complete Python examples in the
+[`solutions`](./solutions/) folder:
+[`exercise-3-mcp_server.py`](./solutions/exercise-3-mcp_server.py) and
+[`exercise-3-mcp_client.py`](./solutions/exercise-3-mcp_client.py). We will use them to follow
+three fundamental steps:
+
+1. **Understand the internal architecture of an MCP server.** Rather than focusing on every
+   line of code in `exercise-3-mcp_server.py`, we will examine how the server organizes and
+   exposes the three core MCP primitives:
+   - **tools**, which clients can invoke to perform actions or computations;
+   - **resources**, which provide readable data and context;
+   - **prompts**, which provide reusable interaction templates.
+2. **Connect to the server directly from Python.** In `exercise-3-mcp_client.py`, we will use a
+   standard MCP client to discover the server's components, call its tools, read its resources
+   and retrieve its prompts through the protocol.
+3. **Add an LLM-driven interaction layer.** We will then reuse the same MCP server in three
+   different ways:
+   - **GitHub Copilot in VS Code**, by registering the server in the `servers` section of
+     `mcp.json`:
+
+     ```json
+     "advert-sphere": {
+         "type": "http",
+         "url": "http://127.0.0.1:8000/mcp"
+     }
+     ```
+
+   - **Agent Framework**, where a natural-language question can lead the model to invoke the
+     MCP server, potentially several times, before producing an answer;
+   - **Foundry SDK**, where the online service manages MCP discovery and invocations
+     autonomously.
+
+> **The key distinction:** there is no AI involved in the first two steps. MCP is a
+> specification and a protocol; it does not require an agent or an LLM. Its clean, rigorous
+> contracts make it possible to add an LLM later: the model can translate a natural-language
+> request into one or more MCP operations. In all three LLM-enabled scenarios above, the model
+> receives the technical results returned by the MCP server and turns them into a
+> conversational response.
+
 **Docs:**<br/>
 - Model Context Protocol (MCP): <https://modelcontextprotocol.io/>
 - FastMCP: <https://gofastmcp.com/>
@@ -300,9 +341,10 @@ invokes the campaign tools through the public tunnel.
 
 ## Instructor demo script (solution walkthrough)
 
-> Full runnable solution: [`solutions/ex3_mcp_server.py`](./solutions/ex3_mcp_server.py) and
-> [`solutions/ex3_mcp_client.py`](./solutions/ex3_mcp_client.py).
-> Terminal 1: `python solutions/ex3_mcp_server.py` - Terminal 2: `python solutions/ex3_mcp_client.py`.
+> Full runnable solution: [`solutions/exercise-3-mcp_server.py`](./solutions/exercise-3-mcp_server.py)
+> and [`solutions/exercise-3-mcp_client.py`](./solutions/exercise-3-mcp_client.py).
+> Terminal 1: `python solutions/exercise-3-mcp_server.py` -
+> Terminal 2: `python solutions/exercise-3-mcp_client.py`.
 
 1. **Set the scene.** "Yesterday MCP was a box on a diagram. Now we build one. On the left a
    server that owns the campaign data; on the right a client that has never seen that code."

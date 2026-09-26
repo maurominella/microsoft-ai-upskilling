@@ -1,5 +1,5 @@
 """
-Synthetic advertising-campaign data — RAI Pubblicita (training only).
+Synthetic advertising-campaign data — AdvertSphere Broadcasting (training only).
 No real data: this is just a shared base used by all Day 2 exercises.
 Import this module from exercises 1, 3 and 4.
 
