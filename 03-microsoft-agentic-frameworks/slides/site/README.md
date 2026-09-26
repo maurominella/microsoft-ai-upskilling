@@ -2,7 +2,7 @@
 
 A navigable static site that publishes the content of the session deck
 *Agentic AI on Microsoft Foundry* (Session 3 of 3, Day 1 — delivered for RAI Pubblicità).
-Built from `RAI_Agentic_Frameworks_on_Foundry_Day1 (wn).pptx` — 56 slides, last saved 18 September 2026.
+Built from `RAI_Agentic_Frameworks_on_Foundry_Day1 (wn).pptx` — 53 slides, last saved 26 September 2026.
 
 Same shape as the other two session sites: a landing page plus one page per module under
 `sessions/`, generated from a single source of truth — the PowerPoint deck.
@@ -16,10 +16,10 @@ site/
 │   ├── 00-orientation.html               slides 1–8    welcome, the shift, why RAI, agenda, the four demos
 │   ├── 01-agentic-landscape.html         slides 9–16   agent anatomy, the agentic loop, the Microsoft stack
 │   ├── 02-agent-framework.html           slides 17–25  Microsoft Agent Framework, workflows, orchestration
-│   ├── 03-foundry-hosted-agents.html     slides 26–35  Foundry platform, prompt vs hosted, lifecycle
-│   ├── 04-mcp.html                       slides 36–42  Model Context Protocol: primitives, ecosystem, security
-│   ├── 05-a2a.html                       slides 43–49  Agent-to-Agent protocol, MCP vs A2A, publishing
-│   └── 06-putting-it-together.html       slides 50–56  reference architecture, takeaways, bridge to Day 2
+│   ├── 03-foundry-hosted-agents.html     slides 26–32  Foundry platform, hosted agents, Agent Server, Toolkit
+│   ├── 04-mcp.html                       slides 33–39  Model Context Protocol: primitives, ecosystem, security
+│   ├── 05-a2a.html                       slides 40–46  Agent-to-Agent protocol, Agent Card, MCP vs A2A
+│   └── 06-putting-it-together.html       slides 47–53  reference architecture, takeaways, bridge to Day 2
 ├── build/
 │   ├── build_site.py                     regenerates the whole site from the .pptx
 │   └── slidehtml.py                      rebuilds each slide's visual layout as scalable HTML
@@ -65,5 +65,5 @@ design lives in the `CSS` string in the same file; slide-rendering rules live in
 
 ## Source
 
-Deck: `RAI_Agentic_Frameworks_on_Foundry_Day1 (wn).pptx` — 56 slides, 4 live demos.
+Deck: `RAI_Agentic_Frameworks_on_Foundry_Day1 (wn).pptx` — 53 slides, 4 live demos.
 Author: Mauro Minella, Senior Cloud Solution Architect, Microsoft.
