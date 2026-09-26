@@ -10,10 +10,11 @@ async def main():
         description="Computes an advertising campaign quote.",
         url="http://localhost:9999",
     )
+
     media_agent = A2AAgent(
         name="MediaAgent",
         description="Finds available media inventory for a campaign.",
-        url="http://localhost:10000",
+        url="http://localhost:9998",
     )
 
     workflow = SequentialBuilder(
@@ -26,6 +27,7 @@ async def main():
 
     for response in result.get_intermediate_outputs():
         print(f"Pricing: {response.text}")
+        
     for response in result.get_outputs():
         print(f"Media planning: {response.text}")
 

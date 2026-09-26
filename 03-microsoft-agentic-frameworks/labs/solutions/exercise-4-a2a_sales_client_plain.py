@@ -4,11 +4,13 @@ from a2a.helpers import new_text_message
 from a2a.types import Role, SendMessageRequest
 
 async def main():
+    
     client = await create_client("http://localhost:9999")
+    
     async with client:
         request = SendMessageRequest(
             message=new_text_message(
-                "sector=Travel; impressions=9200000",
+                text="sector=Travel; impressions=9200000",
                 role=Role.ROLE_USER,
             )
         )

@@ -13,12 +13,28 @@ from a2a.types import (
 )
 from starlette.applications import Starlette
 
+port_number = 9999
+
 # --- Deterministic pricing logic: base CPM per sector ---
 CPM_BASE = {"Automotive": 18.0, "Finance": 22.0, "FMCG": 12.0,
             "Travel": 16.0, "Telco": 14.0, "default": 15.0}
 
 def quote(brief: str) -> str:
-    # expected brief, e.g.: "sector=Travel; impressions=9200000"
+    """Calculate a campaign quote from a sector and a number of impressions.
+
+    The brief must use semicolon-separated ``key=value`` pairs. The function
+    applies the sector's CPM rate, or the default rate for an unknown sector.
+
+    Args:
+        brief: Campaign details containing the sector and impressions.
+
+    Returns:
+        A formatted quote with the impressions, CPM rate, and total price.
+
+    Example:
+        ``quote("sector=Travel; impressions=9200000")`` returns
+        ``"Quote - sector Travel: 9,200,000 impressions x CPM 16.0 EUR = 147,200 EUR."``
+    """
     parts = dict(p.split("=") for p in brief.replace(" ", "").split(";") if "=" in p)
     sector = parts.get("sector", "default")
     impressions = float(parts.get("impressions", 5_000_000))
@@ -43,8 +59,8 @@ skill = AgentSkill(
     examples=["sector=Travel; impressions=9200000"],
 )
 agent_card = AgentCard(
-    name="RAI Pricing Agent",
-    description="Campaign pricing agent for RAI Pubblicita.",
+    name="ASB Pricing Agent",
+    description="Campaign pricing agent for AdverSphere Broadcasting.",
     version="1.0.0",
     default_input_modes=["text"],
     default_output_modes=["text"],
@@ -52,7 +68,7 @@ agent_card = AgentCard(
     skills=[skill],
     supported_interfaces=[
         AgentInterface(
-            url="http://localhost:9999/",
+            url=f"http://localhost:{port_number}/",
             protocol_binding="JSONRPC",
         )
     ],
@@ -65,11 +81,19 @@ if __name__ == "__main__":
         agent_card=agent_card,
     )
 
+    agent_card_routes = create_agent_card_routes(agent_card)
+    jsonrpc_routes = create_jsonrpc_routes(handler, rpc_url="/")
+
+    print(f"\n\nThe agent card path is {agent_card_routes[0].path}\n\n")
+
+    # Starlette creates the web ASGI application
+    # and sets up the routes for the agent card and JSON-RPC handler
+    # to expose the A2A agent.
     app = Starlette(
         routes=[
-            *create_agent_card_routes(agent_card),
-            *create_jsonrpc_routes(handler, rpc_url="/"),
+            *agent_card_routes,
+            *jsonrpc_routes,
         ]
     )
 
-    uvicorn.run(app, host="0.0.0.0", port=9999)
+    uvicorn.run(app, host="0.0.0.0", port=port_number)
