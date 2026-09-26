@@ -6,7 +6,7 @@ Explore this chapter's content in your preferred format:
 
 View or download the complete slide deck:
 
-**[Open the PDF presentation](./2x01_AI_Evaluation_in_ Microsoft_Foundry_v1.03.pdf)**
+**[Open the PDF presentation](./2x01_AI_Evaluation_in_%20Microsoft_Foundry_v1.03.pdf)**
 
 ## Interactive OnePager
 
