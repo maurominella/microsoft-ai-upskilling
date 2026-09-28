@@ -13,8 +13,8 @@ client = FoundryChatClient(
   credential=AzureCliCredential())
 
 agent = client.as_agent(
-name="HelloAgent",
-instructions="You are a concise assistant.")
+  name="HelloAgent",
+  instructions="You are a concise assistant.")
 
 resp = asyncio.run(agent.run("What is your name?"))
 print(resp.text)
