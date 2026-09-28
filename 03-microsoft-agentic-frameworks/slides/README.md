@@ -6,7 +6,7 @@ Explore this chapter's content in your preferred format:
 
 View or download the complete slide deck:
 
-**[Open the PDF presentation](./3x01_Agentic_Frameworks_on_Foundry_v2.0.pdf)**
+**[Open the PDF presentation](./3x01_Agentic_Frameworks_on_Foundry_v2.1.pdf)**
 
 ## Interactive OnePager
 
