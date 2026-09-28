@@ -19,7 +19,7 @@ tools), function tools, the agentic loop, observability of tool calls.
 - Packages from `requirements.txt` installed (`agent-framework`, `azure-identity`).
 - `az login` done.
 - In `.env`: `AZURE_OPENAI_ENDPOINT` and `AZURE_OPENAI_CHAT_DEPLOYMENT_NAME`.
-- The `rai_campaigns.py` file (provided) in the same folder.
+- The `asb_campaigns.py` file (provided) in the same folder.
 
 Create a file `es1_agent.py` and work there. At the top of the file load `.env`:
 
@@ -38,7 +38,7 @@ The core of the Agent Framework: model + instructions. Still **without tools**.
 import asyncio
 import os
 from dotenv import load_dotenv
-from azure.identity import AzureCliCredential
+from azure.identity import DefaultAzureCredential
 from agent_framework import Agent
 from agent_framework.openai import OpenAIChatClient
 
@@ -48,8 +48,9 @@ async def main():
     client = OpenAIChatClient(
         # endpoint not needed since it will be inferred from the environment variable AZURE_OPENAI_ENDPOINT
         model=os.environ["AZURE_OPENAI_CHAT_DEPLOYMENT_NAME"],
-        credential=AzureCliCredential(),
+        credential=DefaultAzureCredential(exclude_environment_credential=True),
     )
+
     agent = Agent(
         client=client,
         name="CampaignAnalyst",
@@ -58,8 +59,11 @@ async def main():
             "concisely and professionally."
         )
     )
+
     answer = await agent.run("Introduce yourself in one sentence and tell me how you can help.")
+
     print(answer.text)
+
 
 if __name__ == "__main__":
     asyncio.run(main())
@@ -77,7 +81,7 @@ Let's give the agent a **tool**: a plain Python function. The Agent Framework ge
 ```python
 from typing import Annotated
 from pydantic import Field
-from rai_campaigns import get_campaign
+from asb_campaigns import get_campaign
 
 def campaign_metrics(
     campaign_id: Annotated[str, Field(description="Campaign code, e.g. 'CMP-004'")]
@@ -177,7 +181,7 @@ Notice how in the second question the agent "remembers" CMP-001 without repeatin
 **B2 - A third tool for the whole portfolio.** Add:
 
 ```python
-from rai_campaigns import list_campaigns
+from asb_campaigns import list_campaigns
 def all_campaigns() -> list:
     """List (id, client, sector) of every campaign in the portfolio."""
     return list_campaigns()
@@ -206,7 +210,7 @@ This is the "in-code" equivalent of the *trace* panel from the slides.
    conversational assistant - it introduces itself, but it can't touch our data yet."
 3. **Section B - grounded metrics.** Point at the CMP-004 metrics: "These numbers -
    revenue 351000 - come from our `campaign_metrics` tool, not from the model's imagination.
-   That's grounding." Optionally open `rai_campaigns.py` to show the numbers are real.
+   That's grounding." Optionally open `asb_campaigns.py` to show the numbers are real.
 4. **Section C - multi-step reasoning.** "Now I ask it to *compare* two campaigns. It has to
    fetch metrics for both and then compute ROI - several tool calls chained together." Read
    the conclusion out loud: **CMP-004 at 134% vs CMP-005 at -10%**. "That chain is the

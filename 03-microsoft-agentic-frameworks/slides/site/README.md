@@ -2,7 +2,7 @@
 
 A navigable static site that publishes the content of the session deck
 *Agentic AI on Microsoft Foundry* (Session 3 of 3, Day 1 — delivered for RAI Pubblicità).
-Built from `RAI_Agentic_Frameworks_on_Foundry_Day1 (wn).pptx` — 53 slides, last saved 26 September 2026.
+Built from `RAI_Agentic_Frameworks_on_Foundry_Day1 (wn).pptx` — 53 slides, last saved 28 September 2026.
 
 Same shape as the other two session sites: a landing page plus one page per module under
 `sessions/`, generated from a single source of truth — the PowerPoint deck.

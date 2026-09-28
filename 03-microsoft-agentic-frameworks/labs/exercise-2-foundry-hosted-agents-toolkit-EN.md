@@ -81,14 +81,14 @@ src/<nome-sample>/
 ## 3. Run and test locally
 
 ```bash
-# 1. selezionare l'ambiente Python 3.13
-#    Command Palette → "Python: Create Environment" oppure "Python: Select Interpreter"
+# 1. select Python environment 3.13
+#    Command Palette → "Python: Create Environment" or "Python: Select Interpreter"
 
-# 2. installare le dipendenze, dalla source directory del sample
+# 2. install dipendencies from sample' source directory
 cd src/<nome-sample>
 python -m pip install -r requirements.txt
 
-# 3. autenticarsi: le credenziali locali dell'agente arrivano da qui
+# 3. authenticate: local agent credentials come from here
 az login
 ```
 
